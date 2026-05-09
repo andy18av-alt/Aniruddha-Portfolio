@@ -9,7 +9,7 @@ import {
 } from "lucide-react";
 
 // =============== HERO PORTRAIT (grayscale) ===============
-const PORTRAIT_URL = "https://images.unsplash.com/photo-1453396450673-3fe83d2db2c4?auto=format&fit=crop&w=1200&q=80&sat=-100";
+const PORTRAIT_URL = "/aniruddha.jpg";
 
 // =============== Helper: scroll to section ===============
 const scrollTo = (id) => {
@@ -71,18 +71,31 @@ const Nav = () => {
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
   const items = [
-    ['About', 'about'], ['Scale', 'scale'], ['Expertise', 'expertise'],
-    ['Work', 'work'], ['AI', 'ai'], ['Roadmap', 'roadmap'],
-    ['Experience', 'experience'], ['Voices', 'voices'], ['Contact', 'contact'],
+    ['About', 'about', 'The leader behind the work'],
+    ['Scale', 'scale', 'Operating at enterprise scale'],
+    ['Expertise', 'expertise', '16 leadership capabilities'],
+    ['Work', 'work', 'Selected transformations'],
+    ['AI', 'ai', 'AI-native operational leadership'],
+    ['Roadmap', 'roadmap', 'AI learning progression'],
+    ['Experience', 'experience', '13+ years across enterprises'],
+    ['Voices', 'voices', 'What collaborators say'],
+    ['Contact', 'contact', 'Open to opportunities'],
   ];
+  const goTo = (id) => { setOpen(false); setTimeout(() => scrollTo(id), 240); };
+
   return (
     <motion.nav
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled ? 'backdrop-blur-xl bg-black/60 border-b border-white/5' : 'bg-transparent'
+        scrolled || open ? 'backdrop-blur-xl bg-black/60 border-b border-white/5' : 'bg-transparent'
       }`}
     >
       <div className="mx-auto max-w-7xl px-6 lg:px-10 h-16 flex items-center justify-between">
@@ -109,25 +122,98 @@ const Nav = () => {
         >
           Let's Connect <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
-        <button onClick={() => setOpen(!open)} className="lg:hidden text-neutral-300">
-          <div className="space-y-1.5">
-            <span className={`block h-px w-6 bg-current transition-transform ${open ? 'translate-y-[3px] rotate-45' : ''}`}/>
-            <span className={`block h-px w-6 bg-current transition-transform ${open ? '-translate-y-[3px] -rotate-45' : ''}`}/>
-          </div>
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label={open ? 'Close menu' : 'Open menu'}
+          className="lg:hidden relative h-10 w-10 -mr-2 flex items-center justify-center text-neutral-200"
+        >
+          <span className="sr-only">{open ? 'Close' : 'Menu'}</span>
+          <motion.span
+            animate={open ? { rotate: 45, y: 0 } : { rotate: 0, y: -4 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute block h-px w-6 bg-current origin-center"
+          />
+          <motion.span
+            animate={open ? { rotate: -45, y: 0 } : { rotate: 0, y: 4 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute block h-px w-6 bg-current origin-center"
+          />
         </button>
       </div>
+
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }}
-            className="lg:hidden overflow-hidden border-t border-white/5 bg-black/90 backdrop-blur-xl"
+            key="m-drawer"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="lg:hidden fixed inset-0 top-16 z-40 bg-[#0a0a0a]/98 backdrop-blur-2xl flex flex-col overflow-y-auto"
           >
-            <div className="px-6 py-6 grid grid-cols-2 gap-4">
-              {items.map(([label, id]) => (
-                <button key={id} onClick={() => { scrollTo(id); setOpen(false); }} className="text-left text-sm text-neutral-300">
-                  {label}
-                </button>
-              ))}
+            {/* ambient gradient */}
+            <div className="pointer-events-none absolute inset-0">
+              <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-[120vw] h-[60vh] rounded-full blur-[120px] bg-white/[0.04]" />
+              <div className="absolute inset-0 grid-bg opacity-50" />
+            </div>
+
+            <div className="relative px-6 py-8 flex-1 flex flex-col">
+              <div className="flex items-center justify-between mb-10">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Navigation</div>
+                <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-600 tabular-nums">{String(items.length).padStart(2, '0')} sections</div>
+              </div>
+
+              <nav className="flex-1 space-y-1">
+                {items.map(([label, id, sub], i) => (
+                  <motion.button
+                    key={id}
+                    initial={{ opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.55, delay: 0.06 + i * 0.045, ease: [0.22, 1, 0.36, 1] }}
+                    onClick={() => goTo(id)}
+                    className="group w-full text-left flex items-baseline justify-between gap-4 py-4 border-b border-white/5 hover:border-white/15 transition-colors"
+                  >
+                    <div className="flex items-baseline gap-5">
+                      <span className="text-[10px] tabular-nums text-neutral-600 group-hover:text-neutral-400 transition-colors">
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <div>
+                        <div className="font-display text-[28px] tracking-[-0.03em] leading-none text-white group-hover:translate-x-1 transition-transform duration-500">
+                          {label}
+                        </div>
+                        <div className="mt-2 text-[12px] text-neutral-500">{sub}</div>
+                      </div>
+                    </div>
+                    <ArrowUpRight className="w-4 h-4 text-neutral-600 group-hover:text-white group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0" />
+                  </motion.button>
+                ))}
+              </nav>
+
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.06 + items.length * 0.045 + 0.1 }}
+                className="mt-10 pt-8 border-t border-white/5"
+              >
+                <div className="text-[10px] uppercase tracking-[0.28em] text-neutral-500 mb-5">Contact</div>
+                <div className="grid grid-cols-2 gap-3">
+                  <a href="mailto:aniruddha.vanshiv@gmail.com" className="flex items-center gap-2 px-4 h-11 rounded-full border border-white/10 text-[12px] text-neutral-200 hover:bg-white/[0.04] hover:border-white/25 transition-all">
+                    <Mail className="w-3.5 h-3.5" /> Email
+                  </a>
+                  <a href="https://linkedin.com/in/aniruddhavanshiv" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 h-11 rounded-full border border-white/10 text-[12px] text-neutral-200 hover:bg-white/[0.04] hover:border-white/25 transition-all">
+                    <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+                  </a>
+                  <a href="tel:+919739299852" className="flex items-center gap-2 px-4 h-11 rounded-full border border-white/10 text-[12px] text-neutral-200 hover:bg-white/[0.04] hover:border-white/25 transition-all">
+                    <Phone className="w-3.5 h-3.5" /> Call
+                  </a>
+                  <button onClick={() => goTo('contact')} className="flex items-center justify-center gap-2 px-4 h-11 rounded-full bg-white text-black text-[12px] font-medium hover:bg-neutral-200 transition-colors">
+                    Let's Connect <ArrowUpRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="mt-6 text-[11px] text-neutral-600 flex items-center gap-2">
+                  <MapPin className="w-3 h-3" /> Bengaluru, India · Open to global opportunities
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -219,7 +305,7 @@ const Hero = () => {
               <img
                 src={PORTRAIT_URL}
                 alt="Aniruddha Vanshiv"
-                className="h-full w-full object-cover grayscale contrast-[1.05]"
+                className="h-full w-full object-cover object-[center_20%] grayscale contrast-[1.08] brightness-[0.95]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20" />
               <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between">
@@ -808,6 +894,129 @@ const Testimonials = () => {
   );
 };
 
+// =============== Contact Form ===============
+const ContactForm = () => {
+  const [form, setForm] = useState({ name: '', email: '', company: '', message: '', _hp: '' });
+  const [status, setStatus] = useState({ state: 'idle', msg: '' }); // idle | submitting | success | error
+  const onChange = (e) => setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    if (status.state === 'submitting') return;
+    setStatus({ state: 'submitting', msg: '' });
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setStatus({ state: 'error', msg: data?.error || 'Could not send. Please try again.' });
+        return;
+      }
+      setStatus({ state: 'success', msg: 'Thank you. Your message has reached Aniruddha.' });
+      setForm({ name: '', email: '', company: '', message: '', _hp: '' });
+    } catch (err) {
+      setStatus({ state: 'error', msg: 'Network error. Please email aniruddha.vanshiv@gmail.com directly.' });
+    }
+  };
+
+  const fieldBase = "w-full bg-transparent border-b border-white/10 focus:border-white/40 outline-none text-[15px] text-white placeholder:text-neutral-600 py-3 px-0 transition-colors";
+
+  return (
+    <form onSubmit={onSubmit} className="relative" noValidate>
+      {/* Honeypot */}
+      <input
+        type="text" name="_hp" value={form._hp} onChange={onChange}
+        tabIndex={-1} autoComplete="off" aria-hidden="true"
+        className="absolute opacity-0 pointer-events-none -left-[9999px] top-0 h-0 w-0"
+      />
+
+      <div className="grid sm:grid-cols-2 gap-6">
+        <label className="block">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Name</span>
+          <input
+            required name="name" value={form.name} onChange={onChange}
+            placeholder="Your full name" className={fieldBase}
+          />
+        </label>
+        <label className="block">
+          <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Email</span>
+          <input
+            required type="email" name="email" value={form.email} onChange={onChange}
+            placeholder="you@company.com" className={fieldBase}
+          />
+        </label>
+      </div>
+
+      <label className="block mt-6">
+        <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Company / Role <span className="text-neutral-700 normal-case tracking-normal">(optional)</span></span>
+        <input
+          name="company" value={form.company} onChange={onChange}
+          placeholder="Where you're based" className={fieldBase}
+        />
+      </label>
+
+      <label className="block mt-6">
+        <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">Message</span>
+        <textarea
+          required name="message" value={form.message} onChange={onChange}
+          rows={5} maxLength={5000}
+          placeholder="Tell me about the opportunity, role, or context. I'll respond personally."
+          className={`${fieldBase} resize-none leading-relaxed`}
+        />
+        <span className="block mt-1 text-[10px] text-neutral-600 tabular-nums">{form.message.length} / 5000</span>
+      </label>
+
+      <div className="mt-8 flex items-center justify-between flex-wrap gap-4">
+        <button
+          type="submit"
+          disabled={status.state === 'submitting'}
+          className="group inline-flex items-center gap-2 h-12 px-6 rounded-full bg-white text-black text-[13px] font-medium hover:bg-neutral-200 transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          {status.state === 'submitting' ? (
+            <>
+              <motion.span
+                animate={{ rotate: 360 }} transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
+                className="block w-3.5 h-3.5 rounded-full border border-black/30 border-t-black"
+              />
+              Sending…
+            </>
+          ) : (
+            <>
+              Send message
+              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </>
+          )}
+        </button>
+        <span className="text-[11px] text-neutral-600">Replies within 24–48 hours · IST</span>
+      </div>
+
+      <AnimatePresence>
+        {status.state === 'success' && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            className="mt-6 flex items-start gap-3 p-4 rounded-xl border border-emerald-500/20 bg-emerald-500/5"
+          >
+            <div className="mt-0.5 h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.6)]" />
+            <div className="text-[13px] text-emerald-200/90">{status.msg}</div>
+          </motion.div>
+        )}
+        {status.state === 'error' && (
+          <motion.div
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}
+            className="mt-6 flex items-start gap-3 p-4 rounded-xl border border-rose-500/20 bg-rose-500/5"
+          >
+            <div className="mt-0.5 h-2 w-2 rounded-full bg-rose-400" />
+            <div className="text-[13px] text-rose-200/90">{status.msg}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </form>
+  );
+};
+
 // =============== CONTACT ===============
 const Contact = () => {
   return (
@@ -815,46 +1024,70 @@ const Contact = () => {
       <div className="absolute inset-0 ambient-glow pointer-events-none" />
       <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] rounded-full blur-[140px] bg-white/[0.04]" />
 
-      <div className="relative mx-auto max-w-6xl px-6 lg:px-10">
+      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <Reveal><Eyebrow num="10">Contact</Eyebrow></Reveal>
         <Reveal delay={0.05}>
-          <h2 className="mt-8 font-display text-4xl lg:text-7xl tracking-[-0.045em] text-white leading-[1.0] max-w-5xl">
+          <h2 className="mt-8 font-display text-4xl lg:text-6xl tracking-[-0.045em] text-white leading-[1.02] max-w-5xl">
             Open to leadership opportunities across <span className="serif italic font-normal text-neutral-300">Operations, Trust &amp; Safety, CX Transformation, Marketplace Governance,</span> and <span className="serif italic font-normal text-neutral-300">AI‑enabled</span> Business Operations.
           </h2>
         </Reveal>
         <Reveal delay={0.12}>
-          <p className="mt-10 text-[15px] text-neutral-400 leading-relaxed max-w-2xl">
+          <p className="mt-8 text-[15px] text-neutral-400 leading-relaxed max-w-2xl">
             Exploring opportunities across India, Dubai, APAC, and global remote‑first ecosystems.
           </p>
         </Reveal>
 
-        <div className="mt-16 grid md:grid-cols-2 gap-px bg-white/5 border border-white/8 rounded-2xl overflow-hidden">
-          {[
-            { icon: Mail, label: 'Email', value: 'aniruddha.vanshiv@gmail.com', href: 'mailto:aniruddha.vanshiv@gmail.com' },
-            { icon: Phone, label: 'Phone', value: '+91 9739 299 852', href: 'tel:+919739299852' },
-            { icon: Linkedin, label: 'LinkedIn', value: 'Connect on LinkedIn', href: 'https://linkedin.com/in/aniruddhavanshiv' },
-            { icon: MapPin, label: 'Based in', value: 'Bengaluru, India', href: null },
-          ].map(({ icon: Icon, label, value, href }, i) => {
-            const Comp = href ? 'a' : 'div';
-            return (
-              <Comp
-                key={label}
-                href={href || undefined}
-                target={href && href.startsWith('http') ? '_blank' : undefined}
-                rel={href && href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="group bg-[#0a0a0a] p-7 lg:p-9 flex items-center justify-between hover:bg-[#0e0e0e] transition-colors"
-              >
-                <div className="flex items-center gap-5">
-                  <Icon className="w-5 h-5 text-neutral-400" strokeWidth={1.5} />
-                  <div>
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">{label}</div>
-                    <div className="mt-1 text-[15px] text-white">{value}</div>
-                  </div>
+        <div className="mt-16 lg:mt-20 grid lg:grid-cols-12 gap-10 lg:gap-16">
+          {/* LEFT — direct channels */}
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <div className="space-y-6">
+              <div className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Direct channels</div>
+              <div className="grid gap-px bg-white/5 border border-white/8 rounded-2xl overflow-hidden">
+                {[
+                  { icon: Mail, label: 'Email', value: 'aniruddha.vanshiv@gmail.com', href: 'mailto:aniruddha.vanshiv@gmail.com' },
+                  { icon: Phone, label: 'Phone', value: '+91 9739 299 852', href: 'tel:+919739299852' },
+                  { icon: Linkedin, label: 'LinkedIn', value: 'Connect on LinkedIn', href: 'https://linkedin.com/in/aniruddhavanshiv' },
+                  { icon: MapPin, label: 'Based in', value: 'Bengaluru, India', href: null },
+                ].map(({ icon: Icon, label, value, href }) => {
+                  const Comp = href ? 'a' : 'div';
+                  return (
+                    <Comp
+                      key={label}
+                      href={href || undefined}
+                      target={href && href.startsWith('http') ? '_blank' : undefined}
+                      rel={href && href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="group bg-[#0a0a0a] p-5 lg:p-6 flex items-center justify-between hover:bg-[#0e0e0e] transition-colors"
+                    >
+                      <div className="flex items-center gap-4">
+                        <Icon className="w-4 h-4 text-neutral-400" strokeWidth={1.5} />
+                        <div>
+                          <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">{label}</div>
+                          <div className="mt-0.5 text-[14px] text-white">{value}</div>
+                        </div>
+                      </div>
+                      {href && <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />}
+                    </Comp>
+                  );
+                })}
+              </div>
+              <div className="pt-2 text-[12px] text-neutral-500 leading-relaxed border-l border-white/10 pl-4">
+                For executive search, leadership opportunities, advisory engagements, or AI‑enabled operations programs — please use the form. All inquiries reviewed personally.
+              </div>
+            </div>
+          </Reveal>
+
+          {/* RIGHT — Contact form */}
+          <Reveal delay={0.15} className="lg:col-span-7">
+            <div className="border border-white/10 rounded-2xl p-7 lg:p-10 bg-gradient-to-b from-white/[0.025] to-transparent">
+              <div className="flex items-center justify-between mb-6">
+                <div className="text-[10px] uppercase tracking-[0.28em] text-neutral-500">Send a message</div>
+                <div className="hidden sm:flex items-center gap-2 text-[10px] uppercase tracking-[0.22em] text-neutral-600">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Inbox monitored
                 </div>
-                {href && <ArrowUpRight className="w-4 h-4 text-neutral-500 group-hover:text-white group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />}
-              </Comp>
-            );
-          })}
+              </div>
+              <ContactForm />
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

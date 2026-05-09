@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <radialGradient id="g" cx="50%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#1c1c1c"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </radialGradient>
+  </defs>
+  <rect width="180" height="180" rx="40" fill="url(#g)"/>
+  <rect x="3" y="3" width="174" height="174" rx="38" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1"/>
+  <text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" fill="#fafafa" font-family="-apple-system, Inter, Helvetica, sans-serif" font-weight="600" font-size="72" letter-spacing="-3">AV</text>
+</svg>
