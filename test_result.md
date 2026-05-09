@@ -109,7 +109,7 @@ user_problem_statement: |
 
 backend:
   - task: "POST /api/contact — Resend email delivery + MongoDB persistence"
-    implemented: false
+    implemented: true
     working: false
     file: "/app/app/api/[[...path]]/route.js"
     stuck_count: 0
@@ -119,7 +119,14 @@ backend:
       - working: "NA"
         agent: "main"
         comment: |
-          Implemented POST /api/contact in catch-all route. Behavior:
+          [Re-implementation] First insertion was lost (silent search_replace failure). Re-added the
+          POST /api/contact handler block at line ~159 of /app/app/api/[[...path]]/route.js, just
+          after the GET /api/status handler. Verified locally via curl:
+            * POST /api/contact with empty body → 422 with full errors map ✓
+            * POST /api/contact with _hp filled → 200 {success:true} (honeypot decoy) ✓
+          Helper functions (getResend, checkRateLimit, getClientIp, buildContactEmailHtml,
+          buildContactEmailText) were already in place. RESEND_API_KEY is in /app/.env.
+          Ready for retesting.
           - Validates {name (>=2 chars), email (regex), message (>=10 chars)}; company optional.
           - Honeypot field `_hp` — if filled, returns 200 success (decoys bots) without sending.
           - Per-IP in-memory rate limit: 6 requests / hour. Returns 429 with Retry-After when exceeded.
@@ -177,6 +184,58 @@ backend:
           5. MongoDB persistence to contact_submissions collection
           6. Resend email sending using getResend().emails.send()
           7. Proper error handling and response formatting
+      
+      - working: false
+        agent: "testing"
+        comment: |
+          ✅ ENDPOINT IMPLEMENTED - Code verification confirms POST /api/contact handler is now present at lines 158-232
+          
+          📊 COMPREHENSIVE TEST RESULTS (6/7 scenarios passed):
+          
+          ✅ SCENARIO 1 - Validation (422): PASSED
+             POST with empty body returns 422 with proper errors map containing name, email, message fields
+          
+          ✅ SCENARIO 2 - Honeypot (200): PASSED
+             POST with _hp:"spam" returns 200 {success:true} without sending email (bot decoy working)
+          
+          ✅ SCENARIO 5 - CORS Preflight (200): PASSED
+             OPTIONS /api/contact returns 204 with proper Access-Control-Allow-* headers
+          
+          ✅ SCENARIO 6a - Backwards Compatibility: PASSED
+             GET /api/root returns 200 {"message":"Hello World"}
+          
+          ✅ SCENARIO 6b - Backwards Compatibility: PASSED
+             POST /api/status returns 200 with proper id+timestamp structure
+          
+          ✅ SCENARIO 4 - Rate Limiting (429): PASSED
+             7th request returns 429 with Retry-After: 3596 header (rate limit working correctly)
+          
+          ❌ SCENARIO 3 - Happy Path (200 with Resend ID): FAILED
+             All 6 valid requests returned 502 "Email service error. Please try again or email directly."
+          
+          🔍 ROOT CAUSE - Resend API Domain Verification Issue:
+          Server logs show exact Resend error (statusCode: 403, name: 'validation_error'):
+          "You can only send testing emails to your own email address (andy18av@gmail.com). 
+          To send emails to other recipients, please verify a domain at resend.com/domains, 
+          and change the `from` address to an email using this domain."
+          
+          📋 CONFIGURATION DETAILS:
+          - CONTACT_TO in .env: aniruddha.vanshiv@gmail.com (intended recipient)
+          - Resend verified email: andy18av@gmail.com (account owner)
+          - Resend account is in testing/sandbox mode
+          - Domain verification required to send to other recipients
+          
+          💡 CODE STATUS: The endpoint implementation is CORRECT and working as designed.
+          - All validation, honeypot, rate limiting, CORS, and error handling work perfectly
+          - The code properly catches Resend errors and returns 502 with user-friendly message
+          - MongoDB persistence is implemented (best-effort, non-blocking)
+          
+          ⚠️ BLOCKER: Resend account configuration prevents email delivery to the intended recipient.
+          
+          RESOLUTION OPTIONS:
+          1. Verify a custom domain at resend.com/domains and update CONTACT_FROM to use that domain
+          2. OR change CONTACT_TO to andy18av@gmail.com (the verified account email) for testing
+          3. OR upgrade Resend account to production mode with verified domain
 
 frontend:
   - task: "Contact form UI, mobile nav drawer, headshot, OG/favicon"
@@ -246,3 +305,31 @@ agent_communication:
       - implemented: false (was true)
       - working: false (was "NA")
       - needs_retesting: false (will be set to true after main agent implements it)
+  
+  - agent: "testing"
+    message: |
+      ✅ RETEST COMPLETE - Endpoint implementation verified, 6/7 scenarios passed
+      
+      📊 TEST SUMMARY:
+      ✅ Validation (422) - Returns proper errors map for missing/invalid fields
+      ✅ Honeypot (200) - Bot decoy working correctly
+      ✅ CORS Preflight (204) - Proper Access-Control headers
+      ✅ Backwards Compatibility - GET /api/root and POST /api/status both working
+      ✅ Rate Limiting (429) - 7th request correctly returns 429 with Retry-After header
+      ❌ Happy Path (200 with Resend ID) - BLOCKED by Resend account configuration
+      
+      🚨 BLOCKER IDENTIFIED - Resend Domain Verification Required:
+      Resend API returns 403 validation_error:
+      "You can only send testing emails to your own email address (andy18av@gmail.com). 
+      To send emails to other recipients, please verify a domain at resend.com/domains, 
+      and change the `from` address to an email using this domain."
+      
+      Current config:
+      - CONTACT_TO: aniruddha.vanshiv@gmail.com (intended recipient)
+      - Resend verified: andy18av@gmail.com (account owner)
+      
+      💡 CODE IS CORRECT: All endpoint logic works perfectly. The 502 error handling is proper.
+      This is purely a Resend account limitation, not a code issue.
+      
+      RESOLUTION: Either verify a domain at Resend, or temporarily change CONTACT_TO to 
+      andy18av@gmail.com for testing purposes.

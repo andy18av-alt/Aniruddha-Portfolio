@@ -155,6 +155,82 @@ async function handleRoute(request, { params }) {
       return handleCORS(NextResponse.json(cleanedStatusChecks))
     }
 
+    // Contact form - POST /api/contact
+    if (route === '/contact' && method === 'POST') {
+      const body = await request.json().catch(() => ({}))
+      const { name = '', email = '', company = '', message = '', _hp = '' } = body
+
+      // Honeypot
+      if (_hp && String(_hp).trim().length > 0) {
+        return handleCORS(NextResponse.json({ success: true })) // pretend success for bots
+      }
+
+      // Validation
+      const errors = {}
+      if (!name || String(name).trim().length < 2) errors.name = 'Name is required'
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) errors.email = 'Valid email required'
+      if (!message || String(message).trim().length < 10) errors.message = 'Message must be at least 10 characters'
+      if (Object.keys(errors).length > 0) {
+        return handleCORS(NextResponse.json({ error: 'Validation failed', errors }, { status: 422 }))
+      }
+
+      // Rate limit
+      const ip = getClientIp(request)
+      const rl = checkRateLimit(ip)
+      if (!rl.ok) {
+        const res = NextResponse.json(
+          { error: `Too many requests. Try again in ${Math.ceil(rl.retryAfter / 60)} minutes.` },
+          { status: 429 }
+        )
+        res.headers.set('Retry-After', String(rl.retryAfter))
+        return handleCORS(res)
+      }
+
+      const submittedAt = new Date()
+      const submittedAtStr = submittedAt.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' }) + ' IST'
+
+      // Save to MongoDB (best effort)
+      try {
+        await db.collection('contact_submissions').insertOne({
+          id: uuidv4(),
+          name, email, company, message,
+          ip,
+          userAgent: request.headers.get('user-agent') || '',
+          submittedAt,
+          status: 'new',
+        })
+      } catch (e) {
+        console.error('Mongo save failed:', e?.message)
+      }
+
+      // Send email via Resend
+      try {
+        const resend = getResend()
+        const { data, error } = await resend.emails.send({
+          from: process.env.CONTACT_FROM || 'Aniruddha Portfolio <onboarding@resend.dev>',
+          to: [process.env.CONTACT_TO || 'aniruddha.vanshiv@gmail.com'],
+          reply_to: email,
+          subject: `New inquiry from ${name}${company ? ` (${company})` : ''}`,
+          html: buildContactEmailHtml({ name, email, company, message, submittedAt: submittedAtStr, ip }),
+          text: buildContactEmailText({ name, email, company, message, submittedAt: submittedAtStr }),
+        })
+        if (error) {
+          console.error('Resend error:', error)
+          return handleCORS(NextResponse.json(
+            { error: 'Email service error. Please try again or email directly.' },
+            { status: 502 }
+          ))
+        }
+        return handleCORS(NextResponse.json({ success: true, id: data?.id }))
+      } catch (e) {
+        console.error('Email send failed:', e?.message)
+        return handleCORS(NextResponse.json(
+          { error: 'Failed to send. Please email directly: aniruddha.vanshiv@gmail.com' },
+          { status: 500 }
+        ))
+      }
+    }
+
     // Route not found
     return handleCORS(NextResponse.json(
       { error: `Route ${route} not found` }, 
