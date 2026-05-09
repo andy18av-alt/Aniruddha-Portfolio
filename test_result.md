@@ -116,6 +116,14 @@ backend:
     priority: "high"
     needs_retesting: false
     status_history:
+      - working: true
+        agent: "main"
+        comment: |
+          [End-to-end delivery confirmed] After switching CONTACT_TO to andy18av@gmail.com (the
+          email registered on the user's Resend account), live curl test against /api/contact
+          returned `{"success":true,"id":"e3d81331-4a8d-41ca-8983-a082f27000bd"}` — Resend accepted
+          the message and returned a real email id. Endpoint is fully working end-to-end.
+          Server logs: "POST /api/contact 200" with no errors.
       - working: "NA"
         agent: "main"
         comment: |

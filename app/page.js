@@ -5,7 +5,8 @@ import { motion, useInView, useScroll, useTransform, useMotionValue, animate, An
 import {
   ArrowUpRight, ArrowDown, Mail, Phone, MapPin, Linkedin, Sparkles, Shield, Network, Cpu,
   GitBranch, Workflow, BarChart3, Bot, MessageSquare, Layers, Compass, Target, Users,
-  Activity, FileBarChart, Settings2, Brain, ScanSearch, Zap, Rocket, ChevronRight, Quote
+  Activity, FileBarChart, Settings2, Brain, ScanSearch, Zap, Rocket, ChevronRight, Quote,
+  GraduationCap, BookOpen
 } from "lucide-react";
 
 // =============== HERO PORTRAIT (grayscale) ===============
@@ -84,6 +85,7 @@ const Nav = () => {
     ['AI', 'ai', 'AI-native operational leadership'],
     ['Roadmap', 'roadmap', 'AI learning progression'],
     ['Experience', 'experience', '13+ years across enterprises'],
+    ['Education', 'education', 'IIM Bangalore · COEP'],
     ['Voices', 'voices', 'What collaborators say'],
     ['Contact', 'contact', 'Open to opportunities'],
   ];
@@ -839,6 +841,86 @@ const Experience = () => {
   );
 };
 
+// =============== EDUCATION ===============
+const Education = () => {
+  const items = [
+    {
+      school: 'Indian Institute of Management Bangalore',
+      shortName: 'IIM Bangalore',
+      degree: 'Master of Business Administration (MBA)',
+      field: 'Business Administration & Management, General',
+      period: '2013 — 2015',
+      tags: ['Strategy', 'Leadership', 'General Management', 'Communication', 'Multi‑tasking'],
+      icon: GraduationCap,
+    },
+    {
+      school: 'COEP Technological University',
+      shortName: 'COEP Pune',
+      degree: 'Bachelor of Technology (BTech)',
+      field: 'Mechanical Engineering',
+      period: '2006 — 2010',
+      tags: ['Engineering Foundations', 'Teamwork', 'Business Development'],
+      icon: BookOpen,
+    },
+  ];
+  return (
+    <section id="education" className="relative py-32 lg:py-40 border-t border-white/5">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="grid lg:grid-cols-12 gap-12">
+          <div className="lg:col-span-4">
+            <Reveal><Eyebrow num="09">Education</Eyebrow></Reveal>
+            <Reveal delay={0.05}>
+              <h2 className="mt-6 font-display text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-[1.05]">
+                A foundation in <span className="serif italic font-normal text-neutral-300">engineering rigor</span> and <span className="serif italic font-normal text-neutral-300">management strategy.</span>
+              </h2>
+            </Reveal>
+            <Reveal delay={0.1}>
+              <p className="mt-6 text-[14px] text-neutral-400 leading-relaxed max-w-md">
+                Trained at two of India's most selective institutions — combining systems thinking, problem decomposition, and structured business judgment.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-8 grid md:grid-cols-2 gap-px bg-white/5 border border-white/8 rounded-2xl overflow-hidden">
+            {items.map(({ school, shortName, degree, field, period, tags, icon: Icon }, i) => (
+              <Reveal key={school} delay={i * 0.08}>
+                <div className="group bg-[#0a0a0a] p-7 lg:p-9 h-full flex flex-col gap-6 hover:bg-[#0e0e0e] transition-colors">
+                  <div className="flex items-start justify-between">
+                    <div className="h-11 w-11 rounded-full border border-white/10 flex items-center justify-center group-hover:border-white/25 transition-colors">
+                      <Icon className="w-4 h-4 text-neutral-300" strokeWidth={1.4} />
+                    </div>
+                    <div className="text-[11px] uppercase tracking-[0.22em] text-neutral-500 tabular-nums">{period}</div>
+                  </div>
+
+                  <div>
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">{shortName}</div>
+                    <div className="mt-2 font-display text-xl lg:text-2xl tracking-[-0.02em] text-white leading-tight">
+                      {school}
+                    </div>
+                  </div>
+
+                  <div className="border-t border-white/8 pt-5">
+                    <div className="text-[14px] text-neutral-200 font-medium">{degree}</div>
+                    <div className="mt-1 text-[13px] text-neutral-400">{field}</div>
+                  </div>
+
+                  <div className="mt-auto flex flex-wrap gap-1.5 pt-2">
+                    {tags.map((t) => (
+                      <span key={t} className="text-[11px] text-neutral-300 border border-white/10 rounded-full px-2.5 h-7 inline-flex items-center bg-white/[0.02]">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // =============== TESTIMONIALS ===============
 const Testimonials = () => {
   const secondary = [
@@ -849,7 +931,7 @@ const Testimonials = () => {
   return (
     <section id="voices" className="relative py-32 lg:py-40 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <Reveal><Eyebrow num="09">Voices</Eyebrow></Reveal>
+        <Reveal><Eyebrow num="10">Voices</Eyebrow></Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-6 font-display text-4xl lg:text-5xl tracking-[-0.04em] text-white leading-[1.05] max-w-3xl">
             What collaborators <span className="serif italic font-normal text-neutral-300">say</span>.
@@ -1025,16 +1107,11 @@ const Contact = () => {
       <div className="absolute -bottom-32 left-1/2 -translate-x-1/2 w-[80vw] h-[400px] rounded-full blur-[140px] bg-white/[0.04]" />
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <Reveal><Eyebrow num="10">Contact</Eyebrow></Reveal>
+        <Reveal><Eyebrow num="11">Contact</Eyebrow></Reveal>
         <Reveal delay={0.05}>
           <h2 className="mt-8 font-display text-4xl lg:text-6xl tracking-[-0.045em] text-white leading-[1.02] max-w-5xl">
             Open to leadership opportunities across <span className="serif italic font-normal text-neutral-300">Operations, Trust &amp; Safety, CX Transformation, Marketplace Governance,</span> and <span className="serif italic font-normal text-neutral-300">AI‑enabled</span> Business Operations.
           </h2>
-        </Reveal>
-        <Reveal delay={0.12}>
-          <p className="mt-8 text-[15px] text-neutral-400 leading-relaxed max-w-2xl">
-            Exploring opportunities across India, Dubai, APAC, and global remote‑first ecosystems.
-          </p>
         </Reveal>
 
         <div className="mt-16 lg:mt-20 grid lg:grid-cols-12 gap-10 lg:gap-16">
@@ -1128,6 +1205,7 @@ function App() {
       <Roadmap />
       <Philosophy />
       <Experience />
+      <Education />
       <Testimonials />
       <Contact />
       <Footer />
