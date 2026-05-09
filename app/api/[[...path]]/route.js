@@ -1,29 +1,25 @@
-import { MongoClient } from 'mongodb'
-import { v4 as uuidv4 } from 'uuid'
 import { NextResponse } from 'next/server'
 import { Resend } from 'resend'
+import { getSupabase } from '@/lib/supabase'
 
-// MongoDB connection
-let client
-let db
+// Force Node.js runtime (Resend SDK + supabase-js need Node APIs).
+export const runtime = 'nodejs'
+// Always evaluate fresh per request (no caching of POST/OPTIONS handlers).
+export const dynamic = 'force-dynamic'
 
-async function connectToMongo() {
-  if (!client) {
-    client = new MongoClient(process.env.MONGO_URL)
-    await client.connect()
-    db = client.db(process.env.DB_NAME)
-  }
-  return db
-}
-
-// Resend client (lazy init)
+// ---------- Resend (lazy init) ----------
 let _resend
 function getResend() {
-  if (!_resend) _resend = new Resend(process.env.RESEND_API_KEY)
+  if (_resend) return _resend
+  const apiKey = process.env.RESEND_API_KEY
+  if (!apiKey) throw new Error('Missing RESEND_API_KEY')
+  _resend = new Resend(apiKey)
   return _resend
 }
 
-// In-memory rate limit (per-IP, sliding window)
+// ---------- Per-instance rate limit (per-IP, sliding window) ----------
+// Note: in serverless this is per-warm-instance; combine with Vercel WAF /
+// Upstash for a true distributed limiter when traffic warrants it.
 const _rl = new Map()
 const RL_WINDOW_MS = 60 * 60 * 1000 // 1 hour
 const RL_MAX = 6
@@ -46,9 +42,10 @@ function getClientIp(request) {
   return request.headers.get('x-real-ip') || '0.0.0.0'
 }
 
-// Build a premium HTML email
+// ---------- Email templates ----------
 function buildContactEmailHtml({ name, email, company, message, submittedAt, ip }) {
-  const safe = (s) => String(s || '').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))
+  const safe = (s) =>
+    String(s || '').replace(/[<>&]/g, (c) => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;' }[c]))
   return `<!doctype html>
 <html><body style="margin:0;background:#0a0a0a;font-family:-apple-system,Segoe UI,Inter,Helvetica,Arial,sans-serif;color:#e5e5e5">
   <div style="max-width:620px;margin:0 auto;padding:40px 24px">
@@ -66,7 +63,7 @@ function buildContactEmailHtml({ name, email, company, message, submittedAt, ip 
         <div style="white-space:pre-wrap;color:#e5e5e5;font-size:15px;line-height:1.7">${safe(message)}</div>
       </div>
       <div style="margin-top:28px;padding-top:18px;border-top:1px solid rgba(255,255,255,0.08);color:#52525b;font-size:11px">
-        Sent from aniruddha-vanshiv.com contact form · IP ${safe(ip)} · Reply directly to ${safe(email)}
+        Stored in Supabase · IP ${safe(ip)} · Reply directly to ${safe(email)}
       </div>
     </div>
   </div>
@@ -74,22 +71,24 @@ function buildContactEmailHtml({ name, email, company, message, submittedAt, ip 
 }
 function buildContactEmailText({ name, email, company, message, submittedAt }) {
   return [
-    `New contact form submission`,
+    'New contact form submission',
     `Submitted: ${submittedAt}`,
-    ``,
+    '',
     `Name: ${name}`,
     `Email: ${email}`,
     company ? `Company: ${company}` : null,
-    ``,
-    `Message:`,
+    '',
+    'Message:',
     message,
-    ``,
-    `--`,
+    '',
+    '--',
     `Reply directly to ${email}`,
-  ].filter(Boolean).join('\n')
+  ]
+    .filter(Boolean)
+    .join('\n')
 }
 
-// Helper function to handle CORS
+// ---------- CORS ----------
 function handleCORS(response) {
   response.headers.set('Access-Control-Allow-Origin', process.env.CORS_ORIGINS || '*')
   response.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
@@ -98,155 +97,189 @@ function handleCORS(response) {
   return response
 }
 
-// OPTIONS handler for CORS
 export async function OPTIONS() {
-  return handleCORS(new NextResponse(null, { status: 200 }))
+  return handleCORS(new NextResponse(null, { status: 204 }))
 }
 
-// Route handler function
+// ---------- Validation ----------
+function validate(body) {
+  const errors = {}
+  const name = String(body?.name || '').trim()
+  const email = String(body?.email || '').trim()
+  const company = body?.company == null ? null : String(body.company).trim() || null
+  const message = String(body?.message || '').trim()
+
+  if (name.length < 2) errors.name = 'Name is required'
+  if (name.length > 255) errors.name = 'Name is too long'
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = 'Valid email required'
+  if (email.length > 320) errors.email = 'Email is too long'
+  if (message.length < 10) errors.message = 'Message must be at least 10 characters'
+  if (message.length > 5000) errors.message = 'Message is too long'
+  if (company && company.length > 255) errors.company = 'Company name too long'
+
+  return { errors, data: { name, email, company, message } }
+}
+
+// ---------- Route handler ----------
 async function handleRoute(request, { params }) {
   const { path = [] } = params
   const route = `/${path.join('/')}`
   const method = request.method
 
   try {
-    const db = await connectToMongo()
-
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/root' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
-    }
-    // Root endpoint - GET /api/root (since /api/ is not accessible with catch-all)
-    if (route === '/' && method === 'GET') {
-      return handleCORS(NextResponse.json({ message: "Hello World" }))
+    // Health / hello
+    if ((route === '/' || route === '/root') && method === 'GET') {
+      return handleCORS(
+        NextResponse.json({ status: 'ok', service: 'aniruddha-portfolio-api' })
+      )
     }
 
-    // Status endpoints - POST /api/status
-    if (route === '/status' && method === 'POST') {
-      const body = await request.json()
-      
-      if (!body.client_name) {
-        return handleCORS(NextResponse.json(
-          { error: "client_name is required" }, 
-          { status: 400 }
-        ))
-      }
-
-      const statusObj = {
-        id: uuidv4(),
-        client_name: body.client_name,
-        timestamp: new Date()
-      }
-
-      await db.collection('status_checks').insertOne(statusObj)
-      return handleCORS(NextResponse.json(statusObj))
-    }
-
-    // Status endpoints - GET /api/status
-    if (route === '/status' && method === 'GET') {
-      const statusChecks = await db.collection('status_checks')
-        .find({})
-        .limit(1000)
-        .toArray()
-
-      // Remove MongoDB's _id field from response
-      const cleanedStatusChecks = statusChecks.map(({ _id, ...rest }) => rest)
-      
-      return handleCORS(NextResponse.json(cleanedStatusChecks))
-    }
-
-    // Contact form - POST /api/contact
+    // Contact form — POST /api/contact
     if (route === '/contact' && method === 'POST') {
       const body = await request.json().catch(() => ({}))
-      const { name = '', email = '', company = '', message = '', _hp = '' } = body
 
-      // Honeypot
-      if (_hp && String(_hp).trim().length > 0) {
-        return handleCORS(NextResponse.json({ success: true })) // pretend success for bots
+      // Honeypot — return a soft success without doing anything else.
+      if (body?._hp && String(body._hp).trim().length > 0) {
+        return handleCORS(NextResponse.json({ success: true }))
       }
 
       // Validation
-      const errors = {}
-      if (!name || String(name).trim().length < 2) errors.name = 'Name is required'
-      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email))) errors.email = 'Valid email required'
-      if (!message || String(message).trim().length < 10) errors.message = 'Message must be at least 10 characters'
+      const { errors, data } = validate(body)
       if (Object.keys(errors).length > 0) {
-        return handleCORS(NextResponse.json({ error: 'Validation failed', errors }, { status: 422 }))
+        return handleCORS(
+          NextResponse.json(
+            { success: false, error: 'Validation failed', errors },
+            { status: 422 }
+          )
+        )
       }
 
-      // Rate limit
+      // Per-IP rate limit
       const ip = getClientIp(request)
       const rl = checkRateLimit(ip)
       if (!rl.ok) {
         const res = NextResponse.json(
-          { error: `Too many requests. Try again in ${Math.ceil(rl.retryAfter / 60)} minutes.` },
+          {
+            success: false,
+            error: `Too many requests. Try again in ${Math.ceil(rl.retryAfter / 60)} minutes.`,
+          },
           { status: 429 }
         )
         res.headers.set('Retry-After', String(rl.retryAfter))
         return handleCORS(res)
       }
 
-      const submittedAt = new Date()
-      const submittedAtStr = submittedAt.toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Asia/Kolkata' }) + ' IST'
-
-      // Save to MongoDB (best effort)
+      // Persist to Supabase (REQUIRED — fail loud if this fails)
+      let storedRow = null
       try {
-        await db.collection('contact_submissions').insertOne({
-          id: uuidv4(),
-          name, email, company, message,
-          ip,
-          userAgent: request.headers.get('user-agent') || '',
-          submittedAt,
-          status: 'new',
-        })
+        const supabase = getSupabase()
+        const { data: rows, error } = await supabase
+          .from('contact_submissions')
+          .insert([
+            {
+              name: data.name,
+              email: data.email,
+              company: data.company,
+              message: data.message,
+            },
+          ])
+          .select('created_at')
+
+        if (error) {
+          console.error('[contact] Supabase insert error:', error)
+          return handleCORS(
+            NextResponse.json(
+              {
+                success: false,
+                error: 'Could not save your message. Please try again or email aniruddha.vanshiv@gmail.com directly.',
+              },
+              { status: 500 }
+            )
+          )
+        }
+        storedRow = rows?.[0] || null
       } catch (e) {
-        console.error('Mongo save failed:', e?.message)
+        console.error('[contact] Supabase exception:', e?.message || e)
+        return handleCORS(
+          NextResponse.json(
+            {
+              success: false,
+              error: 'Database unavailable. Please email aniruddha.vanshiv@gmail.com directly.',
+            },
+            { status: 503 }
+          )
+        )
       }
 
-      // Send email via Resend
+      const submittedAt = storedRow?.created_at ? new Date(storedRow.created_at) : new Date()
+      const submittedAtStr =
+        submittedAt.toLocaleString('en-IN', {
+          dateStyle: 'medium',
+          timeStyle: 'short',
+          timeZone: 'Asia/Kolkata',
+        }) + ' IST'
+
+      // Send notification email via Resend (best-effort — submission already saved).
+      let emailId = null
+      let emailWarning = null
       try {
         const resend = getResend()
-        const { data, error } = await resend.emails.send({
+        const { data: sent, error: sendErr } = await resend.emails.send({
           from: process.env.CONTACT_FROM || 'Aniruddha Portfolio <onboarding@resend.dev>',
           to: [process.env.CONTACT_TO || 'aniruddha.vanshiv@gmail.com'],
-          reply_to: email,
-          subject: `New inquiry from ${name}${company ? ` (${company})` : ''}`,
-          html: buildContactEmailHtml({ name, email, company, message, submittedAt: submittedAtStr, ip }),
-          text: buildContactEmailText({ name, email, company, message, submittedAt: submittedAtStr }),
+          reply_to: data.email,
+          subject: `New inquiry from ${data.name}${data.company ? ` (${data.company})` : ''}`,
+          html: buildContactEmailHtml({
+            name: data.name,
+            email: data.email,
+            company: data.company,
+            message: data.message,
+            submittedAt: submittedAtStr,
+            ip,
+          }),
+          text: buildContactEmailText({
+            name: data.name,
+            email: data.email,
+            company: data.company,
+            message: data.message,
+            submittedAt: submittedAtStr,
+          }),
         })
-        if (error) {
-          console.error('Resend error:', error)
-          return handleCORS(NextResponse.json(
-            { error: 'Email service error. Please try again or email directly.' },
-            { status: 502 }
-          ))
+        if (sendErr) {
+          console.error('[contact] Resend error:', sendErr)
+          emailWarning = 'Saved your message; notification email failed to send.'
+        } else {
+          emailId = sent?.id || null
         }
-        return handleCORS(NextResponse.json({ success: true, id: data?.id }))
       } catch (e) {
-        console.error('Email send failed:', e?.message)
-        return handleCORS(NextResponse.json(
-          { error: 'Failed to send. Please email directly: aniruddha.vanshiv@gmail.com' },
-          { status: 500 }
-        ))
+        console.error('[contact] Resend exception:', e?.message || e)
+        emailWarning = 'Saved your message; notification email failed to send.'
       }
+
+      return handleCORS(
+        NextResponse.json({
+          success: true,
+          message: 'Thank you. Your message has reached Aniruddha.',
+          submittedAt: storedRow?.created_at || null,
+          emailId,
+          ...(emailWarning ? { warning: emailWarning } : {}),
+        })
+      )
     }
 
     // Route not found
-    return handleCORS(NextResponse.json(
-      { error: `Route ${route} not found` }, 
-      { status: 404 }
-    ))
-
+    return handleCORS(
+      NextResponse.json({ error: `Route ${route} not found` }, { status: 404 })
+    )
   } catch (error) {
-    console.error('API Error:', error)
-    return handleCORS(NextResponse.json(
-      { error: "Internal server error" }, 
-      { status: 500 }
-    ))
+    console.error('[api] Internal error:', error)
+    return handleCORS(
+      NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+    )
   }
 }
 
-// Export all HTTP methods
+// Export all HTTP methods (catch-all)
 export const GET = handleRoute
 export const POST = handleRoute
 export const PUT = handleRoute

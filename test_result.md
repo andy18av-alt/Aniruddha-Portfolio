@@ -108,21 +108,45 @@ user_problem_statement: |
   Need to verify the new POST /api/contact endpoint works end-to-end.
 
 backend:
-  - task: "POST /api/contact — Resend email delivery + MongoDB persistence"
+  - task: "POST /api/contact — Supabase persistence + Resend email delivery"
     implemented: true
-    working: false
-    file: "/app/app/api/[[...path]]/route.js"
+    working: "NA"
+    file: "/app/app/api/[[...path]]/route.js, /app/lib/supabase.js"
     stuck_count: 0
     priority: "high"
-    needs_retesting: false
+    needs_retesting: true
     status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          [Major refactor — replaced MongoDB with Supabase]
+          - Installed @supabase/supabase-js@2.105.4; uninstalled mongodb.
+          - Created /app/lib/supabase.js — service-role singleton client.
+          - Rewrote /app/app/api/[[...path]]/route.js:
+              * No more MongoClient / MONGO_URL / DB_NAME.
+              * Removed POST/GET /api/status (Mongo-only).
+              * GET /api/root → {status:"ok", service:"aniruddha-portfolio-api"}.
+              * POST /api/contact:
+                  - validates name/email/message (422 on fail)
+                  - honeypot _hp soft-success
+                  - per-IP rate limit 6/hr (429 + Retry-After)
+                  - inserts into Supabase `contact_submissions` (name, email, company, message);
+                    `created_at` defaults to now() at the DB.
+                  - Supabase failure → 500/503, no email sent.
+                  - Supabase success → Resend email sent best-effort; non-fatal if Resend fails
+                    (response is still 200 with a `warning` field).
+                  - runtime='nodejs', dynamic='force-dynamic' for Vercel serverless safety.
+          - Cleaned /app/.env: removed MONGO_URL, DB_NAME; added empty
+            NEXT_PUBLIC_SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY placeholders.
+            User confirmed the real keys are configured in Vercel.
+          Verified locally via curl (without Supabase keys): 422, honeypot 200, health 200 ✓.
       - working: true
         agent: "main"
         comment: |
-          [End-to-end delivery confirmed] After switching CONTACT_TO to andy18av@gmail.com (the
-          email registered on the user's Resend account), live curl test against /api/contact
-          returned `{"success":true,"id":"e3d81331-4a8d-41ca-8983-a082f27000bd"}` — Resend accepted
-          the message and returned a real email id. Endpoint is fully working end-to-end.
+          [PREVIOUS — Mongo era, end-to-end delivery confirmed]
+          Before refactor, with MongoDB + Resend, full happy-path returned a real Resend id
+          (e3d81331-4a8d-41ca-8983-a082f27000bd). Validation/honeypot/rate-limit/CORS all
+          tested by deep_testing_backend_nextjs and passed.
           Server logs: "POST /api/contact 200" with no errors.
       - working: "NA"
         agent: "main"
