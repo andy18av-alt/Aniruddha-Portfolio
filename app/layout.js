@@ -1,3 +1,4 @@
+import WhatsAppButton from '@/components/WhatsAppButton'
 import './globals.css'
 
 const title = 'Aniruddha Vanshiv — Operations, Trust & Safety, AI-Enabled Business Leadership'
@@ -95,6 +96,7 @@ export default function RootLayout({ children }) {
       </head>
       <body className="antialiased bg-[#0a0a0a] text-neutral-100">
         {children}
+        <WhatsAppButton />
       </body>
     </html>
   )
