@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next"
 import WhatsAppButton from '@/components/WhatsAppButton'
 import './globals.css'
 
@@ -97,6 +98,7 @@ export default function RootLayout({ children }) {
       <body className="antialiased bg-[#0a0a0a] text-neutral-100">
         {children}
         <WhatsAppButton />
+        <Analytics />
       </body>
     </html>
   )
