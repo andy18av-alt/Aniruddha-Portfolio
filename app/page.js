@@ -395,44 +395,46 @@ const About = () => (
 
 // =============== SCALE METRICS ===============
 const ScaleMetrics = () => {
+  // "Leadership Impact" — five editorial metric cards.
   const metrics = [
-    { value: 30, prefix: '$', suffix: 'B+', label: 'Commerce Ecosystem Scale', sub: 'Marketplace GMV exposure' },
-    { value: 450, suffix: 'M+', label: 'Customer Ecosystem', sub: 'Active marketplace customers' },
-    { value: 1.6, suffix: 'M+', decimals: 1, label: 'Seller Network', sub: 'Marketplace seller base' },
-    { value: 48, prefix: '~', suffix: '%', label: 'India E‑commerce Share', sub: 'Approx. category share' },
-    { value: 20, prefix: '₹', suffix: 'K+ Cr', label: 'Marketplace Revenue', sub: 'Annual marketplace scale' },
+    { value: '13+', label: 'Years Experience', sub: 'Enterprise scale · commerce · AI' },
+    { value: '₹80Cr+', label: 'Business Impact', sub: 'Realized across programs' },
+    { value: '250+', label: 'bps G2N Improvement', sub: 'Gross‑to‑Net optimization' },
+    { value: 'Millions', label: 'Customers Impacted', sub: 'Trust · CX · Reverse logistics' },
+    { value: 'Enterprise', label: 'AI · Product · Operations', sub: 'Cross‑functional leadership' },
   ];
   return (
     <section id="scale" className="relative py-32 lg:py-40 border-t border-white/5">
-      <div className="absolute inset-0 ambient-glow pointer-events-none" />
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex items-end justify-between flex-wrap gap-8">
-          <div className="max-w-xl">
-            <Reveal><Eyebrow num="02">Operating at Enterprise Scale</Eyebrow></Reveal>
+        <div className="grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-7">
+            <Reveal><Eyebrow num="02">Leadership Impact</Eyebrow></Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-6 font-display text-4xl lg:text-6xl tracking-[-0.04em] text-white leading-[1.02]">
-                Built and led inside one of India's largest <span className="serif italic font-normal text-neutral-300">digital commerce</span> ecosystems.
+                Outcomes measured in <span className="serif italic font-normal text-neutral-300">business impact</span>, not activity.
               </h2>
             </Reveal>
           </div>
-          <Reveal delay={0.1}>
-            <p className="max-w-md text-[14px] leading-relaxed text-neutral-400">
-              Across marketplace operations, customer trust systems, reverse logistics, hyperlocal initiatives, and large‑scale operational transformation.
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <p className="text-[14px] leading-relaxed text-neutral-400 max-w-md">
+              A career spanning product strategy, trust systems, customer experience and AI — quantified through the metrics that matter to enterprise leaders.
             </p>
           </Reveal>
         </div>
 
-        <div className="mt-16 lg:mt-24 grid grid-cols-2 lg:grid-cols-5 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+        <div className="mt-16 lg:mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-px bg-white/[0.06] border border-white/[0.06] rounded-2xl overflow-hidden">
           {metrics.map((m, i) => (
-            <Reveal key={i} delay={i * 0.06} y={16}>
-              <div className="bg-[#0a0a0a] p-7 lg:p-9 h-full flex flex-col justify-between min-h-[220px] lg:min-h-[260px] group hover:bg-[#0e0e0e] transition-colors">
-                <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">0{i + 1}</div>
+            <Reveal key={m.label} delay={i * 0.06} y={16}>
+              <div className="bg-[#0a0a0a] p-7 lg:p-9 h-full flex flex-col justify-between min-h-[220px] lg:min-h-[260px] group hover:bg-[#0d0d0d] transition-colors">
+                <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500 tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
+                </div>
                 <div>
-                  <div className="font-display text-[44px] lg:text-[64px] leading-none tracking-[-0.04em] text-white">
-                    <Counter to={m.value} prefix={m.prefix || ''} suffix={m.suffix || ''} decimals={m.decimals || 0} />
+                  <div className="font-display text-[28px] sm:text-[32px] lg:text-[34px] xl:text-[38px] leading-[1.05] tracking-[-0.03em] text-white">
+                    {m.value}
                   </div>
-                  <div className="mt-4 text-[13px] text-neutral-200 font-medium">{m.label}</div>
-                  <div className="mt-1 text-[11px] uppercase tracking-[0.18em] text-neutral-500">{m.sub}</div>
+                  <div className="mt-5 text-[13px] text-neutral-200 font-medium leading-snug">{m.label}</div>
+                  <div className="mt-1.5 text-[11px] uppercase tracking-[0.18em] text-neutral-500">{m.sub}</div>
                 </div>
               </div>
             </Reveal>
@@ -498,94 +500,170 @@ const Expertise = () => {
 
 // =============== SELECTED TRANSFORMATIONS ===============
 const Transformations = () => {
-  const cases = [
+  // Featured (largest) card
+  const featured = {
+    badge: 'NEW',
+    title: 'EVA Command Center',
+    description:
+      'An AI‑powered operational decision support platform that analyzes event incidents, recommends recovery strategies and orchestrates operational workflows using Google Gemini.',
+    tags: ['AI Strategy', 'Google Gemini', 'Workflow Automation', 'Product Design'],
+    buttons: [
+      { label: 'Live Demo', href: '#', kind: 'primary' },
+      { label: 'Case Study', href: '#', kind: 'ghost' },
+      { label: 'GitHub', href: '#', kind: 'ghost' },
+    ],
+  };
+
+  const secondary = [
     {
-      no: '01',
-      tag: 'Customer Trust · Reverse Logistics',
-      title: 'Real‑Time Return on Hold (RoH)',
-      problem: '400K customers per month were facing delayed return pickup reattempts due to offline adjudication systems.',
-      action: 'Built a real‑time operational intervention framework with live CX adjudication and 2.5‑minute SLA decisioning.',
-      impact: 'Eliminated next‑day reattempts for ~400K monthly customers while improving customer trust and operational efficiency.',
-      stat: ['400K /mo', '2.5 min SLA'],
+      title: 'Flipkart Trust & Safety Transformation',
+      description:
+        'Led strategic product initiatives that improved customer trust, strengthened marketplace integrity and optimized Gross‑to‑Net performance across large‑scale commerce platforms.',
+      highlights: [
+        { value: '₹80Cr+', label: 'Business Impact' },
+        { value: '250+ bps', label: 'G2N Improvement' },
+      ],
+      tags: ['Trust & Safety', 'Customer Experience'],
     },
     {
-      no: '02',
-      tag: 'Fraud · Marketplace Profitability',
-      title: 'Exchange Arbitrage Exploitation Fix',
-      problem: 'Bad actors exploited exchange loopholes causing ₹1.58 Cr/month leakage.',
-      action: 'Implemented rapid MRP validation controls and tactical operational interventions ahead of long‑term engineering fixes.',
-      impact: 'Stopped major financial leakage and protected marketplace profitability.',
-      stat: ['₹1.58 Cr /mo', 'Leakage stopped'],
-    },
-    {
-      no: '03',
-      tag: 'Fraud Operations · Risk',
-      title: 'Laptop SPF Fraud Intervention',
-      problem: 'Massive fraud surge in laptop claims causing severe operational and financial risk.',
-      action: 'Introduced 48‑hour manual adjudication hold and proactive fraud review framework.',
-      impact: 'Recovered significant losses and improved fraud actionability from 30% to 70%.',
-      stat: ['30% → 70%', 'Actionability'],
-    },
-    {
-      no: '04',
-      tag: 'AI · Image Intelligence · Risk',
-      title: 'AI‑enabled Fraud Detection & Image Intelligence',
-      problem: 'Manual fraud detection lacked scalability and precision.',
-      action: 'Partnered on AI‑assisted image intelligence and operational risk detection workflows leveraging behavioral telemetry.',
-      impact: 'Improved fraud precision, strengthened marketplace integrity, and enabled scalable risk detection systems.',
-      stat: ['AI‑assisted', 'Scalable detection'],
+      title: 'AI Workflow Automation',
+      description:
+        'Built AI‑powered workflow automation systems, operational copilots and productivity solutions using LLMs, n8n and modern AI tooling.',
+      tags: ['LLMs', 'n8n', 'Automation', 'Copilots'],
     },
   ];
+
   return (
     <section id="work" className="relative py-32 lg:py-40 border-t border-white/5">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="flex items-end justify-between flex-wrap gap-6">
-          <div>
-            <Reveal><Eyebrow num="04">Selected Transformations</Eyebrow></Reveal>
+        {/* Section header */}
+        <div className="grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-7">
+            <Reveal><Eyebrow num="04">Featured Case Studies</Eyebrow></Reveal>
             <Reveal delay={0.05}>
               <h2 className="mt-6 font-display text-4xl lg:text-6xl tracking-[-0.04em] text-white leading-[1.02] max-w-3xl">
-                A track record of <span className="serif italic font-normal text-neutral-300">measurable</span> business outcomes.
+                Evidence of <span className="serif italic font-normal text-neutral-300">applied</span> product &amp; AI leadership.
               </h2>
             </Reveal>
           </div>
+          <Reveal delay={0.1} className="lg:col-span-5">
+            <p className="text-[14px] leading-relaxed text-neutral-400 max-w-md">
+              Selected work at the intersection of product strategy, operational systems and practical AI — each shipped, measured and evaluated on business outcomes.
+            </p>
+          </Reveal>
         </div>
 
-        <div className="mt-16 space-y-5">
-          {cases.map((c, i) => (
-            <Reveal key={c.no} delay={i * 0.05} y={20}>
-              <article className="group relative border border-white/8 rounded-2xl bg-gradient-to-b from-[#0c0c0c] to-[#0a0a0a] hover:border-white/20 transition-colors overflow-hidden">
-                <div className="grid lg:grid-cols-12 gap-8 p-8 lg:p-12">
-                  <div className="lg:col-span-3 flex flex-col gap-5">
-                    <div className="flex items-center gap-3">
-                      <span className="font-display text-3xl text-neutral-700 tabular-nums">{c.no}</span>
-                      <span className="h-px flex-1 bg-white/10" />
+        {/* Cards grid: featured (col-span-8 on lg) + 2 stacked (col-span-4) */}
+        <div className="mt-16 lg:mt-20 grid lg:grid-cols-12 gap-6 lg:gap-8">
+          {/* FEATURED */}
+          <Reveal className="lg:col-span-8" y={24}>
+            <article className="group relative h-full flex flex-col border border-white/[0.08] rounded-2xl bg-[#0a0a0a] hover:border-white/20 transition-colors overflow-hidden">
+              {/* Top ambient strip (no gradient — a single subtle line) */}
+              <div className="relative p-8 lg:p-12 flex-1 flex flex-col">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex items-center h-6 px-2.5 rounded-full border border-emerald-400/25 bg-emerald-400/[0.06] text-[10px] uppercase tracking-[0.22em] text-emerald-300/90 font-medium">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] mr-2" />
+                    {featured.badge}
+                  </span>
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                    Featured Case Study
+                  </span>
+                </div>
+
+                <div className="mt-10 lg:mt-14">
+                  <h3 className="font-display text-3xl lg:text-5xl xl:text-6xl tracking-[-0.035em] text-white leading-[1.02]">
+                    EVA <span className="serif italic font-normal text-neutral-300">Command Center</span>
+                  </h3>
+                  <p className="mt-6 text-[15px] lg:text-base leading-[1.75] text-neutral-400 max-w-2xl">
+                    {featured.description}
+                  </p>
+                </div>
+
+                <div className="mt-8 flex flex-wrap gap-2">
+                  {featured.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="text-[11px] text-neutral-300 border border-white/10 rounded-full px-3 h-7 inline-flex items-center bg-white/[0.02]"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="mt-auto pt-10 flex flex-wrap items-center gap-3">
+                  {featured.buttons.map((b) =>
+                    b.kind === 'primary' ? (
+                      <a
+                        key={b.label}
+                        href={b.href}
+                        className="group/btn inline-flex items-center gap-2 h-10 px-5 rounded-full bg-white text-black text-[12.5px] font-medium hover:bg-neutral-200 transition-colors"
+                      >
+                        {b.label}
+                        <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                      </a>
+                    ) : (
+                      <a
+                        key={b.label}
+                        href={b.href}
+                        className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
+                      >
+                        {b.label}
+                        <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                      </a>
+                    )
+                  )}
+                </div>
+              </div>
+            </article>
+          </Reveal>
+
+          {/* SIDE STACK — Cards 2 & 3 */}
+          <div className="lg:col-span-4 grid grid-cols-1 gap-6 lg:gap-8">
+            {secondary.map((c, idx) => (
+              <Reveal key={c.title} delay={0.08 + idx * 0.06} y={24}>
+                <article className="group relative h-full flex flex-col border border-white/[0.08] rounded-2xl bg-[#0a0a0a] hover:border-white/20 transition-colors overflow-hidden">
+                  <div className="p-7 lg:p-8 flex-1 flex flex-col">
+                    <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                      Case Study · {String(idx + 2).padStart(2, '0')}
                     </div>
-                    <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">{c.tag}</div>
-                    <div className="mt-auto space-y-1">
-                      {c.stat.map((s) => (
-                        <div key={s} className="text-sm text-neutral-200 font-medium tabular-nums">{s}</div>
-                      ))}
-                    </div>
-                  </div>
-                  <div className="lg:col-span-9">
-                    <h3 className="font-display text-2xl lg:text-3xl tracking-[-0.03em] text-white leading-tight max-w-2xl">
+
+                    <h3 className="mt-6 font-display text-xl lg:text-2xl tracking-[-0.025em] text-white leading-[1.15]">
                       {c.title}
                     </h3>
-                    <div className="mt-8 grid md:grid-cols-3 gap-8">
-                      {[['Problem', c.problem], ['Action', c.action], ['Impact', c.impact]].map(([k, v]) => (
-                        <div key={k}>
-                          <div className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">{k}</div>
-                          <p className="mt-3 text-[14px] text-neutral-300 leading-relaxed">{v}</p>
-                        </div>
+                    <p className="mt-4 text-[13.5px] leading-[1.7] text-neutral-400">
+                      {c.description}
+                    </p>
+
+                    {c.highlights && (
+                      <div className="mt-6 grid grid-cols-2 gap-4 py-4 border-y border-white/[0.06]">
+                        {c.highlights.map((h) => (
+                          <div key={h.label}>
+                            <div className="font-display text-lg lg:text-xl tracking-[-0.02em] text-white tabular-nums">
+                              {h.value}
+                            </div>
+                            <div className="mt-1 text-[10px] uppercase tracking-[0.18em] text-neutral-500">
+                              {h.label}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    <div className="mt-auto pt-6 flex flex-wrap gap-1.5">
+                      {c.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="text-[10.5px] text-neutral-300 border border-white/10 rounded-full px-2.5 h-6 inline-flex items-center"
+                        >
+                          {t}
+                        </span>
                       ))}
                     </div>
                   </div>
-                </div>
-                {/* hover line */}
-                <div className="absolute left-0 top-0 h-px w-full bg-gradient-to-r from-transparent via-white/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              </article>
-            </Reveal>
-          ))}
+                </article>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </div>
     </section>
