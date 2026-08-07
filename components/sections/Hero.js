@@ -30,28 +30,28 @@ export default function Hero() {
             <div className="inline-flex items-center gap-3 px-3.5 h-8 rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-sm w-fit">
               <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.5)]" />
               <span className="text-[10.5px] tracking-[0.24em] uppercase text-neutral-300 font-medium">
-                Available for Leadership Opportunities
+                Available for Executive Leadership Opportunities
               </span>
             </div>
           </Reveal>
 
           <Reveal delay={0.06}>
             <h1 className="font-display text-[42px] sm:text-[54px] lg:text-[72px] xl:text-[80px] leading-[0.98] tracking-[-0.045em] font-medium text-white">
-              <span className="block">Building <span className="serif italic font-normal text-neutral-200">intelligent</span> products</span>
-              <span className="block">that <span className="serif italic font-normal text-neutral-200">transform</span> business</span>
-              <span className="block">operations.</span>
+              <span className="block">Building <span className="serif italic font-normal text-neutral-200">AI-powered</span> products</span>
+              <span className="block">that <span className="serif italic font-normal text-neutral-200">transform</span> operations</span>
+              <span className="block">at enterprise scale.</span>
             </h1>
           </Reveal>
 
           <Reveal delay={0.16}>
             <p className="max-w-[560px] text-[15.5px] sm:text-base leading-[1.7] text-neutral-400">
-              Associate Director with <span className="text-neutral-200">13+ years</span> leading Product Strategy, Trust &amp; Safety, Customer Experience, Marketplace Operations and AI‑enabled transformation across enterprise‑scale platforms.
-            </p>
+              Associate Director with <span className="text-neutral-200">13+ years</span> building products, trust systems, and AI-enabled operating models that improve customer experience, reduce risk, and deliver measurable business outcomes.
+            </p> 
           </Reveal>
 
           <Reveal delay={0.24}>
             <p className="max-w-[560px] text-[14px] leading-[1.75] text-neutral-500">
-              I turn complex operational challenges into scalable products — combining product strategy, operational excellence and practical AI. My work spans customer experience, trust systems, workflow automation and intelligent decision support that delivers measurable business impact.
+            I design products that simplify complexity—combining product strategy, operational excellence, trust & safety, and practical AI to create scalable systems that help businesses move faster, operate smarter, and serve customers better.
             </p>
           </Reveal>
 
@@ -74,20 +74,31 @@ export default function Hero() {
             </div>
           </Reveal>
 
-          {/* Capability line — typography-only, no chips */}
-          <Reveal delay={0.42}>
-            <div className="pt-8 border-t border-white/[0.06] max-w-[560px]">
-              <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.22em] text-neutral-500">
-                <span>Product Strategy</span>
-                <span className="text-neutral-700">·</span>
-                <span>Trust &amp; Safety</span>
-                <span className="text-neutral-700">·</span>
-                <span>CX Transformation</span>
-                <span className="text-neutral-700">·</span>
-                <span>Applied AI</span>
-              </div>
-            </div>
-          </Reveal>
+          {/* Capability line */}
+<Reveal delay={0.42}>
+  <div className="pt-8 border-t border-white/[0.06] max-w-[560px]">
+    <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.22em] text-neutral-500">
+
+      <span>AI Strategy</span>
+      <span className="text-neutral-700">•</span>
+
+      <span>Product Leadership</span>
+      <span className="text-neutral-700">•</span>
+
+      <span>Trust &amp; Safety</span>
+      <span className="text-neutral-700">•</span>
+
+      <span>Marketplace Operations</span>
+      <span className="text-neutral-700">•</span>
+
+      <span>CX Transformation</span>
+      <span className="text-neutral-700">•</span>
+
+      <span>Enterprise AI</span>
+
+    </div>
+  </div>
+</Reveal>
         </div>
 
         {/* RIGHT — Portrait, refined */}
@@ -96,7 +107,7 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.97, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            className="relative aspect-[4/5] w-full max-w-[420px]"
+            className="relative aspect-[4/5] w-full max-w-[500px]"
           >
             {/* soft, single-layer glow */}
             <div className="absolute -inset-8 bg-gradient-to-tr from-white/[0.04] via-transparent to-transparent blur-2xl rounded-[32px]" />
@@ -112,7 +123,9 @@ export default function Hero() {
               <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between gap-4">
                 <div>
                   <div className="text-[10px] uppercase tracking-[0.28em] text-neutral-300/90">Aniruddha Vanshiv</div>
-                  <div className="mt-2 text-[13px] text-white font-medium">AI Product &amp; Operations Leader</div>
+                  <div className="mt-2 text-[13px] text-white font-medium">
+  Product Strategy • Trust &amp; Safety • AI
+</div>
                 </div>
                 <div className="text-[10px] uppercase tracking-[0.24em] text-neutral-400/80 text-right leading-tight">
                   Bengaluru<br />India
