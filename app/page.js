@@ -508,7 +508,7 @@ const Transformations = () => {
       'An AI‑powered operational decision support platform that analyzes event incidents, recommends recovery strategies and orchestrates operational workflows using Google Gemini.',
     tags: ['AI Strategy', 'Google Gemini', 'Workflow Automation', 'Product Design'],
     buttons: [
-      { label: 'Live Demo', href: '#', kind: 'primary' },
+      { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app', kind: 'primary', target: '_blank', rel: 'noopener noreferrer' },
       { label: 'Case Study', href: '#', kind: 'ghost' },
       { label: 'GitHub', href: '#', kind: 'ghost' },
     ],
@@ -596,6 +596,8 @@ const Transformations = () => {
                       <a
                         key={b.label}
                         href={b.href}
+                        target={b.target}
+                        rel={b.rel}
                         className="group/btn inline-flex items-center gap-2 h-10 px-5 rounded-full bg-white text-black text-[12.5px] font-medium hover:bg-neutral-200 transition-colors"
                       >
                         {b.label}
@@ -605,6 +607,8 @@ const Transformations = () => {
                       <a
                         key={b.label}
                         href={b.href}
+                        target={b.target}
+                        rel={b.rel}
                         className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
                       >
                         {b.label}
