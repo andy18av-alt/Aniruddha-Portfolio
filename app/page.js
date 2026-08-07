@@ -508,9 +508,9 @@ const Transformations = () => {
       'An AI‑powered operational decision support platform that analyzes event incidents, recommends recovery strategies and orchestrates operational workflows using Google Gemini.',
     tags: ['AI Strategy', 'Google Gemini', 'Workflow Automation', 'Product Design'],
     buttons: [
-      { label: 'Live Demo', href: '#', kind: 'primary' },
+      { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app', kind: 'primary', target: '_blank', rel: 'noopener noreferrer' },
       { label: 'Case Study', href: '#', kind: 'ghost' },
-      { label: 'GitHub', href: '#', kind: 'ghost' },
+      { label: 'GitHub', href: 'https://github.com/andy18av-alt/eva-chief-of-staff', kind: 'ghost', target: '_blank', rel: 'noopener noreferrer' },
     ],
   };
 
@@ -571,6 +571,13 @@ const Transformations = () => {
                 </div>
 
                 <div className="mt-10 lg:mt-14">
+                  <div className="relative -mx-2 mb-6 rounded-xl border border-white/[0.06] bg-[#080b16] overflow-hidden">
+                    <img
+                      src="/eva-logo.png"
+                      alt="EVA — Event Virtual Administrator"
+                      className="w-full h-auto max-h-[180px] object-contain"
+                    />
+                  </div>
                   <h3 className="font-display text-3xl lg:text-5xl xl:text-6xl tracking-[-0.035em] text-white leading-[1.02]">
                     EVA <span className="serif italic font-normal text-neutral-300">Command Center</span>
                   </h3>
@@ -596,6 +603,8 @@ const Transformations = () => {
                       <a
                         key={b.label}
                         href={b.href}
+                        target={b.target}
+                        rel={b.rel}
                         className="group/btn inline-flex items-center gap-2 h-10 px-5 rounded-full bg-white text-black text-[12.5px] font-medium hover:bg-neutral-200 transition-colors"
                       >
                         {b.label}
@@ -605,6 +614,8 @@ const Transformations = () => {
                       <a
                         key={b.label}
                         href={b.href}
+                        target={b.target}
+                        rel={b.rel}
                         className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
                       >
                         {b.label}
@@ -664,6 +675,93 @@ const Transformations = () => {
               </Reveal>
             ))}
           </div>
+
+          {/* FLAGSHIP · TrustOS — full-width alongside EVA */}
+          <Reveal className="lg:col-span-12" delay={0.1} y={24}>
+            <article className="group relative border border-white/[0.08] rounded-2xl bg-[#0a0a0a] hover:border-white/20 transition-colors overflow-hidden">
+              <div className="grid lg:grid-cols-12 gap-0 lg:gap-0">
+                {/* Logo panel */}
+                <div className="lg:col-span-5 relative flex items-center justify-center bg-[#080808] border-b lg:border-b-0 lg:border-r border-white/[0.06] p-10 lg:p-14 min-h-[260px] lg:min-h-[440px]">
+                  {/* subtle corner marks */}
+                  <div className="absolute top-4 left-4 w-3.5 h-3.5 border-t border-l border-white/15" />
+                  <div className="absolute top-4 right-4 w-3.5 h-3.5 border-t border-r border-white/15" />
+                  <div className="absolute bottom-4 left-4 w-3.5 h-3.5 border-b border-l border-white/15" />
+                  <div className="absolute bottom-4 right-4 w-3.5 h-3.5 border-b border-r border-white/15" />
+                  <img
+                    src="/trustos-logo.png"
+                    alt="TrustOS — AI-native Trust & Safety Operating System"
+                    className="relative w-full max-w-[320px] lg:max-w-[380px] h-auto object-contain"
+                  />
+                </div>
+
+                {/* Content panel */}
+                <div className="lg:col-span-7 relative p-8 lg:p-12 flex flex-col">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex items-center h-6 px-2.5 rounded-full border border-emerald-400/25 bg-emerald-400/[0.06] text-[10px] uppercase tracking-[0.22em] text-emerald-300/90 font-medium">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)] mr-2" />
+                      NEW
+                    </span>
+                    <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-500">
+                      Featured Case Study
+                    </span>
+                  </div>
+
+                  <div className="mt-8 lg:mt-10">
+                    <h3 className="font-display text-3xl lg:text-5xl xl:text-[54px] tracking-[-0.035em] text-white leading-[1.02]">
+                      <span className="text-white">Trust</span><span className="serif italic font-normal text-neutral-300">OS</span>
+                    </h3>
+                    <div className="mt-3 text-[13px] uppercase tracking-[0.22em] text-neutral-400">
+                      AI‑native Trust &amp; Safety Operating System
+                    </div>
+                    <p className="mt-6 text-[15px] lg:text-base leading-[1.75] text-neutral-400 max-w-2xl">
+                      An enterprise AI platform that orchestrates explainable investigations, policy interpretation, risk intelligence and human‑governed enforcement workflows for large‑scale digital platforms.
+                    </p>
+                  </div>
+
+                  <div className="mt-7 flex flex-wrap gap-2">
+                    {['Trust & Safety', 'Multi‑Agent AI', 'Risk Intelligence', 'Enterprise AI'].map((t) => (
+                      <span
+                        key={t}
+                        className="text-[11px] text-neutral-300 border border-white/10 rounded-full px-3 h-7 inline-flex items-center bg-white/[0.02]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="mt-auto pt-10 flex flex-wrap items-center gap-3">
+                    <a
+                      href="https://risk-arbiter.lovable.app/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/btn inline-flex items-center gap-2 h-10 px-5 rounded-full bg-white text-black text-[12.5px] font-medium hover:bg-neutral-200 transition-colors"
+                    >
+                      Live Demo
+                      <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
+                    </a>
+                    <a
+                      href="#"
+                      title="Detailed Product Case Study Coming Soon"
+                      aria-label="Case Study — Detailed Product Case Study Coming Soon"
+                      className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
+                    >
+                      Case Study
+                      <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                    </a>
+                    <a
+                      href="https://github.com/andy18av-alt/TrustOS"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
+                    >
+                      GitHub
+                      <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </Reveal>
         </div>
       </div>
     </section>

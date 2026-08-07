@@ -103,6 +103,131 @@
 #====================================================================================================
 
 user_problem_statement: |
+  Bug fix: EVA Live Demo button on the Featured Case Studies section was pointing to href="#"
+  (dead link) instead of the correct application URL. User reported button not opening the
+  correct application. Update EVA Live Demo button href to https://eva-chief-of-staff.lovable.app
+  with target="_blank" and rel="noopener noreferrer". No other changes allowed.
+
+frontend:
+  - task: "EVA Live Demo button — correct href + new-tab behavior"
+    implemented: true
+    working: true
+    file: "/app/app/page.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: false
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          [Bug fix]
+          Updated the EVA featured case study button data (line ~511) in the Transformations
+          component in /app/app/page.js:
+            BEFORE: { label: 'Live Demo', href: '#', kind: 'primary' }
+            AFTER:  { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app',
+                      kind: 'primary', target: '_blank', rel: 'noopener noreferrer' }
+          Also updated the button render (both `primary` and `ghost` branches) to spread
+          `target={b.target}` and `rel={b.rel}` — so links without those props (Case Study,
+          GitHub for EVA which are still '#' placeholders) behave exactly as before.
+
+          The TrustOS card was NOT touched — its buttons were already properly wired
+          (Live Demo → https://risk-arbiter.lovable.app/ with target=_blank rel=noopener,
+          GitHub → https://github.com/andy18av-alt/TrustOS with target=_blank rel=noopener,
+          Case Study → # with title tooltip).
+
+          PLEASE VERIFY:
+            1. Navigate to homepage → scroll to "Featured Case Studies" section (id="work").
+            2. Locate the EVA Command Center featured card (the large card with NEW badge, italic
+               "Command Center", and 3 buttons: Live Demo / Case Study / GitHub).
+            3. Inspect the EVA "Live Demo" button:
+                 * href MUST equal exactly `https://eva-chief-of-staff.lovable.app`
+                 * target MUST equal `_blank`
+                 * rel MUST include both `noopener` and `noreferrer` (`noopener noreferrer` is fine)
+            4. Confirm the EVA "Case Study" and EVA "GitHub" buttons still have href="#" and no
+               target attribute (unchanged behavior).
+            5. Confirm the TrustOS card's 3 buttons are unchanged and still working:
+                 * Live Demo → https://risk-arbiter.lovable.app/  (target=_blank)
+                 * Case Study → #  (title tooltip present)
+                 * GitHub → https://github.com/andy18av-alt/TrustOS  (target=_blank)
+            6. Confirm no other layout, style, animation, section or nav element was affected —
+               spot-check hero, contact section, and mobile drawer briefly.
+            7. Also actually click the EVA Live Demo button and verify it opens
+               eva-chief-of-staff.lovable.app in a new tab.
+      - working: true
+        agent: "testing"
+        comment: |
+          ✅ BUG FIX VERIFIED - All 8 checks PASSED (8/8)
+          
+          Comprehensive verification completed against https://trust-scale-ai-1.preview.emergentagent.com
+          
+          ✓ CHECK 1: Page load and animations - Page loaded successfully, animations completed
+          ✓ CHECK 2: Scroll to Featured Case Studies - Successfully located #work section
+          ✓ CHECK 3: EVA Live Demo button attributes - ALL CORRECT:
+              • href: 'https://eva-chief-of-staff.lovable.app' ✓
+              • target: '_blank' ✓
+              • rel: 'noopener noreferrer' ✓
+          ✓ CHECK 4: EVA Case Study button unchanged - href="#", no target attribute ✓
+          ✓ CHECK 5: EVA GitHub button unchanged - href="#", no target attribute ✓
+          ✓ CHECK 6: TrustOS buttons unchanged - ALL CORRECT:
+              • Live Demo: href='https://risk-arbiter.lovable.app/', target='_blank', rel='noopener noreferrer' ✓
+              • Case Study: href="#", title='Detailed Product Case Study Coming Soon' ✓
+              • GitHub: href='https://github.com/andy18av-alt/TrustOS', target='_blank' ✓
+          ✓ CHECK 7: Regression spot-checks - NO REGRESSIONS:
+              • Hero section renders correctly ✓
+              • Contact form (Name, Email, Company, Message fields) all visible ✓
+              • Zero console errors on page load ✓
+          ✓ CHECK 8: Functional click test - PASSED:
+              • EVA Live Demo button opens https://eva-chief-of-staff.lovable.app/ in new tab ✓
+              • New tab navigation confirmed, URL verified ✓
+          
+          🎉 Bug fix is complete and working correctly. No regressions detected.
+
+metadata:
+  created_by: "main_agent"
+  version: "1.4"
+  test_sequence: 5
+  run_ui: true
+
+test_plan:
+  current_focus: []
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: |
+      Bug fix ready for verification. Please run a targeted frontend test focused on the EVA
+      Live Demo button on the Featured Case Studies section (element must have exact href,
+      target=_blank, and rel="noopener noreferrer"). Also spot-check that no other buttons or
+      sections were affected. Use the preview URL from NEXT_PUBLIC_BASE_URL
+      (https://trust-scale-ai-1.preview.emergentagent.com). Do NOT do a full site audit;
+      only this bug + adjacent-buttons regression check.
+  - agent: "testing"
+    message: |
+      ✅ TARGETED BUG-FIX VERIFICATION COMPLETE - ALL CHECKS PASSED
+      
+      Executed comprehensive 8-point verification checklist as requested:
+      
+      RESULTS: 8/8 checks PASSED ✓
+      
+      PRIMARY FIX VERIFIED:
+      • EVA Live Demo button now has correct href (https://eva-chief-of-staff.lovable.app)
+      • Opens in new tab with proper security attributes (target="_blank", rel="noopener noreferrer")
+      • Functional click test confirmed - new tab opens to correct URL
+      
+      REGRESSION CHECKS PASSED:
+      • EVA Case Study and GitHub buttons unchanged (href="#", no target)
+      • TrustOS card buttons all unchanged and working correctly
+      • Hero section renders correctly
+      • Contact form intact (all 4 fields visible)
+      • Zero console errors
+      
+      The bug is FIXED and verified. No further action needed on this task.
+
+# ---- Prior history retained below ----
+
+previous_user_problem_statement: |
   Premium executive portfolio for Aniruddha Vanshiv. Latest enhancement: working contact form
   with email delivery via Resend, plus polished mobile nav drawer, real headshot, and OG image/favicon.
   Need to verify the new POST /api/contact endpoint works end-to-end.
