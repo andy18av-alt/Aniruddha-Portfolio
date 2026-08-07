@@ -93,11 +93,12 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
+      </head> {/* <-- This was missing! */}
       <body className="antialiased bg-[#0a0a0a] text-neutral-100">
         {children}
         <WhatsAppButton />
         <Analytics />
       </body>
     </html>
-  )
-}
+  );
+} {/* <-- And this final brace was missing! */}
