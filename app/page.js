@@ -1,13 +1,10 @@
-'use client'
-
 import Nav from '@/components/sections/Nav'
 import Hero from '@/components/sections/Hero'
 import About from '@/components/sections/About'
 import Leadership from '@/components/sections/Leadership'
 import Expertise from '@/components/sections/Expertise'
 import Products from '@/components/sections/Products'
-import AICapabilities from '@/components/sections/AICapabilities'
-import Roadmap from '@/components/sections/Roadmap'
+import AILeadership from '@/components/sections/AILeadership'
 import Philosophy from '@/components/sections/Philosophy'
 import Experience from '@/components/sections/Experience'
 import Education from '@/components/sections/Education'
@@ -24,8 +21,7 @@ export default function App() {
       <Leadership />
       <Expertise />
       <Products />
-      <AICapabilities />
-      <Roadmap />
+      <AILeadership />
       <Philosophy />
       <Experience />
       <Education />

@@ -9,29 +9,36 @@ import { scrollTo } from "./shared";
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+  
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [open]);
 
+  // Updated to perfectly match your live sections!
   const items = [
     ['About', 'about', 'The leader behind the work'],
-    ['Scale', 'scale', 'Operating at enterprise scale'],
-    ['Expertise', 'expertise', '16 leadership capabilities'],
-    ['Work', 'work', 'Selected transformations'],
-    ['AI', 'ai', 'AI-native operational leadership'],
-    ['Roadmap', 'roadmap', 'AI learning progression'],
-    ['Experience', 'experience', '13+ years across enterprises'],
-    ['Education', 'education', 'IIM Bangalore · COEP'],
-    ['Voices', 'voices', 'What collaborators say'],
-    ['Contact', 'contact', 'Open to opportunities'],
+    ['Impact', 'impact', 'Outcomes measured in business impact'], 
+    ['Expertise', 'expertise', 'Core leadership capabilities'], 
+    ['Case Studies', 'work', 'Evidence of applied leadership'], 
+    ['AI Leadership', 'ai', 'Applied AI capabilities'], 
+    ['Philosophy', 'philosophy', 'Leadership Philosophy'], 
+    ['Experience', 'experience', 'A leadership journey'], 
+    ['Education', 'education', 'Engineering rigor and strategy'], 
+    ['Voices', 'voices', 'What collaborators say'], 
+    ['Contact', 'contact', 'Open to opportunities'], 
   ];
-  const goTo = (id) => { setOpen(false); setTimeout(() => scrollTo(id), 240); };
+  
+  const goTo = (id) => { 
+    setOpen(false); 
+    setTimeout(() => scrollTo(id), 240); 
+  };
 
   return (
     <motion.nav
@@ -49,6 +56,7 @@ export default function Nav() {
           </div>
           <span className="text-[13px] font-medium tracking-tight text-neutral-200">Aniruddha Vanshiv</span>
         </button>
+        
         <div className="hidden lg:flex items-center gap-8">
           {items.map(([label, id]) => (
             <button
@@ -60,12 +68,14 @@ export default function Nav() {
             </button>
           ))}
         </div>
+        
         <button
           onClick={() => scrollTo('contact')}
           className="hidden md:inline-flex items-center gap-2 text-[12px] font-medium px-4 h-9 rounded-full bg-white text-black hover:bg-neutral-200 transition-colors"
         >
           Let's Connect <ArrowUpRight className="w-3.5 h-3.5" />
         </button>
+        
         <button
           onClick={() => setOpen(!open)}
           aria-label={open ? 'Close menu' : 'Open menu'}

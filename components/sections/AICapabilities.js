@@ -27,7 +27,7 @@ export default function AICapabilities() {
 
   return (
     <section
-      id="ai"
+      id="AILeadership"
       className="relative py-32 lg:py-40 border-t border-white/5 overflow-hidden"
     >
       <div className="absolute inset-0 pointer-events-none opacity-60">

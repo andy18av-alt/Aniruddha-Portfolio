@@ -10,7 +10,7 @@ export default function Philosophy() {
     'Continuous Improvement', 'AI‑augmented Productivity', 'Calm Execution Under Ambiguity',
   ];
   return (
-    <section className="relative py-32 lg:py-40 border-t border-white/5">
+    <section id="philosophy" className="relative py-32 lg:py-40 border-t border-white/5">
       <div className="mx-auto max-w-6xl px-6 lg:px-10 text-center">
         <Reveal><Eyebrow num="07">Leadership Philosophy</Eyebrow></Reveal>
         <Reveal delay={0.08}>

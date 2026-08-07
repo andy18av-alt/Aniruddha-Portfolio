@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import { Analytics } from "@vercel/analytics/next"
 import WhatsAppButton from '@/components/WhatsAppButton'
 import './globals.css'
@@ -92,9 +93,6 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&display=swap"
           rel="stylesheet"
         />
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
-        <script dangerouslySetInnerHTML={{__html:'window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);'}} />
-      </head>
       <body className="antialiased bg-[#0a0a0a] text-neutral-100">
         {children}
         <WhatsAppButton />

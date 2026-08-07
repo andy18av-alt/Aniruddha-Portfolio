@@ -13,7 +13,7 @@ export default function Leadership() {
     { value: 'Enterprise', label: 'AI · Product · Operations', sub: 'Cross‑functional leadership' },
   ];
   return (
-    <section id="scale" className="relative py-32 lg:py-40 border-t border-white/5">
+    <section id="impact" className="relative py-32 lg:py-40 border-t border-white/5">
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="grid lg:grid-cols-12 gap-10 items-end">
           <div className="lg:col-span-7">
