@@ -510,7 +510,7 @@ const Transformations = () => {
     buttons: [
       { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app', kind: 'primary', target: '_blank', rel: 'noopener noreferrer' },
       { label: 'Case Study', href: '#', kind: 'ghost' },
-      { label: 'GitHub', href: '#', kind: 'ghost' },
+      { label: 'GitHub', href: 'https://github.com/andy18av-alt/eva-chief-of-staff', kind: 'ghost', target: '_blank', rel: 'noopener noreferrer' },
     ],
   };
 
@@ -571,6 +571,13 @@ const Transformations = () => {
                 </div>
 
                 <div className="mt-10 lg:mt-14">
+                  <div className="relative -mx-2 mb-6 rounded-xl border border-white/[0.06] bg-[#080b16] overflow-hidden">
+                    <img
+                      src="/eva-logo.png"
+                      alt="EVA — Event Virtual Administrator"
+                      className="w-full h-auto max-h-[180px] object-contain"
+                    />
+                  </div>
                   <h3 className="font-display text-3xl lg:text-5xl xl:text-6xl tracking-[-0.035em] text-white leading-[1.02]">
                     EVA <span className="serif italic font-normal text-neutral-300">Command Center</span>
                   </h3>
