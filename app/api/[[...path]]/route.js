@@ -122,7 +122,7 @@ function validate(body) {
 
 // ---------- Route handler ----------
 async function handleRoute(request, { params }) {
-  const { path = [] } = params
+  const { path = [] } = await params
   const route = `/${path.join('/')}`
   const method = request.method
 
