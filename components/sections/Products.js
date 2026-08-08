@@ -14,7 +14,7 @@ export default function Products() {
     tags: ['AI Strategy', 'Google Gemini', 'Workflow Automation', 'Product Design'],
     buttons: [
       { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app', kind: 'primary', target: '_blank', rel: 'noopener noreferrer' },
-      { label: 'Case Study', href: '#', kind: 'ghost' },
+      { label: 'Case Study', href="/case-studies/eva", kind: 'ghost' },
       { label: 'GitHub', href: 'https://github.com/andy18av-alt/eva-chief-of-staff', kind: 'ghost', target: '_blank', rel: 'noopener noreferrer' },
     ],
   };
