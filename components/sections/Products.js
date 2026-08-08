@@ -124,7 +124,7 @@ export default function Products() {
                       <ArrowUpRight className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 group-hover/btn:-translate-y-0.5 transition-transform" />
                     </a>
                     <a
-                      href="#"
+                      href="case studies/trustos"
                       title="Detailed Product Case Study Coming Soon"
                       aria-label="Case Study — Detailed Product Case Study Coming Soon"
                       className="inline-flex items-center gap-2 h-10 px-5 rounded-full border border-white/12 text-[12.5px] text-neutral-200 hover:border-white/30 hover:bg-white/[0.03] transition-all"
