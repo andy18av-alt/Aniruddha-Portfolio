@@ -21,21 +21,30 @@ export default function ContactForm() {
 
   // Detect Resume Request from Hero
   useEffect(() => {
-    try {
-      const resumeRequest = sessionStorage.getItem('resumeRequest');
+    const checkResumeRequest = () => {
+      try {
+        const resumeRequest = sessionStorage.getItem('resumeRequest');
 
-      if (resumeRequest === 'true') {
-        setForm((f) => ({
-          ...f,
-          message:
-            "Hi Aniruddha, I'd like to request a copy of your resume for consideration."
-        }));
+        if (resumeRequest === 'true') {
+          setForm((f) => ({
+            ...f,
+            message:
+              "Hi Aniruddha, I'd like to request a copy of your resume for consideration."
+          }));
 
-        sessionStorage.removeItem('resumeRequest');
+          sessionStorage.removeItem('resumeRequest');
+        }
+      } catch (err) {
+        // Ignore storage errors
       }
-    } catch (err) {
-      // Ignore storage errors
-    }
+    };
+
+    // Check immediately on mount
+    checkResumeRequest();
+
+    // Also listen for custom trigger if already on screen
+    window.addEventListener('storage', checkResumeRequest);
+    return () => window.removeEventListener('storage', checkResumeRequest);
   }, []);
 
   const onChange = (e) => {

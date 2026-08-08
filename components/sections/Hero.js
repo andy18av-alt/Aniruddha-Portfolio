@@ -106,6 +106,8 @@ export default function Hero() {
               <button
   onClick={() => {
     sessionStorage.setItem('resumeRequest', 'true');
+    // Dispatch a storage event so components on the same page notice immediately
+    window.dispatchEvent(new Event('storage'));
     scrollTo('contact');
   }}
   className="group inline-flex items-center gap-2 h-11 px-6 rounded-full border border-white/15 text-[13px] font-medium text-neutral-100 hover:border-white/35 hover:bg-white/[0.03] transition-all"
