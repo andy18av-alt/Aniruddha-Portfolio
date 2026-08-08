@@ -14,7 +14,7 @@ export default function Products() {
     tags: ['AI Strategy', 'Google Gemini', 'Workflow Automation', 'Product Design'],
     buttons: [
       { label: 'Live Demo', href: 'https://eva-chief-of-staff.lovable.app', kind: 'primary', target: '_blank', rel: 'noopener noreferrer' },
-      { label: 'Case Study', href="/case-studies/eva", kind: 'ghost' },
+      { label: 'Case Study', href:"/case-studies/eva", kind: 'ghost' },
       { label: 'GitHub', href: 'https://github.com/andy18av-alt/eva-chief-of-staff', kind: 'ghost', target: '_blank', rel: 'noopener noreferrer' },
     ],
   };
@@ -72,7 +72,7 @@ export default function Products() {
                   <div className="absolute bottom-4 left-4 w-3.5 h-3.5 border-b border-l border-white/15" />
                   <div className="absolute bottom-4 right-4 w-3.5 h-3.5 border-b border-r border-white/15" />
                   <img
-                    src="/trustos-logo.png"
+                    src="/TrustOS_logo.png"
                     alt="TrustOS — AI-native Trust & Safety Operating System"
                     className="relative w-full max-w-[320px] lg:max-w-[380px] h-auto object-contain"
                   />
