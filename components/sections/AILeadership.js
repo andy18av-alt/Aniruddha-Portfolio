@@ -1,11 +1,13 @@
 'use client'
 
 import { motion } from "framer-motion";
+import { Sparkles, Rocket, Bot, BarChart3, ShieldCheck, Cpu } from "lucide-react";
 
 const AICapabilities = [
   {
     title: "AI Foundations",
     status: "Completed",
+    icon: Sparkles,
     items: [
       "Generative AI Fundamentals",
       "AI Ecosystem & Research",
@@ -17,6 +19,7 @@ const AICapabilities = [
   {
     title: "AI Product Development",
     status: "Completed",
+    icon: Rocket,
     items: [
       "Build AI Products",
       "Launch AI Businesses",
@@ -28,6 +31,7 @@ const AICapabilities = [
   {
     title: "AI Agents & Automation",
     status: "Completed",
+    icon: Bot,
     items: [
       "AI Agents",
       "Autonomous Systems",
@@ -41,6 +45,7 @@ const AICapabilities = [
   {
     title: "AI Analytics & Storytelling",
     status: "Completed",
+    icon: BarChart3,
     items: [
       "AI Analytics",
       "Power BI + AI",
@@ -51,6 +56,7 @@ const AICapabilities = [
   {
     title: "AI Leadership",
     status: "Completed",
+    icon: ShieldCheck,
     items: [
       "Career Readiness",
       "Personal Branding",
@@ -61,6 +67,7 @@ const AICapabilities = [
   {
     title: "Applied AI Projects",
     status: "Completed",
+    icon: Cpu,
     items: [
       "TrustOS",
       "EVA Command Center",
@@ -71,116 +78,123 @@ const AICapabilities = [
 ];
 
 export default function AILeadership() {
-  // Animation variant for the smooth slide-up effect
   const fadeUpVariant = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 20 },
     visible: { 
       opacity: 1, 
       y: 0, 
-      transition: { duration: 0.6, ease: "easeOut" } 
+      transition: { duration: 0.5, ease: "easeOut" } 
     }
   };
 
   return (
-    <section id="ai" className="py-32 border-t border-white/10">
+    <section id="ai" className="py-12 border-t border-white/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         
-        {/* Header Section Animation */}
+        {/* Header Section */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={fadeUpVariant}
+          className="text-center max-w-3xl mx-auto"
         >
-          <div className="text-neutral-500 text-sm tracking-[0.25em] uppercase">
+          <div className="text-neutral-500 text-xs tracking-[0.25em] uppercase">
             06
           </div>
 
-          <h2 className="mt-6 text-4xl lg:text-6xl font-display text-white">
+          <h2 className="mt-3 text-3xl lg:text-5xl font-display text-white">
             AI Leadership Accelerator
           </h2>
 
-          <p className="mt-6 max-w-3xl text-neutral-400 text-lg leading-8">
-            Applied AI capability built through structured learning and real-world implementation.
-            A journey from AI foundations to enterprise-scale product strategy,
-            autonomous systems, workflow automation, and operational intelligence.
+          <p className="mt-3 text-neutral-400 text-base leading-relaxed">
+            Applied AI capability built through structured learning and real-world implementation, 
+            spanning foundations to autonomous enterprise systems.
           </p>
         </motion.div>
 
-        {/* Grid Animation with Staggering */}
-        <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-8 mt-16">
-          {AICapabilities.map((phase, index) => (
-            <motion.div
-              key={phase.title}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: false, amount: 0.2 }}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { 
-                  opacity: 1, 
-                  y: 0, 
-                  transition: { duration: 0.5, delay: index * 0.1 } 
-                }
-              }}
-              className="rounded-2xl border border-white/10 bg-white/[0.02] p-8 h-full transition-colors duration-300 hover:bg-white/[0.04]"
-            >
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl text-white font-semibold">
-                  {phase.title}
-                </h3>
+        {/* Compact 3-Column Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
+          {AICapabilities.map((phase, index) => {
+            const IconComponent = phase.icon;
+            return (
+              <motion.div
+                key={phase.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: false, amount: 0.2 }}
+                variants={{
+                  hidden: { opacity: 0, y: 20 },
+                  visible: { 
+                    opacity: 1, 
+                    y: 0, 
+                    transition: { duration: 0.4, delay: index * 0.05 } 
+                  }
+                }}
+                className="rounded-xl border border-white/10 bg-white/[0.02] p-4 h-full transition-colors duration-300 hover:bg-white/[0.04] flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-emerald-400/10 border border-emerald-400/20 text-emerald-400">
+                        <IconComponent className="w-5 h-5" />
+                      </div>
+                      <h3 className="text-lg text-white font-semibold">
+                        {phase.title}
+                      </h3>
+                    </div>
+                  </div>
 
-                <span className={`text-xs uppercase tracking-[0.2em] ${
-                  phase.status === 'Completed' ? 'text-emerald-400' : 'text-amber-400'
-                }`}>
-                  {phase.status === 'Completed' ? '✓ ' : '⏳ '}{phase.status}
-                </span>
-              </div>
+                  <ul className="space-y-1.5">
+                    {phase.items.map((item) => (
+                      <li
+                        key={item}
+                        className="text-neutral-400 text-sm flex items-center gap-2"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-emerald-400/60" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-              <ul className="space-y-3">
-                {phase.items.map((item) => (
-                  <li
-                    key={item}
-                    className="text-neutral-400 flex items-start gap-3"
-                  >
-                    <span className="text-emerald-400 mt-[2px]">•</span>
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
+                <div className="mt-4 pt-3 border-t border-white/5 flex items-center justify-end">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-emerald-400">
+                    ✓ Completed
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Bottom Banner Animation */}
+        {/* Compact Bottom Banner */}
         <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
           variants={{
-            hidden: { opacity: 0, y: 30 },
+            hidden: { opacity: 0, y: 20 },
             visible: { 
               opacity: 1, 
               y: 0, 
-              transition: { duration: 0.6, delay: 0.2, ease: "easeOut" } 
+              transition: { duration: 0.5, delay: 0.1, ease: "easeOut" } 
             }
           }}
-          className="mt-16 rounded-2xl border border-emerald-400/20 bg-emerald-400/[0.04] p-10"
+          className="mt-10 rounded-xl border border-emerald-400/20 bg-emerald-400/[0.04] p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-6"
         >
-          <div className="text-sm uppercase tracking-[0.22em] text-emerald-400">
-            Current Focus
+          <div>
+            <div className="text-xs uppercase tracking-[0.22em] text-emerald-400 font-medium">
+              Current Focus
+            </div>
+            <h3 className="mt-1 text-xl text-white font-display">
+              Building Enterprise AI Operating Systems
+            </h3>
+            <p className="mt-2 text-neutral-300 text-sm leading-relaxed max-w-3xl">
+              Combining Product Strategy, Trust & Safety, Workflow Automation, 
+              and Multi-Agent AI to solve complex operational challenges at scale.
+            </p>
           </div>
-
-          <h3 className="mt-4 text-3xl text-white font-display">
-            Building Enterprise AI Operating Systems
-          </h3>
-
-          <p className="mt-5 text-neutral-300 leading-8 max-w-4xl">
-            Designing enterprise-grade AI systems that combine
-            Product Strategy, Trust &amp; Safety, Workflow Automation,
-            Multi-Agent AI, and Decision Intelligence to solve
-            complex operational challenges at scale.
-          </p>
         </motion.div>
 
       </div>
