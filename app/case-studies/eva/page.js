@@ -376,7 +376,7 @@ export default function EVACaseStudyPage() {
 
       <section className="relative z-10 pt-20 pb-16 sm:pt-28 sm:pb-24 lg:pt-32 lg:pb-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-          <div className="grid items-end gap-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-18">
+          <div className="grid items-start gap-14 lg:grid-cols-[1.05fr_.95fr] lg:gap-18">
             <Reveal>
               <SectionLabel number="01">Flagship AI Product</SectionLabel>
 
@@ -589,7 +589,7 @@ export default function EVACaseStudyPage() {
               <div className="rounded-[28px] border border-white/10 bg-white/[0.03] p-6 sm:p-8">
                 <div className="overflow-hidden rounded-[24px] border border-white/10 bg-black/20">
                   <Image
-                    src="/EVA Logo.png"
+                    src="/eva-logo.png"
                     alt="EVA logo and brand lockup"
                     width={1600}
                     height={900}
