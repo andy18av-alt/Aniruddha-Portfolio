@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Sparkles, ShieldAlert, Cpu, TrendingUp, Users, FolderGit2 } from "lucide-react";
+import { X, Send, Sparkles, ShieldAlert, Cpu, TrendingUp, Users, FolderGit2, Volume2, Square } from "lucide-react";
 import ReactMarkdown from 'react-markdown';
 
 const SUGGESTIONS = [
@@ -22,6 +22,7 @@ export default function AskAniruddhaDrawer({ isOpen, onClose }) {
   ]);
   const [input, setInput] = useState("");
   const [isThinking, setIsThinking] = useState(false);
+  const [speakingIndex, setSpeakingIndex] = useState(null);
   const chatEndRef = useRef(null);
 
   const scrollToBottom = () => {
@@ -33,6 +34,45 @@ export default function AskAniruddhaDrawer({ isOpen, onClose }) {
       scrollToBottom();
     }
   }, [isOpen, messages, isThinking]);
+
+  // Handle Text-to-Speech Read Aloud
+  const handleSpeak = (text, index) => {
+    if (!('speechSynthesis' in window)) {
+      alert("Text-to-speech is not supported in your browser.");
+      return;
+    }
+
+    if (speechSynthesis.speaking && speakingIndex === index) {
+      speechSynthesis.cancel();
+      setSpeakingIndex(null);
+      return;
+    }
+
+    speechSynthesis.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+
+    utterance.onend = () => {
+      setSpeakingIndex(null);
+    };
+
+    utterance.onerror = () => {
+      setSpeakingIndex(null);
+    };
+
+    setSpeakingIndex(index);
+    speechSynthesis.speak(utterance);
+  };
+
+  // Stop speech when drawer closes
+  useEffect(() => {
+    if (!isOpen && 'speechSynthesis' in window) {
+      speechSynthesis.cancel();
+      setSpeakingIndex(null);
+    }
+  }, [isOpen]);
 
   const handleQuery = async (queryTypeOrText, isCustom = false) => {
     let userQueryText = queryTypeOrText;
@@ -165,7 +205,7 @@ export default function AskAniruddhaDrawer({ isOpen, onClose }) {
                       {msg.content}
                     </div>
                   ) : (
-                    <div className="max-w-[92%] rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-[13.5px] text-neutral-200">
+                    <div className="max-w-[92%] rounded-2xl border border-white/10 bg-white/[0.02] p-4 text-[13.5px] text-neutral-200 space-y-3">
                       <div className="text-neutral-300 leading-relaxed prose prose-invert max-w-none">
                         <ReactMarkdown
                           components={{
@@ -182,6 +222,29 @@ export default function AskAniruddhaDrawer({ isOpen, onClose }) {
                           {msg.content}
                         </ReactMarkdown>
                       </div>
+
+                      {/* Read Out Loud Button */}
+                      {msg.content && (
+                        <div className="flex items-center pt-2 border-t border-white/[0.06]">
+                          <button
+                            onClick={() => handleSpeak(msg.content, index)}
+                            className="flex items-center gap-1.5 text-xs text-neutral-400 hover:text-white transition-colors bg-white/[0.03] hover:bg-white/[0.08] px-2.5 py-1 rounded-full border border-white/10"
+                            title="Read aloud"
+                          >
+                            {speakingIndex === index ? (
+                              <>
+                                <Square className="w-3 h-3 text-emerald-400 animate-pulse" />
+                                <span>Stop reading</span>
+                              </>
+                            ) : (
+                              <>
+                                <Volume2 className="w-3 h-3 text-neutral-400" />
+                                <span>Read aloud</span>
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
