@@ -1,13 +1,15 @@
 'use client'
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Play, Sparkles } from "lucide-react";
 import { PORTRAIT_URL, Reveal, scrollTo } from "./shared";
 
 // =============== HERO ===============
 export default function Hero() {
   const ref = useRef(null);
+  const videoRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -16,6 +18,13 @@ export default function Hero() {
 
   const yShift = useTransform(scrollYProgress, [0, 1], [0, 90]);
   const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   return (
     <section
@@ -33,7 +42,7 @@ export default function Hero() {
 
       <motion.div
         style={{ y: yShift, opacity }}
-        className="relative mx-auto max-w-7xl px-6 lg:px-10 w-full grid lg:grid-cols-12 gap-x-12 gap-y-16 lg:gap-y-0 items-center py-16 lg:py-24 min-h-[calc(100svh-6rem)]"
+        className="relative mx-auto max-w-7xl px-6 lg:px-10 w-full grid lg:grid-cols-12 gap-x-12 gap-y-16 lg:gap-y-0 items-start py-16 lg:py-24 min-h-[calc(100svh-6rem)]"
       >
         {/* LEFT — content */}
         <div className="lg:col-span-7 xl:col-span-7 flex flex-col justify-center space-y-8 lg:space-y-10">
@@ -104,15 +113,13 @@ export default function Hero() {
               </button>
 
               <button
-  onClick={() => {
-    sessionStorage.setItem('resumeRequest', 'true');
-    // Dispatch a storage event so components on the same page notice immediately
-    window.dispatchEvent(new Event('storage'));
-    scrollTo('contact');
-  }}
-  className="group inline-flex items-center gap-2 h-11 px-6 rounded-full border border-white/15 text-[13px] font-medium text-neutral-100 hover:border-white/35 hover:bg-white/[0.03] transition-all"
->
-
+                onClick={() => {
+                  sessionStorage.setItem('resumeRequest', 'true');
+                  window.dispatchEvent(new Event('storage'));
+                  scrollTo('contact');
+                }}
+                className="group inline-flex items-center gap-2 h-11 px-6 rounded-full border border-white/15 text-[13px] font-medium text-neutral-100 hover:border-white/35 hover:bg-white/[0.03] transition-all"
+              >
                 Request Resume
 
                 <ArrowUpRight className="w-4 h-4 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
@@ -122,7 +129,7 @@ export default function Hero() {
           </Reveal>
 
           {/* Capability line */}
-          <Reveal delay={0.42}>
+          <Reveal delay={0.40}>
             <div className="pt-8 border-t border-white/[0.06] max-w-[560px]">
               <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-[11px] uppercase tracking-[0.22em] text-neutral-500">
 
@@ -149,9 +156,10 @@ export default function Hero() {
 
         </div>
 
-        {/* RIGHT — Portrait */}
-        <div className="lg:col-span-5 xl:col-span-5 relative flex items-center justify-center">
+        {/* RIGHT — Portrait & Creative AI Video Cover Card */}
+        <div className="lg:col-span-5 xl:col-span-5 relative flex flex-col items-center justify-start space-y-8">
 
+          {/* Portrait Card */}
           <motion.div
             initial={{ opacity: 0, scale: 0.97, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -162,7 +170,6 @@ export default function Hero() {
             }}
             className="relative aspect-[4/5] w-full max-w-[500px]"
           >
-
             {/* soft glow */}
             <div className="absolute -inset-8 bg-gradient-to-tr from-white/[0.04] via-transparent to-transparent blur-2xl rounded-[32px]" />
 
@@ -201,6 +208,68 @@ export default function Hero() {
             </div>
 
           </motion.div>
+
+          {/* Creative AI Video Cover Block */}
+          <Reveal delay={0.38} className="w-full max-w-[500px]">
+            <div className="w-full">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.24em] text-neutral-400 font-medium">
+                  <Play className="w-3.5 h-3.5 text-neutral-300" />
+                  <span>Meet Aniruddha</span>
+                </div>
+                
+                {/* Subtle AI badge */}
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full border border-white/10 bg-white/[0.03] text-[9.5px] uppercase tracking-[0.2em] text-neutral-400">
+                  <Sparkles className="w-3 h-3 text-emerald-400" />
+                  <span>AI Executive Twin</span>
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-[18px] border border-white/10 bg-gradient-to-br from-neutral-900 via-black to-neutral-950 shadow-2xl group">
+                
+                <video
+                  ref={videoRef}
+                  controls={isPlaying}
+                  preload="metadata"
+                  playsInline
+                  className="w-full aspect-video object-cover"
+                >
+                  <source
+                    src="/Executive_Welcome_Aniruddha_Vanshiv.mp4"
+                    type="video/mp4"
+                  />
+                  Your browser does not support the video tag.
+                </video>
+
+                {/* Custom Creative Cover Overlay (Visible before play) */}
+                {!isPlaying && (
+                  <div 
+                    onClick={handlePlayVideo}
+                    className="absolute inset-0 z-10 cursor-pointer flex flex-col items-center justify-center p-6 bg-gradient-to-b from-black/50 via-black/80 to-black/95 backdrop-blur-[2px] transition-all group-hover:bg-black/70"
+                  >
+                    {/* Ambient glow effect */}
+                    <div className="absolute w-32 h-32 rounded-full bg-white/[0.03] blur-xl pointer-events-none" />
+
+                    <div className="relative flex flex-col items-center text-center space-y-3">
+                      <div className="h-14 w-14 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center text-white group-hover:scale-110 group-hover:bg-white group-hover:text-black transition-all duration-300 shadow-2xl">
+                        <Play className="w-5 h-5 fill-current ml-0.5" />
+                      </div>
+
+                      <div>
+                        <div className="text-[13px] font-medium text-white tracking-tight">
+                          AI Executive Introduction
+                        </div>
+                        <div className="mt-1 text-[11px] text-neutral-400 uppercase tracking-[0.2em]">
+                          Synthetic Twin • 28 Seconds
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+              </div>
+            </div>
+          </Reveal>
 
         </div>
 
