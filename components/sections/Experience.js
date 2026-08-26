@@ -8,7 +8,7 @@ export default function Experience() {
     {
       company: 'Flipkart India Pvt Ltd',
       role: 'Associate Director — Gross to Net / Trust & Safety / CX',
-      period: '2015 — Present',
+      period: 'Jul 2015 — Jul 2026',
       location: 'Bengaluru, India',
       points: [
         'Trust & Safety transformation across marketplace ecosystem',
@@ -18,7 +18,6 @@ export default function Experience() {
         'AI‑enabled operational systems and intelligent automation',
         'Large‑scale cross‑functional execution across Product, Engineering, Analytics, Finance & Business',
       ],
-      current: true,
     },
     {
       company: 'Bharat Petroleum Corporation Ltd',
