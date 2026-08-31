@@ -5,6 +5,7 @@ import Leadership from '@/components/sections/Leadership'
 import Expertise from '@/components/sections/Expertise'
 import Products from '@/components/sections/Products'
 import AILeadership from '@/components/sections/AILeadership'
+import AIDomainProduct from '@/components/sections/AIDomainProduct'
 import Philosophy from '@/components/sections/Philosophy'
 import Experience from '@/components/sections/Experience'
 import Education from '@/components/sections/Education'
@@ -22,6 +23,7 @@ export default function App() {
       <Expertise />
       <Products />
       <AILeadership />
+      <AIDomainProduct />
       <Philosophy />
       <Experience />
       <Education />
