@@ -1,130 +1,153 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="author" content="Aniruddha Vanshiv"><meta name="robots" content="noindex"><title>Trust and Safety Capability · Aniruddha Vanshiv</title><style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style></head><body><title>Trust and Safety Capability</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="author" content="Aniruddha Vanshiv"><meta name="robots" content="noindex"><title>Trust and Safety Capability · Aniruddha Vanshiv</title><style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style></head><body>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
 <style>
-/* Layout: sticky tab bar over one reading column; deep dives use a rail of use cases beside a blueprint grid */
+/* Layout: light, Apple-like reading column; sticky frosted tab bar; deep dives as a rail beside stacked stage cards (no sideways scrolling) */
 :root{
- --bg:#f5f6f8;--panel:#ffffff;--ink:#15213a;--muted:#5b6579;--line:#dbe0e8;
- --navy:#16325c;--navy-soft:#e7ecf4;--amber:#b87418;--amber-soft:#fbf1e2;
- --bad:#a8402c;--bad-soft:#fbece8;--good:#2e7550;--good-soft:#e7f3ec;
- --display:"Space Grotesk",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+ --bg:#f5f5f7;--panel:#ffffff;--ink:#1d1d1f;--muted:#6e6e73;--line:#e3e3e8;
+ --navy:#0066cc;--navy-soft:#eaf3fe;--amber:#b25000;--amber-soft:#fff5e8;
+ --bad:#c9302c;--bad-soft:#fdf0ef;--good:#1f8a3c;--good-soft:#edf8f0;
+ --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",system-ui,sans-serif;
+ --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Inter",system-ui,sans-serif;
+ color-scheme:light;
 }
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
- --bg:#0f141d;--panel:#171e2a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2a3344;
- --navy:#9db8e6;--navy-soft:#1d2a40;--amber:#e3a650;--amber-soft:#2e2414;
- --bad:#ec8a76;--bad-soft:#3a1f1a;--good:#7fc8a0;--good-soft:#173026;color-scheme:dark}}
-:root[data-theme="dark"]{
- --bg:#0f141d;--panel:#171e2a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2a3344;
- --navy:#9db8e6;--navy-soft:#1d2a40;--amber:#e3a650;--amber-soft:#2e2414;
- --bad:#ec8a76;--bad-soft:#3a1f1a;--good:#7fc8a0;--good-soft:#173026;color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
-.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
-header.top{background:var(--panel);border-bottom:1px solid var(--line)}
-header.top .wrap{padding-block:22px 14px}
-.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);font-weight:600}
-h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.15;margin:6px 0 8px;text-wrap:balance}
-h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 10px;text-wrap:balance}
-h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0 0 8px}
-p{margin:0 0 10px;max-width:72ch}
-.by{color:var(--muted);font-size:13px}
-nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--panel);border-bottom:1px solid var(--line)}
-nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
-nav.tabs a{flex:none;padding:12px 12px;color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;border-bottom:2px solid transparent}
-nav.tabs a[aria-current="page"]{color:var(--navy);border-color:var(--amber)}
-nav.tabs a:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
-main .wrap{padding-block:24px 60px;display:grid;gap:22px}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--panel)}
+header.top .wrap{padding-block:40px 22px}
+.eyebrow{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--amber);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(28px,4.4vw,44px);line-height:1.08;letter-spacing:-.02em;margin:8px 0 10px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:700;font-size:clamp(21px,2.6vw,26px);letter-spacing:-.01em;margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:18px;margin:0 0 8px}
+p{margin:0 0 10px;max-width:70ch}
+.by{color:var(--muted);font-size:14px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:rgba(255,255,255,.85);-webkit-backdrop-filter:saturate(180%) blur(16px);backdrop-filter:saturate(180%) blur(16px);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+nav.tabs a{flex:none;padding:13px 12px;color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;border-bottom:2px solid transparent}
+nav.tabs a:hover{color:var(--ink)}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--ink)}
+a,button{color:inherit}
+a:focus-visible,button:focus-visible,input:focus-visible,tr:focus-visible{outline:2px solid var(--navy);outline-offset:2px}
+main .wrap{padding-block:28px 72px;display:grid;gap:20px}
+section{display:grid;gap:20px}
 section[hidden]{display:none}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
-.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
-.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
-.kpi b{font-family:var(--display);font-size:28px;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
-.kpi span{font-size:13px;color:var(--muted)}
-.thesis{border-left:3px solid var(--amber);background:var(--amber-soft);padding:12px 16px;border-radius:0 8px 8px 0}
-.thesis p{margin:0}
-.ref{font:inherit;font-size:11.5px;line-height:1;padding:4px 7px;margin:2px 3px 2px 0;border-radius:99px;border:1px solid var(--line);background:var(--navy-soft);color:var(--navy);cursor:pointer;white-space:nowrap}
-.ref:hover{border-color:var(--navy)}
-.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:99px;background:var(--navy-soft);color:var(--navy);font-weight:500}
-.tag.b{background:var(--good-soft);color:var(--good)}.tag.p{background:var(--amber-soft);color:var(--amber)}
+.card{background:var(--panel);border-radius:18px;padding:24px;min-width:0;box-shadow:0 1px 2px rgba(0,0,0,.04),0 4px 16px rgba(0,0,0,.03)}
+@media (max-width:600px){.card{padding:18px;border-radius:14px}}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+.kpi{background:var(--panel);border-radius:18px;padding:18px 20px;display:flex;flex-direction:column;gap:6px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.kpi b{font-family:var(--display);font-size:32px;font-weight:700;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
+.kpi span{font-size:14px;color:var(--muted)}
+.thesis{background:var(--panel);border-radius:18px;padding:24px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.thesis .lead{font-size:clamp(18px,2.2vw,21px);line-height:1.45;font-weight:500;max-width:62ch;margin:0 0 16px}
+.tri{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.tri div{background:var(--bg);border-radius:12px;padding:14px 16px;font-size:15px}
+.tri b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);margin-bottom:4px}
+.how{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.step{border-radius:14px;padding:14px;background:var(--bg);display:grid;gap:4px;align-content:start}
+.step .k{font-family:var(--display);font-size:20px;font-weight:700}
+.step .q{font-weight:600;font-size:14px}
+.step .x{font-size:13px;color:var(--muted)}
+.step .tagline{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.step.check .k{color:var(--navy)}.step.engine .k{color:var(--ink)}
+.ref{font:inherit;font-size:12px;line-height:1;padding:5px 9px;margin:2px 4px 2px 0;border-radius:99px;border:0;background:var(--navy-soft);color:var(--navy);cursor:pointer;white-space:nowrap}
+.ref:hover{background:#d8e9fc}
+.tag{display:inline-block;font-size:11.5px;padding:3px 8px;border-radius:99px;background:var(--navy-soft);color:var(--navy);font-weight:500}
 .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:11px 10px;border-bottom:1px solid var(--line)}
 th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
-.mx td,.mx th{text-align:center;min-width:64px}.mx td:first-child,.mx th:first-child{text-align:left;min-width:190px}
+.mx td,.mx th{text-align:center;min-width:62px}.mx td:first-child,.mx th:first-child{text-align:left;min-width:200px}
 .dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle}
 .d2{background:var(--navy)}.d1{background:transparent;border:2px solid var(--navy)}.d0{background:var(--line);width:6px;height:6px}
 .mx tr.rowlink{cursor:pointer}.mx tr.rowlink:hover td{background:var(--navy-soft)}
-.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:8px}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:10px}
 /* architecture */
 .stack{display:grid;gap:8px}
-.tier{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:stretch}
-.tier>.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding-top:10px}
+.tier{display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:stretch}
+.tier>.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding-top:12px}
 .boxes{display:flex;flex-wrap:wrap;gap:8px}
-.box{flex:1 1 150px;text-align:left;font:inherit;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;color:var(--ink)}
-.box small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
-.box.build{border-left:4px solid var(--good)}.box.partner{border-left:4px solid var(--amber)}.box.on{outline:2px solid var(--navy)}
+.box{flex:1 1 150px;text-align:left;font:inherit;font-size:15px;background:var(--bg);border:0;border-radius:12px;padding:12px 14px;cursor:pointer;color:var(--ink)}
+.box small{display:block;font-size:12px;margin-top:2px;font-weight:600}
+.box.build small{color:var(--good)}.box.partner small{color:var(--amber)}
+.box.on{box-shadow:inset 0 0 0 2px var(--navy);background:var(--navy-soft)}
 .arrow{text-align:center;color:var(--muted);font-size:13px}
-.explain{background:var(--navy-soft);border-radius:8px;padding:12px 14px;min-height:64px}
+.explain{background:var(--navy-soft);border-radius:12px;padding:14px 16px;min-height:64px}
 .phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.phase{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--panel)}
-.phase .n{font-family:var(--display);color:var(--amber);font-weight:600}
+.phase{border-radius:14px;padding:16px;background:var(--bg)}
+.phase .n{font-family:var(--display);color:var(--amber);font-weight:700;margin-bottom:4px}
 @media (max-width:600px){.tier{grid-template-columns:1fr}.tier>.lbl{padding-top:0}}
 /* deep dives */
-.dd{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start}
+.dd{display:grid;grid-template-columns:250px minmax(0,1fr);gap:20px;align-items:start}
 @media (max-width:860px){.dd{grid-template-columns:1fr}}
-.rail{display:grid;gap:6px;position:sticky;top:60px}
+.rail{display:grid;gap:6px;position:sticky;top:64px}
 @media (max-width:860px){.rail{position:static;grid-auto-flow:column;grid-auto-columns:minmax(200px,70%);overflow-x:auto}}
-.ucb{font:inherit;text-align:left;display:grid;grid-template-columns:28px 1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer}
-.ucb .r{font-family:var(--display);font-weight:600;color:var(--amber);font-size:18px}
-.ucb small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
-.ucb[aria-pressed="true"]{border-color:var(--navy);background:var(--navy-soft)}
-.bp{display:grid;gap:0;min-width:820px;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
-.bp .c{padding:8px 9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}
-.bp .h{background:var(--navy);color:#fff;font-weight:600;font-size:12.5px}
-:root[data-theme="dark"] .bp .h{color:#0f141d}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bp .h{color:#0f141d}}
-.bp .lane{position:sticky;left:0;z-index:1;font-weight:600;font-size:12px;color:var(--muted);background:var(--bg)}
-.bp .today{background:var(--bad-soft);color:var(--ink)}
-.bp .lane.today{color:var(--bad);background:var(--bad-soft)}
-.bp .sys{background:var(--good-soft)}
-.bp .lane.sys{color:var(--good);background:var(--good-soft)}
-.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
-.cols3 ul{margin:0;padding-left:18px}.cols3 li{margin:3px 0}
-.ladder{display:grid;gap:6px}
-.ladder div{display:grid;grid-template-columns:70px 1fr;gap:8px;font-size:14px}
-.ladder b{font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
-.l0{color:var(--good)}.l1{color:var(--navy)}.l2{color:var(--amber)}.l3{color:var(--bad)}
-.why{font-size:13px;color:var(--muted)}
-.exp{border-left:4px solid var(--amber);background:var(--amber-soft)}.exp p{margin:4px 0 0}
-.toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.toggle button{font:inherit;font-size:13px;padding:6px 12px;border:0;background:var(--panel);color:var(--ink);cursor:pointer}
-.toggle button[aria-pressed="true"]{background:var(--navy);color:var(--panel)}
+.ucb{font:inherit;text-align:left;display:grid;grid-template-columns:26px 1fr;gap:8px;padding:12px;border:0;border-radius:12px;background:var(--panel);color:var(--ink);cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.ucb .r{font-family:var(--display);font-weight:700;color:var(--muted);font-size:17px}
+.ucb b{font-size:15px}
+.ucb small{display:block;color:var(--muted);font-size:12.5px;line-height:1.35}
+.ucb[aria-pressed="true"]{background:var(--ink);color:#fff}
+.ucb[aria-pressed="true"] small,.ucb[aria-pressed="true"] .r{color:#c7c7cc}
+.minute{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin-top:6px}
+.minute div{background:var(--bg);border-radius:12px;padding:14px}
+.minute b{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+.minute .m1 b{color:var(--bad)}.minute .m2 b{color:var(--navy)}.minute .m3 b{color:var(--amber)}.minute .m4 b{color:var(--good)}
+.readhow{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13.5px;color:var(--muted);margin:2px 0 14px}
+.readhow span{display:inline-flex;align-items:center;gap:6px}
+.sw{width:12px;height:12px;border-radius:3px;display:inline-block}
+.stages{display:grid;gap:10px}
+.stage{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1.4fr);gap:12px;align-items:stretch}
+.stage .nm{display:flex;gap:10px;align-items:flex-start;padding-top:12px}
+.stage .nm i{font-style:normal;font-family:var(--display);font-weight:700;width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;flex:none}
+.stage .nm b{font-size:15px;line-height:1.3}
+.stage .nm small{display:block;color:var(--muted);font-size:12.5px;font-weight:400;margin-top:2px}
+.bad,.fix{border-radius:12px;padding:12px 14px;font-size:14.5px}
+.bad{background:var(--bad-soft)}.fix{background:var(--good-soft)}
+.bad b,.fix b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:3px}
+.bad b{color:var(--bad)}.fix b{color:var(--good)}
+.fix .sub{display:block;font-size:12.5px;color:var(--muted);margin-top:6px}
+@media (max-width:700px){.stage{grid-template-columns:1fr}.stage .nm{padding-top:4px}}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.cols3 ul{margin:0;padding-left:18px}.cols3 li{margin:5px 0}
+.ladder{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ladder div{border-radius:10px;padding:10px;font-size:13.5px;display:grid;gap:3px;align-content:start}
+.ladder b{font-size:12px;text-transform:uppercase;letter-spacing:.05em}
+.ladder .l0{background:var(--good-soft)}.ladder .l0 b{color:var(--good)}
+.ladder .l1{background:var(--navy-soft)}.ladder .l1 b{color:var(--navy)}
+.ladder .l2{background:var(--amber-soft)}.ladder .l2 b{color:var(--amber)}
+.ladder .l3{background:var(--bad-soft)}.ladder .l3 b{color:var(--bad)}
+.riskbar{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--good),var(--navy),var(--amber),var(--bad));margin:10px 0 4px}
+.riskends{display:flex;justify-content:space-between;font-size:12px;color:var(--muted)}
+@media (max-width:600px){.ladder{grid-template-columns:1fr 1fr}}
+.why{font-size:14px;color:var(--muted)}
+.exp{background:var(--amber-soft);box-shadow:none}.exp p{margin:4px 0 0}
 /* value */
 .sl{display:grid;gap:2px;margin-bottom:12px}
 .sl .row{display:flex;justify-content:space-between;gap:8px;font-size:14px}
 .sl output{font-variant-numeric:tabular-nums;font-weight:600}
 .sl input{width:100%;accent-color:var(--navy)}
-.sl small{color:var(--muted);font-size:12px}
 .btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
-.btn{font:inherit;font-size:14px;padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
-.btn[aria-pressed="true"]{background:var(--navy);color:var(--panel);border-color:var(--navy)}
+.btn{font:inherit;font-size:14px;padding:8px 16px;border-radius:99px;border:0;background:var(--bg);color:var(--ink);cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--ink);color:#fff}
 .bars{display:grid;gap:10px}
-.bar{display:grid;grid-template-columns:150px 1fr 80px;gap:10px;align-items:center;font-size:14px}
-.bar .t{height:16px;background:var(--navy-soft);border-radius:4px;overflow:hidden}
-.bar .t i{display:block;height:100%;background:var(--navy);border-radius:4px;transition:width .25s}
+.bar{display:grid;grid-template-columns:160px 1fr 80px;gap:10px;align-items:center;font-size:14px}
+.bar .t{height:14px;background:var(--bg);border-radius:7px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--navy);border-radius:7px;transition:width .25s}
 .bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
 @media (max-width:480px){.bar{grid-template-columns:110px 1fr 64px;font-size:13px}}
-.total{font-family:var(--display);font-size:40px;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
-.note{font-size:13px;color:var(--muted)}
+.total{font-family:var(--display);font-size:48px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.plain{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.plain li{display:grid;grid-template-columns:90px 1fr;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line)}
+.plain li b{font-family:var(--display);font-size:20px;font-variant-numeric:tabular-nums}
+.note{font-size:13.5px;color:var(--muted)}
 /* sources */
-.srcl{display:grid;gap:10px}
-.src{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line)}
-.src a{color:var(--navy);font-weight:500}
+.srcl{display:grid;gap:4px}
+.src{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:12px 0;border-bottom:1px solid var(--line)}
+.src a{color:var(--navy);font-weight:500;text-decoration:none}
 .src p{grid-column:1/-1;margin:0;font-size:14px;color:var(--muted)}
-/* source sheet */
-#sheet{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.12);padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
-#sheet .wrap{padding-block:14px 0;display:grid;gap:6px}
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel);box-shadow:0 -8px 30px rgba(0,0,0,.12);border-radius:18px 18px 0 0;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+#sheet .wrap{padding-block:18px 0;display:grid;gap:8px}
 #sheet .top{display:flex;justify-content:space-between;gap:12px;align-items:start}
 #sheet a{color:var(--navy);font-weight:500}
 @media (prefers-reduced-motion: reduce){.bar .t i{transition:none}}
@@ -142,7 +165,27 @@ th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute
 <main><div class="wrap">
 
 <section id="overview">
- <div class="thesis"><p><b>The idea in one line:</b> sell retailers one Trust and Safety suite that asks three questions together (who is acting, is what they show true, is the timing normal), owns the decision and the "what" layer, and plugs in specialist partners for identity and devices.</p></div>
+ <div class="thesis">
+  <div class="eyebrow">The idea</div>
+  <p class="lead" style="margin-top:6px">Retailers lose money and customer trust to fake listings, fraudulent sellers, abusive returns and insider theft. Today most of it is caught late, by people working queues. I propose one Trust and Safety suite that checks every listing, order, payout and claim as it happens, and acts before the loss.</p>
+  <div class="tri">
+   <div><b>The context</b>Regulators now fine listing by listing, abuse is organised (one device, thousands of orders), and manual review cannot keep up.</div>
+   <div><b>Who it is for</b>Marketplaces and large retailers, and the brands that sell on them.</div>
+   <div><b>How it helps</b>Less fraud and fewer bad returns, honest sellers and customers left alone, and evidence ready for any regulator or appeal.</div>
+  </div>
+ </div>
+ <div class="card">
+  <h2>How the suite works, in six steps</h2>
+  <p class="note">Three checks run on every event. Their answers feed one decision. The suite then acts and learns.</p>
+  <div class="how">
+   <div class="step check"><span class="tagline" style="color:var(--amber)">Check 1 · partner</span><span class="k">Who</span><span class="q">Is this person real, and linked to anyone bad?</span><span class="x">e.g. a new seller shares a device and bank account with a banned one</span></div>
+   <div class="step check"><span class="tagline" style="color:var(--good)">Check 2 · build</span><span class="k">What</span><span class="q">Does it match the real product and the rules?</span><span class="x">e.g. a listing shows a brand logo with no brand authorisation</span></div>
+   <div class="step check"><span class="tagline" style="color:var(--good)">Check 3 · build</span><span class="k">When</span><span class="q">Is the pattern or timing normal?</span><span class="x">e.g. orders jump 10x and a payout is requested on day 3</span></div>
+   <div class="step engine"><span class="tagline" style="color:var(--muted)">Then</span><span class="k">Decide</span><span class="q">One risk score, applied through written rules</span><span class="x">every rule versioned, so decisions are explainable</span></div>
+   <div class="step engine"><span class="tagline" style="color:var(--muted)">Then</span><span class="k">Act</span><span class="q">Respond in proportion to the risk</span><span class="x">allow, add friction, hold, or block; people take the grey middle</span></div>
+   <div class="step engine"><span class="tagline" style="color:var(--muted)">Then</span><span class="k">Learn</span><span class="q">Log the reason, learn from outcomes</span><span class="x">appeals and results improve the next decision</span></div>
+  </div>
+ </div>
  <div class="kpis" style="margin-top:18px">
   <div class="kpi"><b>35%</b><span>of urban Indian consumers met a fake in a year</span><div><button class="ref" data-ref="aspa">ASPA–CRISIL · Survey</button></div></div>
   <div class="kpi"><b>16,900+</b><span>listings behind ₹10 lakh fines each on Amazon, Flipkart and Meta</span><div><button class="ref" data-ref="ccpa">CCPA 2026 · Regulator</button></div></div>
@@ -150,21 +193,21 @@ th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute
   <div class="kpi"><b>₹3.07</b><span>true cost to Indian retailers of each ₹1 of fraud</span><div><button class="ref" data-ref="lexis">LexisNexis · Vendor-commissioned</button></div></div>
  </div>
  <div class="card">
-  <h2>Problem and solve, at a glance</h2>
-  <p class="note">Rows are use cases in priority order; columns are the parts of the capability. Select a row to open its deep dive.</p>
+  <h2>Eight use cases, mapped to the six steps</h2>
+  <p class="note">Rows are use cases in priority order; columns are the six steps above. Select a row to open its deep dive.</p>
   <div class="scroll"><table class="mx" id="mx"></table></div>
   <div class="legend"><span><i class="dot d2"></i> Primary part of the solve</span><span><i class="dot d1"></i> Supporting</span><span><i class="dot d0"></i> Not used</span></div>
  </div>
  <div class="grid2">
-  <div class="card"><h3>How to read this</h3><p>The PDF is the short version. Here, every number links to its source, each use case has a blueprint showing where it breaks today and what the capability changes, and the value model lets you change the assumptions.</p><p class="note">Research compiled from public sources with AI research tools; the design, judgement and operating examples are my own.</p><p class="note">Source labels: Regulator, Company filing and Press come from the named body. Survey and Vendor figures are not independently audited. Illustrative means my assumption.</p></div>
-  <div class="card exp" style="grid-column:1/-1"><div class="eyebrow">From my Flipkart work</div>
+  <div class="card exp" style="grid-column:1/-1"><div class="eyebrow">Highlights from my Flipkart work</div><p class="note" style="margin:4px 0 0">A few relevant examples, not the full scope.</p>
    <ul style="margin:6px 0 0;padding-left:20px">
    <li><b>Customer abuse prevention:</b> automated checks and signals that routed high-risk transactions to fraud investigation.</li>
    <li><b>Seller protection fund claims:</b> rules plus an investigation queue comparing doorstep pickup photos with seller claim photos, against patterns like one broken unit shot from many angles.</li>
    <li><b>Listing go-live checks:</b> brand authorisation and trademark certificates for gated brands, FSSAI licences for food; aiming for OCR so routine checks never reach a person.</li>
-   <li><b>Reseller abuse (close to, not owner):</b> a device-intelligence partnership that linked accounts, devices and bank accounts.</li>
+   <li><b>Reseller abuse:</b> a device-intelligence partnership that linked accounts, devices and bank accounts to flag risky ones.</li>
    <li><b>Selected results:</b> owned written adjudication frameworks and policy design for fraud and abuse programs; real-time adjudication for about 400,000 customers a month at a 2.5-minute SLA; policy deployment cut from 7 days to 24 hours; counterfeit reduced by about 5 bps.</li>
    </ul></div>
+  <div class="card"><h3>About this page</h3><p>The PDF is the short version. Here, every number links to its source, each use case has a blueprint showing where it breaks today and what the capability changes, and the value model lets you change the assumptions.</p><p class="note">Research compiled from public sources with AI research tools; the design, judgement and operating examples are my own.</p><p class="note">Source labels: Regulator, Company filing and Press come from the named body. Survey and Vendor figures are not independently audited. Illustrative means my assumption.</p></div>
   <div class="card"><h3>Five design principles</h3><ol style="margin:0;padding-left:20px"><li><b>Prevent before you police:</b> catch at listing, onboarding and payout.</li><li><b>Score, then act in proportion:</b> automate clear cases, people for the middle, hold the severe.</li><li><b>Measure the cost of mistakes:</b> wrongly blocked sellers and customers are losses too.</li><li><b>Keep evidence:</b> every decision records its reason, for appeal, audit and regulator.</li><li><b>Fix the root cause:</b> fewer escalations, not faster replies.</li></ol></div>
  </div>
 </section>
@@ -228,6 +271,18 @@ th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute
    <div class="bars" id="vbars" style="margin-top:14px"></div>
    <p class="note" style="margin-top:14px">Not counted: wrongly blocked customers recovered, penalty risk, customer lifetime value, brand sales and ad spend. Loyalty effects rest on surveys of what shoppers say they would do. A case with every input at the top of its range gives totals above 5% of GMV, which I do not consider credible, so it is not offered.</p>
   </div>
+  <div class="card" style="grid-column:1/-1">
+   <h2>In plain words</h2>
+   <p>If a ₹10,000 crore marketplace ran this suite, my estimate is that it would save or earn about <b>₹41–131 crore a year</b> (0.4–1.3% of sales). The upper figure, the base case, breaks down like this:</p>
+   <ul class="plain">
+    <li><b>₹23 cr</b><span><b style="font-size:15px">Less fraud.</b> Fraud of about 0.3% of sales is ₹30 crore; with investigation and recovery it really costs about 3x that (₹92 crore). Cutting it by a quarter saves about ₹23 crore.</span></li>
+    <li><b>₹35 cr</b><span><b style="font-size:15px">Fewer avoidable returns.</b> About 2.5 crore returns a year; if 1 in 5 comes from a bad listing or abuse, and the suite stops 1 in 5 of those, that is 10 lakh fewer returns at about ₹350 each.</span></li>
+    <li><b>₹29 cr</b><span><b style="font-size:15px">Fewer refused COD orders.</b> About 83 lakh COD orders come back unsold; stopping 1 in 10 at about ₹350 each.</span></li>
+    <li><b>₹10 cr</b><span><b style="font-size:15px">More sales from trusted listings.</b> 0.5% more sales is ₹50 crore, of which the marketplace keeps about 20%.</span></li>
+    <li><b>₹34 cr</b><span><b style="font-size:15px">Less manual review.</b> 5 crore listing, review and claim decisions; automating 70% cuts the cost from about ₹10 to ₹0.20 each.</span></li>
+   </ul>
+   <p class="note" style="margin-top:12px">The low case, about ₹41 crore, uses cautious inputs on the same five levers. These are my assumptions, not data; in a real engagement the first 30 days replace them with the retailer's own numbers.</p>
+  </div>
   <div class="card">
    <h2>Change the assumptions</h2>
    <div class="btns"><button class="btn" id="pre-low" type="button" aria-pressed="false">Low case</button><button class="btn" id="pre-base" type="button" aria-pressed="true">Base case</button></div>
@@ -287,7 +342,7 @@ const SRC = {
 };
 
 const UC = [
-{id:"listing",title:"Listing truth",sub:"Counterfeit, non-compliant listings, items not as described",
+{id:"listing",title:"Listing truth",minute:{problem:"Fake, non-compliant or mismatched listings go live and are found only after a complaint, a return or a regulator fine.",catch:"Check every listing before it goes live: required documents read by OCR, brand terms and logos against authorisations, image vs title vs claims, price far below normal.",act:"Clean listings go live at once; fixable ones go back to the seller with a fix list; unclear ones to a reviewer; clear infringements blocked and the brand told.",prove:"Share of violations caught before listing; fewer not-as-described returns; few honest listings wrongly held."},sub:"Counterfeit, non-compliant listings, items not as described",
  why:"Regulators now fine listing by listing, bad listings drive returns, and the catalog is the ground truth.",
  exp:"At Flipkart I worked on go-live checks: brand authorisation or trademark certificates for gated brands and sellers, and FSSAI licences for food, through a mix of automated and manual checks. The aim was OCR on these documents so that routine checks never reach a person.",
  problem:"Sellers self-declare regulated fields, use brand terms and logos they are not authorised for, and upload images or claims that do not match the product. Today most of this is found after a complaint, a return or a regulator sweep.",
@@ -304,7 +359,7 @@ const UC = [
  actions:[["Allow","Clean listing goes live"],["Friction","Seller asked to fix specific fields"],["Hold","Uncertain cases wait for a reviewer"],["Block","Clear infringement; brand notified"]],
  metrics:["Violation prevalence in the live catalog","Share caught before listing","Not-as-described return rate","Time to sweep the catalog after a rule change","Honest listings wrongly held"],
  build:"Build. This is the \"what\" layer and the core of the suite. Brand authorisation data comes from brands."},
-{id:"bustout",title:"Seller bust-out",sub:"The \"negative debit\": spike, take the payout, disappear",
+{id:"bustout",title:"Seller bust-out",minute:{problem:"A seller starts clean, then orders or prices spike, payouts are taken early, and cancellations and claims land after the money has gone.",catch:"Score every seller daily: links to banned sellers, orders far above their own normal, price changes before a spike, buyers clustered on one device or address, payout requested very early.",act:"New or risky sellers get longer payout cycles and a rolling reserve; the riskiest are held and reviewed; confirmed rings are frozen with all linked accounts.",prove:"Fraud loss per ₹100 of payout falls; most bust-outs caught before payout; few honest sellers wrongly held."},sub:"The \"negative debit\": spike, take the payout, disappear",
  why:"Direct cash loss, invisible until the balance goes negative, and controllable at payout.",
  problem:"A seller builds a clean start, then orders or prices jump, payouts are taken at the first chance, and cancellations, returns or \"not received\" claims land after the money has left. The marketplace is left with a negative seller balance it rarely recovers.",
  refs:["surat","meeshoring","amazondd7","lexis"],
@@ -356,7 +411,7 @@ const UC = [
  build:"Build the item-identity match (catalog). Customer risk from in-house data or a partner. Process controls by category matter as much as models: for example, a tamper-evident tag loop on apparel and footwear means a worn-and-returned item cannot pass pickup with the tag intact."},
 {id:"cod",title:"COD refusals and reseller rings",sub:"Many accounts, one device; orders refused at the door",
  why:"COD fails about 7x as often as prepaid; caps per account are easy to get around.",
- exp:"At Flipkart I was close to, though I did not own, a partnership with a device-intelligence provider. Its linkages surfaced linked and risky accounts for reseller abuse, and risky devices and bank accounts more widely.",
+ exp:"At Flipkart, a partnership with a device-intelligence provider surfaced linked and risky accounts for reseller abuse, and risky devices and bank accounts more widely.",
  problem:"Fake or impulse COD orders are refused at the door and the cost lands after shipping. Resellers run many accounts on device farms to bypass per-customer caps on discounted stock.",
  refs:["clickpost","meeshodrhp","bureau","surat","trustmesh"],
  stages:["Account and device","Cart and checkout","Order confirmed","Dispatch","Delivery attempt","Learn"],
@@ -473,28 +528,34 @@ window.addEventListener('hashchange',()=>{route();window.scrollTo(0,0);});
    x.addEventListener('click',()=>{document.querySelectorAll('.box').forEach(o=>o.classList.remove('on'));x.classList.add('on');const ex=$('#explain');ex.replaceChildren(el('b',null,b[0]+': '),document.createTextNode(b[1]));});bx.append(x);});
   row.append(bx);s.append(row);if(i<T.length-1)s.append(el('div','arrow','↓'));});const w=[...document.querySelectorAll('.box')].find(x=>x.textContent.startsWith('What'));if(w)w.click();})();
 // deep dives
-let showToday=true;
 function renderDD(){const r=$('#rail');r.replaceChildren();UC.forEach((u,i)=>{const b=el('button','ucb');b.type='button';b.setAttribute('aria-pressed',u.id===cur);
   b.append(el('span','r',String(i+1)));const d=el('span');d.append(el('b',null,u.title),el('small',null,u.sub));b.append(d);
   b.addEventListener('click',()=>{location.hash='dd-'+u.id;});r.append(b);});
  const u=UC.find(x=>x.id===cur),i=UC.indexOf(u),v=$('#ddview');v.replaceChildren();
- const head=el('div','card');head.append(el('div','eyebrow','Priority '+(i+1)+' of '+UC.length));
- head.append(el('h2',null,u.title));head.append(el('p','why',u.sub));head.append(el('p',null,u.problem));head.append(el('p','why','Why this rank: '+u.why));
+ const head=el('div','card');head.append(el('div','eyebrow','Use case '+(i+1)+' of '+UC.length));
+ head.append(el('h2',null,u.title));head.append(el('p','why',u.sub));
+ const mn=u.minute||{problem:u.problem,catch:u.signals.slice(0,3).join('; ')+'.',act:u.actions.map(a=>a[0]+': '+a[1].charAt(0).toLowerCase()+a[1].slice(1)).join('. ')+'.',prove:u.metrics.slice(0,2).join('; ')+'.'};
+ head.append(el('h3',null,'In one minute'));
+ const g=el('div','minute');[['m1','The problem',mn.problem],['m2','How we catch it',mn.catch],['m3','What we do',mn.act],['m4','How we know it works',mn.prove]].forEach(([c,t,x])=>{const d=el('div',c);d.append(el('b',null,t),document.createTextNode(x));g.append(d);});head.append(g);
+ const w=el('p','why','Why rank '+(i+1)+': '+u.why);w.style.marginTop='14px';head.append(w);
  const rr=el('div');u.refs.forEach(x=>rr.append(refBtn(x)));if(!u.refs.length)rr.append(el('span','note',u.noref||'No quantified source used; this use case is a design.'));head.append(rr);v.append(head);
  if(u.exp){const x=el('div','card exp');x.append(el('div','eyebrow','From my Flipkart work'));x.append(el('p',null,u.exp));v.append(x);}
- const bpc=el('div','card');const top=el('div');top.style.cssText='display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px';
- top.append(el('h3',null,'Service blueprint'));const tg=el('div','toggle');[['Problem and solve',true],['Solve only',false]].forEach(([l,val])=>{const b=el('button',null,l);b.type='button';b.setAttribute('aria-pressed',showToday===val);b.addEventListener('click',()=>{showToday=val;renderDD();});tg.append(b);});top.append(tg);bpc.append(top);
- const sc=el('div','scroll');const g=el('div','bp');g.style.gridTemplateColumns='130px repeat('+u.stages.length+',minmax(130px,1fr))';
- g.append(el('div','c h','Stage'));u.stages.forEach(s=>g.append(el('div','c h',s)));
- const L=[];if(showToday)L.push(['Breaks today','today',u.today]);
- L.push(['Seller or customer','',u.lanes.actor],['What they see','',u.lanes.sees],['System: signals, score, rule','sys',u.lanes.system],['People','',u.lanes.people],['Evidence and learning','',u.lanes.log]);
- L.forEach(([n,c,a])=>{g.append(el('div','c lane '+c,n));a.forEach(x=>g.append(el('div','c '+c,x)));});
- sc.append(g);bpc.append(sc);bpc.append(el('p','note','Scroll sideways on a phone. Red row: where the process breaks today. Green row: what the capability adds.'));v.append(bpc);
+ const bpc=el('div','card');bpc.append(el('h3',null,'Step by step: today vs with the suite'));
+ const rh=el('div','readhow');[['How to read it:',null],['Each row is one step of the journey, top to bottom.',null],['Where it breaks today','var(--bad-soft)'],['What the suite does instead','var(--good-soft)']].forEach(([t,c])=>{const s=el('span');if(c){const q=el('i','sw');q.style.background=c;q.style.boxShadow='inset 0 0 0 1px rgba(0,0,0,.08)';s.append(q);}s.append(document.createTextNode(t));if(!c&&t==='How to read it:')s.style.fontWeight='600';rh.append(s);});bpc.append(rh);
+ const st=el('div','stages');u.stages.forEach((name,k)=>{const row=el('div','stage');
+  const nm=el('div','nm');nm.append(el('i',null,String(k+1)));const nb=el('b',null,name);const act=u.lanes.actor[k];if(act&&act!=='—')nb.append(el('small',null,act));nm.append(nb);
+  const bad=el('div','bad');bad.append(el('b',null,'Today'),document.createTextNode(u.today[k]&&u.today[k]!=='—'?u.today[k]:'No issue at this step'));
+  const fix=el('div','fix');fix.append(el('b',null,'With the suite'),document.createTextNode(u.lanes.system[k]&&u.lanes.system[k]!=='—'?u.lanes.system[k]:'No change needed'));
+  const extra=[];if(u.lanes.people[k]&&u.lanes.people[k]!=='—')extra.push('People: '+u.lanes.people[k]);if(u.lanes.sees[k]&&u.lanes.sees[k]!=='—')extra.push('They see: '+u.lanes.sees[k]);if(u.lanes.log[k]&&u.lanes.log[k]!=='—')extra.push('Recorded: '+u.lanes.log[k]);
+  if(extra.length)fix.append(el('span','sub',extra.join(' · ')));
+  row.append(nm,bad,fix);st.append(row);});bpc.append(st);v.append(bpc);
+ const ac=el('div','card');ac.append(el('h3',null,'How it responds: stronger action as risk rises'));ac.append(el('p','why','Every case gets a risk score. Most are allowed automatically; only the risky few reach a person, and only the clearest are blocked.'));
+ ac.append(el('div','riskbar'));const re=el('div','riskends');re.append(el('span',null,'Low risk'),el('span',null,'High risk'));ac.append(re);
+ const ld=el('div','ladder');ld.style.marginTop='10px';u.actions.forEach((x,k)=>{const d=el('div','l'+k);d.append(el('b',null,x[0]),el('span',null,x[1]));ld.append(d);});ac.append(ld);v.append(ac);
  const c3=el('div','cols3');
  const a=el('div','card');a.append(el('h3',null,'Early signals'));const ul=el('ul');u.signals.forEach(s=>ul.append(el('li',null,s)));a.append(ul);
- const b=el('div','card');b.append(el('h3',null,'Actions, in proportion'));const ld=el('div','ladder');u.actions.forEach((x,k)=>{const d=el('div');d.append(el('b','l'+k,x[0]),el('span',null,x[1]));ld.append(d);});b.append(ld);
  const m=el('div','card');m.append(el('h3',null,'Metrics that prove it'));const ul2=el('ul');u.metrics.forEach(s=>ul2.append(el('li',null,s)));m.append(ul2);
- c3.append(a,b,m);v.append(c3);
+ c3.append(a,m);v.append(c3);
  const bp=el('div','card');bp.append(el('h3',null,'Build or partner'));bp.append(el('p',null,u.build));v.append(bp);}
 // value
 const A=[["gmv","GMV","₹ cr",10000,10000,2000,30000,500],["aov","Average order value","₹",1200,1200,500,3000,100],["fraud","Direct fraud loss","% of GMV",0.3,0.2,0.1,1.5,0.05],["mult","Cost multiplier on fraud","×",3.07,3.07,1,5,0.01],["fraudred","Fraud reduction","%",25,15,5,60,1],["ret","Return rate","% of orders",30,30,10,50,1],["addr","Returns caused by listings or abuse","% of returns",20,15,5,40,1],["prev","Of those, prevented","%",20,10,5,50,1],["cost","Cost per return or RTO","₹",350,285,200,600,5],["cod","COD share of orders","%",40,40,10,70,1],["rto","COD RTO rate","%",25,21,10,45,1],["rtored","RTO reduction","%",10,5,5,30,1],["uplift","Conversion uplift","% of GMV",0.5,0.25,0.1,3,0.05],["take","Take rate","%",20,20,5,30,1],["dec","Decisions a year","crore",5,5,1,15,0.5],["auto","Automated share","%",70,50,30,95,5],["human","Human cost per decision","₹",10,3,1,40,1],["ai","Automated cost per decision","₹",0.2,0.5,0.05,1,0.05]];
