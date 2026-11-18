@@ -1,0 +1,520 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="author" content="Aniruddha Vanshiv"><meta name="robots" content="noindex"><title>Trust and Safety Capability · Aniruddha Vanshiv</title><style>body{margin:0;font-size:14px}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style></head><body><title>Trust and Safety Capability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap">
+<style>
+/* Layout: sticky tab bar over one reading column; deep dives use a rail of use cases beside a blueprint grid */
+:root{
+ --bg:#f5f6f8;--panel:#ffffff;--ink:#15213a;--muted:#5b6579;--line:#dbe0e8;
+ --navy:#16325c;--navy-soft:#e7ecf4;--amber:#b87418;--amber-soft:#fbf1e2;
+ --bad:#a8402c;--bad-soft:#fbece8;--good:#2e7550;--good-soft:#e7f3ec;
+ --display:"Space Grotesk",system-ui,sans-serif;--body:"Inter",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+ --bg:#0f141d;--panel:#171e2a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2a3344;
+ --navy:#9db8e6;--navy-soft:#1d2a40;--amber:#e3a650;--amber-soft:#2e2414;
+ --bad:#ec8a76;--bad-soft:#3a1f1a;--good:#7fc8a0;--good-soft:#173026;color-scheme:dark}}
+:root[data-theme="dark"]{
+ --bg:#0f141d;--panel:#171e2a;--ink:#e6eaf1;--muted:#9aa4b6;--line:#2a3344;
+ --navy:#9db8e6;--navy-soft:#1d2a40;--amber:#e3a650;--amber-soft:#2e2414;
+ --bad:#ec8a76;--bad-soft:#3a1f1a;--good:#7fc8a0;--good-soft:#173026;color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.5}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--panel)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{background:var(--panel);border-bottom:1px solid var(--line)}
+header.top .wrap{padding-block:22px 14px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--amber);font-weight:600}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.4vw,34px);line-height:1.15;margin:6px 0 8px;text-wrap:balance}
+h2{font-family:var(--display);font-weight:600;font-size:22px;margin:0 0 10px;text-wrap:balance}
+h3{font-family:var(--display);font-weight:600;font-size:17px;margin:0 0 8px}
+p{margin:0 0 10px;max-width:72ch}
+.by{color:var(--muted);font-size:13px}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--panel);border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+nav.tabs a{flex:none;padding:12px 12px;color:var(--muted);text-decoration:none;font-weight:500;font-size:14px;border-bottom:2px solid transparent}
+nav.tabs a[aria-current="page"]{color:var(--navy);border-color:var(--amber)}
+nav.tabs a:focus-visible,button:focus-visible,a:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+main .wrap{padding-block:24px 60px;display:grid;gap:22px}
+section[hidden]{display:none}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:18px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.kpi b{font-family:var(--display);font-size:28px;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
+.kpi span{font-size:13px;color:var(--muted)}
+.thesis{border-left:3px solid var(--amber);background:var(--amber-soft);padding:12px 16px;border-radius:0 8px 8px 0}
+.thesis p{margin:0}
+.ref{font:inherit;font-size:11.5px;line-height:1;padding:4px 7px;margin:2px 3px 2px 0;border-radius:99px;border:1px solid var(--line);background:var(--navy-soft);color:var(--navy);cursor:pointer;white-space:nowrap}
+.ref:hover{border-color:var(--navy)}
+.tag{display:inline-block;font-size:11px;padding:2px 7px;border-radius:99px;background:var(--navy-soft);color:var(--navy);font-weight:500}
+.tag.b{background:var(--good-soft);color:var(--good)}.tag.p{background:var(--amber-soft);color:var(--amber)}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 10px;border-bottom:1px solid var(--line)}
+th{font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.mx td,.mx th{text-align:center;min-width:64px}.mx td:first-child,.mx th:first-child{text-align:left;min-width:190px}
+.dot{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:middle}
+.d2{background:var(--navy)}.d1{background:transparent;border:2px solid var(--navy)}.d0{background:var(--line);width:6px;height:6px}
+.mx tr.rowlink{cursor:pointer}.mx tr.rowlink:hover td{background:var(--navy-soft)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-top:8px}
+/* architecture */
+.stack{display:grid;gap:8px}
+.tier{display:grid;grid-template-columns:120px 1fr;gap:10px;align-items:stretch}
+.tier>.lbl{font-size:12px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;padding-top:10px}
+.boxes{display:flex;flex-wrap:wrap;gap:8px}
+.box{flex:1 1 150px;text-align:left;font:inherit;font-size:14px;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:10px 12px;cursor:pointer;color:var(--ink)}
+.box small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.box.build{border-left:4px solid var(--good)}.box.partner{border-left:4px solid var(--amber)}.box.on{outline:2px solid var(--navy)}
+.arrow{text-align:center;color:var(--muted);font-size:13px}
+.explain{background:var(--navy-soft);border-radius:8px;padding:12px 14px;min-height:64px}
+.phases{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.phase{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--panel)}
+.phase .n{font-family:var(--display);color:var(--amber);font-weight:600}
+@media (max-width:600px){.tier{grid-template-columns:1fr}.tier>.lbl{padding-top:0}}
+/* deep dives */
+.dd{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:860px){.dd{grid-template-columns:1fr}}
+.rail{display:grid;gap:6px;position:sticky;top:60px}
+@media (max-width:860px){.rail{position:static;grid-auto-flow:column;grid-auto-columns:minmax(200px,70%);overflow-x:auto}}
+.ucb{font:inherit;text-align:left;display:grid;grid-template-columns:28px 1fr;gap:8px;padding:10px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);cursor:pointer}
+.ucb .r{font-family:var(--display);font-weight:600;color:var(--amber);font-size:18px}
+.ucb small{display:block;color:var(--muted);font-size:12px;line-height:1.35}
+.ucb[aria-pressed="true"]{border-color:var(--navy);background:var(--navy-soft)}
+.bp{display:grid;gap:0;min-width:820px;border:1px solid var(--line);border-radius:8px;overflow:hidden;font-size:13px}
+.bp .c{padding:8px 9px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--panel)}
+.bp .h{background:var(--navy);color:#fff;font-weight:600;font-size:12.5px}
+:root[data-theme="dark"] .bp .h{color:#0f141d}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bp .h{color:#0f141d}}
+.bp .lane{position:sticky;left:0;z-index:1;font-weight:600;font-size:12px;color:var(--muted);background:var(--bg)}
+.bp .today{background:var(--bad-soft);color:var(--ink)}
+.bp .lane.today{color:var(--bad);background:var(--bad-soft)}
+.bp .sys{background:var(--good-soft)}
+.bp .lane.sys{color:var(--good);background:var(--good-soft)}
+.cols3{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.cols3 ul{margin:0;padding-left:18px}.cols3 li{margin:3px 0}
+.ladder{display:grid;gap:6px}
+.ladder div{display:grid;grid-template-columns:70px 1fr;gap:8px;font-size:14px}
+.ladder b{font-size:12px;text-transform:uppercase;letter-spacing:.04em;padding-top:2px}
+.l0{color:var(--good)}.l1{color:var(--navy)}.l2{color:var(--amber)}.l3{color:var(--bad)}
+.why{font-size:13px;color:var(--muted)}
+.exp{border-left:4px solid var(--amber);background:var(--amber-soft)}.exp p{margin:4px 0 0}
+.toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.toggle button{font:inherit;font-size:13px;padding:6px 12px;border:0;background:var(--panel);color:var(--ink);cursor:pointer}
+.toggle button[aria-pressed="true"]{background:var(--navy);color:var(--panel)}
+/* value */
+.sl{display:grid;gap:2px;margin-bottom:12px}
+.sl .row{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.sl output{font-variant-numeric:tabular-nums;font-weight:600}
+.sl input{width:100%;accent-color:var(--navy)}
+.sl small{color:var(--muted);font-size:12px}
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.btn{font:inherit;font-size:14px;padding:7px 14px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.btn[aria-pressed="true"]{background:var(--navy);color:var(--panel);border-color:var(--navy)}
+.bars{display:grid;gap:10px}
+.bar{display:grid;grid-template-columns:150px 1fr 80px;gap:10px;align-items:center;font-size:14px}
+.bar .t{height:16px;background:var(--navy-soft);border-radius:4px;overflow:hidden}
+.bar .t i{display:block;height:100%;background:var(--navy);border-radius:4px;transition:width .25s}
+.bar .v{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+@media (max-width:480px){.bar{grid-template-columns:110px 1fr 64px;font-size:13px}}
+.total{font-family:var(--display);font-size:40px;font-weight:600;color:var(--navy);font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--muted)}
+/* sources */
+.srcl{display:grid;gap:10px}
+.src{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:10px 0;border-bottom:1px solid var(--line)}
+.src a{color:var(--navy);font-weight:500}
+.src p{grid-column:1/-1;margin:0;font-size:14px;color:var(--muted)}
+/* source sheet */
+#sheet{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--panel);border-top:1px solid var(--line);box-shadow:0 -6px 24px rgba(0,0,0,.12);padding-bottom:calc(14px + env(safe-area-inset-bottom,0px))}
+#sheet .wrap{padding-block:14px 0;display:grid;gap:6px}
+#sheet .top{display:flex;justify-content:space-between;gap:12px;align-items:start}
+#sheet a{color:var(--navy);font-weight:500}
+@media (prefers-reduced-motion: reduce){.bar .t i{transition:none}}
+</style>
+
+<header class="top"><div class="wrap">
+ <div class="eyebrow">Trust and Safety · design brief</div>
+ <h1>Designing a Trust and Safety capability for major retailers</h1>
+ <div class="by">Aniruddha Vanshiv · Prepared for Kiran Ramakrishna · 18 November 2026</div>
+</div></header>
+<nav class="tabs" aria-label="Sections"><div class="wrap">
+ <a href="#overview">Overview</a><a href="#problem">Problem</a><a href="#capability">Capability</a><a href="#deep-dives">Deep dives</a><a href="#metrics">Metrics and rollout</a><a href="#value">Value</a><a href="#sources">Sources</a>
+</div></nav>
+
+<main><div class="wrap">
+
+<section id="overview">
+ <div class="thesis"><p><b>The idea in one line:</b> sell retailers one Trust and Safety suite that asks three questions together (who is acting, is what they show true, is the timing normal), owns the decision and the "what" layer, and plugs in specialist partners for identity and devices.</p></div>
+ <div class="kpis" style="margin-top:18px">
+  <div class="kpi"><b>35%</b><span>of urban Indian consumers met a fake in a year</span><div><button class="ref" data-ref="aspa">ASPA–CRISIL · Survey</button></div></div>
+  <div class="kpi"><b>16,900+</b><span>listings behind ₹10 lakh fines each on Amazon, Flipkart and Meta</span><div><button class="ref" data-ref="ccpa">CCPA 2026 · Regulator</button></div></div>
+  <div class="kpi"><b>37.5% vs 5.3%</b><span>COD vs prepaid orders returned to origin</span><div><button class="ref" data-ref="clickpost">ClickPost · Vendor</button></div></div>
+  <div class="kpi"><b>₹3.07</b><span>true cost to Indian retailers of each ₹1 of fraud</span><div><button class="ref" data-ref="lexis">LexisNexis · Vendor-commissioned</button></div></div>
+ </div>
+ <div class="card">
+  <h2>Problem and solve, at a glance</h2>
+  <p class="note">Rows are use cases in priority order; columns are the parts of the capability. Select a row to open its deep dive.</p>
+  <div class="scroll"><table class="mx" id="mx"></table></div>
+  <div class="legend"><span><i class="dot d2"></i> Primary part of the solve</span><span><i class="dot d1"></i> Supporting</span><span><i class="dot d0"></i> Not used</span></div>
+ </div>
+ <div class="grid2">
+  <div class="card"><h3>How to read this</h3><p>The PDF is the short version. Here, every number links to its source, each use case has a blueprint showing where it breaks today and what the capability changes, and the value model lets you change the assumptions.</p><p class="note">Research compiled from public sources with AI research tools; the design, judgement and operating examples are my own.</p><p class="note">Source labels: Regulator, Company filing and Press come from the named body. Survey and Vendor figures are not independently audited. Illustrative means my assumption.</p></div>
+  <div class="card exp" style="grid-column:1/-1"><div class="eyebrow">From my Flipkart work</div>
+   <ul style="margin:6px 0 0;padding-left:20px">
+   <li><b>Customer abuse prevention:</b> automated checks and signals that routed high-risk transactions to fraud investigation.</li>
+   <li><b>Seller protection fund claims:</b> rules plus an investigation queue comparing doorstep pickup photos with seller claim photos, against patterns like one broken unit shot from many angles.</li>
+   <li><b>Listing go-live checks:</b> brand authorisation and trademark certificates for gated brands, FSSAI licences for food; aiming for OCR so routine checks never reach a person.</li>
+   <li><b>Reseller abuse (close to, not owner):</b> a device-intelligence partnership that linked accounts, devices and bank accounts.</li>
+   <li><b>Selected results:</b> owned written adjudication frameworks and policy design for fraud and abuse programs; real-time adjudication for about 400,000 customers a month at a 2.5-minute SLA; policy deployment cut from 7 days to 24 hours; counterfeit reduced by about 5 bps.</li>
+   </ul></div>
+  <div class="card"><h3>Five design principles</h3><ol style="margin:0;padding-left:20px"><li><b>Prevent before you police:</b> catch at listing, onboarding and payout.</li><li><b>Score, then act in proportion:</b> automate clear cases, people for the middle, hold the severe.</li><li><b>Measure the cost of mistakes:</b> wrongly blocked sellers and customers are losses too.</li><li><b>Keep evidence:</b> every decision records its reason, for appeal, audit and regulator.</li><li><b>Fix the root cause:</b> fewer escalations, not faster replies.</li></ol></div>
+ </div>
+</section>
+
+<section id="problem" hidden>
+ <div class="card"><h2>Trust breaks in six places, and most fixes are still manual</h2>
+ <p>A retailer loses trust when the product is not what was promised, never arrives, is fake, or when the process after the order feels unfair. Most of these are handled with review queues, blunt rules and people.</p>
+ <div class="scroll"><table id="ptab"><thead><tr><th>Area</th><th>What breaks</th><th>Evidence</th><th>Deep dive</th></tr></thead><tbody></tbody></table></div>
+ </div>
+ <div class="card"><h3>The cost compounds</h3><p>Each ₹1 of fraud costs Indian retailers about ₹3.07 once investigation, recovery and lost business are counted. <button class="ref" data-ref="lexis">LexisNexis · Vendor-commissioned</button></p><p>Manual work is visible in the surveys too: 39% of retailers find repeat abusers by manual review <button class="ref" data-ref="pymnts">PYMNTS / Forter · Survey</button>, and only 3 in 10 merchants have a strategy for policy abuse <button class="ref" data-ref="riskified">Riskified · Vendor survey</button>.</p></div>
+</section>
+
+<section id="capability" hidden>
+ <div class="card"><h2>One suite: three questions, one decision engine</h2>
+ <p>Select any block to see what it does. Green edge: build and own. Amber edge: partner first.</p>
+ <div class="stack" id="stack"></div>
+ <div class="explain" id="explain" style="margin-top:12px"><b>Select a block.</b> The explanation appears here.</div>
+ </div>
+ <div class="card"><h2>Build the suite, partner for parts</h2>
+ <p>The retailer buys one suite. Inside it, the brain and the "what" layer are built; identity and device signals are plugged in from partners first, because those markets are crowded and need a data network across many clients.</p>
+ <div class="phases">
+  <div class="phase"><div class="n">Phase 1 · Year 1</div><p><b>Build</b> the "what" layer, decision engine, case management, policy and audit trail. <b>Plug in</b> device, KYC and payment risk through partners (Bureau, SHIELD, IDfy and similar).</p></div>
+  <div class="phase"><div class="n">Phase 2 · Year 2</div><p>Add the "when" models (payout, returns, COD) and package by use case for retailers. One contract, one dashboard, one evidence trail.</p></div>
+  <div class="phase"><div class="n">Phase 3 · Optional</div><p>With enough retailers on the suite, shared signals (linked sellers, repeat abusers, catalog fingerprints) become a data network. Then decide which partner parts to build in-house.</p></div>
+ </div>
+ <p class="note" style="margin-top:10px">Why not build everything on day one: identity and device intelligence need cross-client data and regulatory work (KYC, data protection) and would be slow to differentiate. Owning the decision and catalog truth is where the defensible value sits.</p>
+ </div>
+</section>
+
+<section id="deep-dives" hidden>
+ <div class="dd">
+  <div class="rail" id="rail" aria-label="Use cases in priority order"></div>
+  <div id="ddview" style="display:grid;gap:16px;min-width:0"></div>
+ </div>
+</section>
+
+<section id="metrics" hidden>
+ <div class="card"><h2>Operating model and metrics</h2>
+ <p><b>Roles:</b> policy owner, data and model owner, reviewer team with quality sampling, appeals owner. <b>Cadence:</b> weekly review of top root causes, monthly policy review.</p>
+ <div class="scroll"><table><thead><tr><th>Dimension</th><th>Measures</th></tr></thead><tbody>
+ <tr><td><b>Harm</b></td><td>Violation prevalence in the live catalog; fraud loss per ₹100 of payout; complaints per 1,000 orders</td></tr>
+ <tr><td><b>Accuracy</b></td><td>Precision and recall by rule; share caught before payout or before listing</td></tr>
+ <tr><td><b>Cost of mistakes</b></td><td>Honest sellers wrongly held; customers wrongly refused; appeal overturn rate</td></tr>
+ <tr><td><b>Speed</b></td><td>Time from signal to action; time to sweep the catalog after a rule changes</td></tr>
+ <tr><td><b>Efficiency</b></td><td>Cost per decision; automation rate; reviewer hours saved <button class="ref" data-ref="zefr">Zefr · Vendor</button></td></tr>
+ </tbody></table></div></div>
+ <div class="card"><h2>How I would start: 90 days</h2>
+ <div class="phases">
+  <div class="phase"><div class="n">Days 1–30 · Baseline</div><p>Measure losses by problem with Finance and rank by rupees. Pick the two or three with the biggest, clearest loss.</p></div>
+  <div class="phase"><div class="n">Days 31–60 · Pilot</div><p>For example, the seller payout-risk score with tiered holds, or a catalog check on two or three regulated categories. Shadow mode first, then a randomised half against a control.</p></div>
+  <div class="phase"><div class="n">Days 61–90 · Prove and scale</div><p>Compare against the control, publish the cost-of-mistakes metrics, and decide what to scale.</p></div>
+ </div></div>
+</section>
+
+<section id="value" hidden>
+ <div class="grid2">
+  <div class="card">
+   <h2>Annual value, five measurable levers</h2>
+   <p class="note">Illustrative ₹10,000 crore fashion marketplace. Inputs are assumptions to replace with real data in the first 30 days.</p>
+   <div><span class="total" id="vtotal">—</span> <span class="note">crore a year · <span id="vpct">—</span> of GMV</span></div>
+   <div class="bars" id="vbars" style="margin-top:14px"></div>
+   <p class="note" style="margin-top:14px">Not counted: wrongly blocked customers recovered, penalty risk, customer lifetime value, brand sales and ad spend. Loyalty effects rest on surveys of what shoppers say they would do. A case with every input at the top of its range gives totals above 5% of GMV, which I do not consider credible, so it is not offered.</p>
+  </div>
+  <div class="card">
+   <h2>Change the assumptions</h2>
+   <div class="btns"><button class="btn" id="pre-low" type="button" aria-pressed="false">Low case</button><button class="btn" id="pre-base" type="button" aria-pressed="true">Base case</button></div>
+   <div id="sliders"></div>
+  </div>
+ </div>
+ <div class="card"><h3>How each lever is calculated</h3><div class="scroll"><table><thead><tr><th>Lever</th><th>Formula</th></tr></thead><tbody>
+ <tr><td>Fraud loss avoided</td><td>GMV × direct fraud % × cost multiplier × reduction % <button class="ref" data-ref="lexis">₹3.07 multiplier</button></td></tr>
+ <tr><td>Returns avoided</td><td>Orders × return rate × share caused by listings or abuse × share prevented × cost per return</td></tr>
+ <tr><td>RTO avoided</td><td>Orders × COD share × COD RTO rate × reduction % × cost per RTO <button class="ref" data-ref="clickpost">₹285–490</button></td></tr>
+ <tr><td>Conversion uplift</td><td>GMV × uplift % × take rate</td></tr>
+ <tr><td>Reviewer cost saved</td><td>Decisions × automation share × (human cost − automated cost per decision)</td></tr>
+ </tbody></table></div></div>
+</section>
+
+<section id="sources" hidden>
+ <div class="card"><h2>Sources</h2><p class="note">Every figure on this page links here. Figures marked Survey, Vendor or Press are not independently audited.</p><div class="srcl" id="srcl"></div></div>
+</section>
+
+</div></main>
+
+<div id="sheet" hidden role="dialog" aria-label="Source"><div class="wrap">
+ <div class="top"><div><span class="tag" id="sh-k"></span> <b id="sh-t"></b></div><button class="btn" id="sh-x" type="button">Close</button></div>
+ <p id="sh-c" style="margin:0"></p>
+ <div id="sh-u"></div>
+</div></div>
+
+<script>
+const SRC = {
+ aspa:{t:"ASPA–CRISIL counterfeit survey 2025 (via The Week, Mar 2026)",k:"Survey",c:"35% of urban consumers met a fake product in the past year; online platforms were 53% of counterfeit purchases.",u:"https://www.theweek.in/news/biz-tech/2026/03/16/35-pc-indians-encountered-fake-products-in-1-year-online-platforms-account-for-53-pc-purchases-report.html"},
+ lcrev:{t:"LocalCircles survey 2024 (via Business Today, May 2024)",k:"Survey",c:"52% of online shoppers say their negative reviews were not published; 56% saw positively biased ratings. 54,000+ responses.",u:"https://www.businesstoday.in/india/story/56-of-online-shoppers-experienced-positively-biased-ratings-on-ecomm-sites-report-429579-2024-05-14"},
+ lcwrong:{t:"LocalCircles survey 2025 (via The Week, Jan 2025)",k:"Survey",c:"Nearly half of online shoppers received at least one wrong product.",u:"https://www.theweek.in/news/biz-tech/2025/01/16/fake-products-no-refunds-no-complaints-redressals-the-many-woes-of-indias-online-shoppers.html"},
+ power:{t:"PowerReviews: reducing returns",k:"Vendor survey, US",c:"56% of shoppers returned an item because it did not match its description.",u:"https://www.powerreviews.com/reduce-returns/"},
+ salsify:{t:"Salsify consumer research 2026",k:"Vendor survey",c:"45% of shoppers have returned goods because of inaccurate product information.",u:"https://www.salsify.com/press-release-salsify-consumer-research-2026-daily-online-shopping-plunges-shoppers-return-to-certainty-of-stores"},
+ ccpa:{t:"CCPA order on walkie-talkie listings (via Business Today, Jan 2026)",k:"Regulator",c:"Amazon, Flipkart and Meta fined ₹10 lakh each over 16,900+ non-compliant listings; self-audits directed.",u:"https://www.businesstoday.in/technology/news/story/meta-amazon-flipkart-fined-as-govt-cracks-down-on-illegal-walkie-talkie-sales-on-e-commerce-platforms-511232-2026-01-16"},
+ snapdeal:{t:"CCPA order on Snapdeal (via ETV Bharat, Feb 2026)",k:"Regulator",c:"₹5 lakh fine over non-BIS toys; relying only on seller self-declaration held inadequate.",u:"https://www.etvbharat.com/en/business/snapdeal-fined-rs-5-lakh-for-selling-toys-violating-bis-standards-ccpa-enn26021603866"},
+ rules:{t:"E-Commerce Amendment Rules, Sep 2026 (IndiaLaw summary)",k:"Regulation",c:"Yearly dark-pattern self-audit with a displayed certificate; country-of-origin and seller-identity disclosures.",u:"https://www.indialaw.in/blog/consumer/consumer-protection-e-commerce-amendment-rules-2026/pdf/"},
+ clickpost:{t:"ClickPost: e-commerce RTO statistics, India",k:"Vendor",c:"COD orders returned to origin 37.51% vs 5.28% prepaid; loaded cost about ₹285–490 per RTO.",u:"https://www.clickpost.ai/blog/ecommerce-rto-statistics-india"},
+ meeshodrhp:{t:"Meesho prospectus, Dec 2025 (NSE)",k:"Company filing",c:"Undelivered orders FY25: COD 22.30% vs prepaid 2.72% (includes cancellations and transit losses, not only RTO).",u:"https://nsearchives.nseindia.com/corporate/ADV_INE0VDM01015_09DEC2025.pdf"},
+ appriss:{t:"Appriss Retail 2026 benchmark",k:"Vendor, US",c:"14.2% of 2025 US returns (about USD 100bn) were fraud or abuse.",u:"https://apprissretail.com/2026-total-retail-loss-benchmark-report/"},
+ lexis:{t:"LexisNexis–Forrester True Cost of Fraud, India 2023",k:"Vendor-commissioned survey",c:"Each ₹1 of fraud costs Indian retailers ₹3.07 once labour, recovery and replacement are counted. 79 India respondents.",u:"https://risk.lexisnexis.com/global/en/about-us/press-room/press-release/20240429-tcof-india"},
+ bureau:{t:"Bureau marketplace fraud study 2026 (via Open Magazine)",k:"Vendor",c:"70M users: about 45,000 accounts on about 9,000 devices (≈5 per device); 1 in 6 risky devices ran 10+ accounts; 0.95% of users flagged for return abuse.",u:"https://openthemagazine.com/business/e-commerce-fraud-in-india-now-mirrors-jamtara-scams-reveals-new-report"},
+ acfe:{t:"ACFE Report to the Nations 2024 (via Ohio CPA)",k:"Survey, global",c:"A typical organisation loses about 5% of revenue to occupational fraud.",u:"https://ohiocpa.com/for-the-public/news/2024/04/05/acfe-report-to-the-nations-organizations-lost-an-average-of-more-than-1.5m-per-fraud-case"},
+ surat:{t:"Surat police case (DeshGujarat, Aug 2026)",k:"Press, police",c:"5,121 COD orders placed from one device; ₹42 lakh+ taken through payout rules; payouts on day 3, cancellations on day 4.",u:"https://deshgujarat.com/2026/08/14/surat-police-bust-gang-for-duping-flipkart-of-%e2%82%b942-lakh-using-5121-fake-orders/"},
+ meeshoring:{t:"Bengaluru seller–buyer ring (Deccan Herald, Dec 2024)",k:"Press, police",c:"Gang registered as a seller and exploited the returns policy; ₹5.5 crore over seven months.",u:"https://www.deccanherald.com/amp/story/india%2Fkarnataka%2Fbengaluru%2Fgang-registers-as-seller-with-e-commerce-company-exploits-returns-policy-swindles-rs-5-5-crore-3302465"},
+ myntra:{t:"Myntra refund scam (Business Today, Dec 2024)",k:"Press",c:"A Jaipur gang took about ₹1.1 crore through refund claims; wider exposure reported up to ₹50 crore.",u:"https://www.businesstoday.in/amp/technology/news/story/myntra-rs11-crore-refund-scam-heres-how-a-jaipur-based-gang-pulled-it-off-456827-2024-12-10"},
+ kerala:{t:"Kerala delivery-hub thefts (Onmanorama, Nov 2025)",k:"Press, police",c:"Four hub heads; 332 phones; about ₹1.61 crore.",u:"https://www.onmanorama.com/news/kerala/2025/11/14/flipkart-reports-phone-theft-from-delivery-hubs.html"},
+ noida:{t:"Noida parcel-swap gang (Deccan Chronicle, Aug 2026)",k:"Press, police",c:"Five held for swapping high-value orders during delivery for 3–4 months; about ₹75 lakh of goods recovered.",u:"https://www.deccanchronicle.com/nation/5-held-in-noida-for-swapping-flipkart-amazon-parcels-goods-worth-75-lakh-recovered-1975848"},
+ meeshowrong:{t:"Meesho tech blog: wrong-item returns",k:"Company",c:"Image capture at each step of the return leg; reported about 30% fewer wrong-return claims.",u:"https://www.meesho.io/blog/when-the-wrong-thing-comes-back-how-meesho-stopped-putting-the-burden-on-sellers"},
+ trustmesh:{t:"Meesho tech blog: TrustMesh",k:"Company",c:"Real-time fraud model built on graphs and event sequences.",u:"https://www.meesho.io/blog/trustmesh-how-we-built-a-real-time-fraud-brain-that-thinks-in-graphs-and-sequences"},
+ riskified:{t:"Riskified policy-abuse research",k:"Vendor survey",c:"3 in 4 merchants feel overwhelmed by policy abuse; only 3 in 10 have a strategy. Top barrier: data not joined across teams.",u:"https://www.riskified.com/press/new-research-shows-consumers-pay-the-price-of-policy-abuse-epidemic-as-retailers-worldwide-tighten-return-and-refund-policies/"},
+ pymnts:{t:"PYMNTS / Forter policy-abuse survey",k:"Survey",c:"39% of retailers find repeat abusers by manual review; nearly half track item-not-received abuse manually.",u:"https://www.pymnts.com/?p=1194106"},
+ zefr:{t:"Zefr: human vs AI moderation cost",k:"Vendor",c:"Human review is more accurate but costs about 40x more per decision.",u:"https://zefr.com/press/humans-make-better-content-cops-than-ai-but-cost-40x-more"},
+ euipo:{t:"EUIPO sector study (via Mondaq)",k:"EU agency",c:"Counterfeits displace 4.8–8.7% of legitimate sales in clothing, cosmetics and toys.",u:"https://www.mondaq.com/uk/trademark/1417380/euipo-reports-on-the-significant-economic-effects-of-counterfeiting-in-the-clothing-cosmetics-and-toy-sectors"},
+ amazonccu:{t:"Amazon Counterfeit Crimes Unit lawsuit, Mar 2023",k:"Company, self-reported",c:"Amazon sued defendants who filed thousands of false copyright claims to get rival sellers' products removed.",u:""},
+ amazondd7:{t:"Amazon payout timing (seller-blog description)",k:"Secondary",c:"Proceeds held until seven days after confirmed delivery (DD+7).",u:""}
+};
+
+const UC = [
+{id:"listing",title:"Listing truth",sub:"Counterfeit, non-compliant listings, items not as described",
+ why:"Regulators now fine listing by listing, bad listings drive returns, and the catalog is the ground truth.",
+ exp:"At Flipkart I worked on go-live checks: brand authorisation or trademark certificates for gated brands and sellers, and FSSAI licences for food, through a mix of automated and manual checks. The aim was OCR on these documents so that routine checks never reach a person.",
+ problem:"Sellers self-declare regulated fields, use brand terms and logos they are not authorised for, and upload images or claims that do not match the product. Today most of this is found after a complaint, a return or a regulator sweep.",
+ refs:["ccpa","snapdeal","aspa","lcwrong","power","salsify","euipo"],
+ stages:["Seller uploads","Pre-listing check","Live listing","Order and delivery","Return or complaint","Learn"],
+ today:["Self-declaration accepted","Manual spot checks; rules lag","Found by complaint or regulator sweep","Wrong or mismatched item arrives","Return coded by hand; listing fault and abuse look the same","Fixes do not reach the listing"],
+ lanes:{
+  actor:["Submits title, images, attributes, price","Gets a fix list or approval","Listing goes live","Customer buys and receives","Customer returns or complains","—"],
+  sees:["Upload form with required fields and documents per category","Clear fixes: \"add net quantity\", \"brand authorisation needed\"","Verified regulated fields on the page","Images, size and claims that match the item","Return flow asks for a photo","—"],
+  system:["Category rule set loaded (MRP, net quantity, country of origin, BIS)","Field checks; documents read by OCR (brand authorisation, trademark, FSSAI); image–title–claim consistency; logo and brand-term match; price far below category norm → score","Catalog re-swept whenever a rule changes","Not-as-described rate tracked per listing and seller","Return photo compared with catalog image; listing fault vs abuse split","Mismatch patterns update rules and the seller score"],
+  people:["—","Reviewer takes middle-confidence cases; brand confirms authorisation","—","—","Claims team decides disputed cases with evidence","Policy owner reviews rules monthly"],
+  log:["—","Decision, reason and rule version logged","Compliance trail per listing","—","Return evidence linked to the listing","Audit pack ready for a regulator"]},
+ signals:["Gated brand or category without authorisation, trademark certificate or licence (e.g. FSSAI)","Brand term or logo without brand authorisation","Same image used by unrelated sellers","Price far below the category median","Missing or inconsistent mandatory fields","Claim words not backed by attributes (\"BIS certified\", \"100% cotton\")","Rising not-as-described returns on one listing"],
+ actions:[["Allow","Clean listing goes live"],["Friction","Seller asked to fix specific fields"],["Hold","Uncertain cases wait for a reviewer"],["Block","Clear infringement; brand notified"]],
+ metrics:["Violation prevalence in the live catalog","Share caught before listing","Not-as-described return rate","Time to sweep the catalog after a rule change","Honest listings wrongly held"],
+ build:"Build. This is the \"what\" layer and the core of the suite. Brand authorisation data comes from brands."},
+{id:"bustout",title:"Seller bust-out",sub:"The \"negative debit\": spike, take the payout, disappear",
+ why:"Direct cash loss, invisible until the balance goes negative, and controllable at payout.",
+ problem:"A seller builds a clean start, then orders or prices jump, payouts are taken at the first chance, and cancellations, returns or \"not received\" claims land after the money has left. The marketplace is left with a negative seller balance it rarely recovers.",
+ refs:["surat","meeshoring","amazondd7","lexis"],
+ stages:["Onboard","First weeks","Spike","Payout","Exit","Recover"],
+ today:["KYC passes; links to banned sellers not checked","Looks like a normal new seller","Spike reads as success","Paid on the standard cycle","Loss found as a negative balance","Recovery is rare"],
+ lanes:{
+  actor:["Registers with a thin identity trail","Lists and makes first sales","Orders or prices jump","Requests payout early","Cancellations, returns and claims arrive; seller goes quiet","—"],
+  sees:["KYC and bank verification","Payout schedule set by risk tier","—","Hold notice with reason and release date","—","Appeal path for genuine sellers"],
+  system:["Shared device, address or bank with banned sellers; copied catalog fingerprint","Daily seller risk score against own baseline","Velocity vs baseline and category; price change before spike; buyers clustered by device, IP or address","Payout vs account age; exposure cap; rolling reserve","Claims after payout rising; bank account changed near payout → hold","Reserve covers losses; linked accounts blocked"],
+  people:["—","—","Risk analyst reviews top-scored sellers","Hold release approved by risk","Investigation; police where needed","Appeals owner reviews holds"],
+  log:["Linkage evidence stored","Score history","Spike evidence captured","Hold reason logged","Loss and recovery booked","Network of the case fed to onboarding checks"]},
+ signals:["Payout requested at the first chance by a young account","Orders far above the seller's own baseline","Price cut or jump just before a spike","Buyers from one device, IP or address cluster","Rising share of cancellations and claims after payout","Bank account changed near payout","Inventory zeroed; support goes quiet"],
+ actions:[["Allow","Normal payout cycle for clean history"],["Friction","Longer payout cycle for new sellers"],["Hold","Payout held with a rolling reserve"],["Block","Account frozen; linked accounts blocked"]],
+ metrics:["Fraud loss per ₹100 of payout","Share of bust-outs caught before payout","Honest sellers wrongly held","Time to release reserves"],
+ build:"Build the score and payout policy. Partner for device and KYC signals."},
+{id:"claims",title:"Seller claims abuse",sub:"Protection-fund claims on returns: one broken unit, many claims",
+ why:"Seller-side refund leakage that rules alone miss, and the image evidence already exists at both ends of the return.",
+ problem:"Marketplaces compensate sellers for items that come back damaged, usually as a share of product value. Some sellers claim for items that were not damaged, photograph the same broken unit from different angles for several claims, attach unrelated images, or skip mandatory evidence such as packing videos.",
+ refs:[],noref:"No public figure used; drawn from operating experience.",
+ exp:"At Flipkart I worked on seller protection fund claims and saw these patterns first-hand: the same broken unit photographed from several angles, unrelated images, and claims without the mandatory packing evidence. Adjudication combined backend rules with an investigation queue that compared the doorstep pickup photos with the seller's photos.",
+ stages:["Return pickup","Back to seller","Seller files claim","Evidence check","Decision","Learn"],
+ today:["Pickup photos rarely reused later","—","Same photos reused across claims","Manual review claim by claim","Inconsistent outcomes; abuse gets paid","Repeat claimants spotted late"],
+ lanes:{
+  actor:["Agent picks up the return","Seller receives the item","Seller claims for damage with photos or video","—","Seller is paid or declined, with a reason","—"],
+  sees:["Agent captures item photos at the doorstep","—","Claim form lists the mandatory evidence","—","Clear decision and appeal path","—"],
+  system:["Doorstep photos stored against the order","—","Duplicate and near-duplicate image check across claims; image matched to the catalog item; missing evidence flagged","Doorstep photo vs seller photo; seller claim rate vs peers → score","Auto-approve clean low-value claims; investigate the rest","Repeat patterns update rules and the seller score"],
+  people:["—","—","—","Investigation queue for high-risk claims","Appeals owner","Policy owner"],
+  log:["Pickup evidence","—","Claim evidence","Match result","Decision and reason","Abuse-pattern report"]},
+ signals:["Same image, or the same broken unit, across several claims","Photo does not match the catalog item or the doorstep photo","Mandatory evidence missing (packing or dispatch video)","Claim rate far above category peers","Unrelated images attached"],
+ actions:[["Allow","Pay clean, low-value claims automatically"],["Friction","Ask for the missing evidence"],["Hold","Investigation queue"],["Block","Decline; restrict claims for repeat abusers"]],
+ metrics:["Claim payout per 1,000 returns","Share of claims decided automatically","Abusive claims caught before payout","Good claims wrongly declined"],
+ build:"Build. Matching images against the catalog and the doorstep photo is the \"what\" layer at work."},
+{id:"returns",title:"Returns abuse vs bad listings",sub:"Split the cause before you treat it",
+ why:"The largest repeat cost in fashion; the wrong fix punishes honest customers.",
+ exp:"At Flipkart I worked on customer abuse prevention: automated checks and signals that routed high-risk transactions to fraud investigation.",
+ problem:"Some returns are caused by inaccurate listings; others are abuse: wrong item sent back, swapped product, edited photos, serial returners. Treated as one problem, return fees and stricter policies land on honest customers while abusers get through.",
+ refs:["appriss","bureau","myntra","meeshowrong","pymnts","riskified"],
+ stages:["Return request","Reason and evidence","Pickup","Hub check","Refund decision","Learn"],
+ today:["Same policy for everyone","Free-text reason, unchecked","No item check at the door","Inspection inconsistent","Honest customers pay fees; abusers pass","Listing faults and abuse not separated"],
+ lanes:{
+  actor:["Customer starts a return","Picks a reason, adds a photo","Hands over the item","—","Gets refund or replacement","—"],
+  sees:["Options by risk: instant refund for trusted customers, exchange offers","Guided photo capture","Agent checks the item and its tag loop","—","Clear outcome and reason","—"],
+  system:["Customer return-risk score (history, linked accounts); listing's not-as-described rate","Photo matched to catalog image; edited-photo check","Item identity check at the door (image, serial); tag loop intact on tagged categories","Item match at the hub; swap detection","Refund timing by risk: instant, after check, or held","Split returns into listing-caused vs abuse; fix listings, tighten policy for abusers"],
+  people:["—","—","—","QC agents handle mismatches","Claims team handles disputes","Policy owner"],
+  log:["—","Evidence stored","Doorstep evidence","Hub evidence","Decision and reason","Root-cause report"]},
+ signals:["High return rate across linked accounts","Return photo does not match the catalog item","Edited or reused claim photos","Tag loop cut, missing or replaced at pickup (worn and returned)","Weight or label mismatch at pickup or hub","Repeat \"wrong item\" claims on the same products"],
+ actions:[["Allow","Instant refund for trusted customers"],["Friction","Photo or doorstep check; tag loop required on tagged categories"],["Hold","Refund after hub check"],["Block","Return privileges limited for confirmed abusers"]],
+ metrics:["Returns split by cause","Refund loss per 100 returns","Good customers wrongly refused","Claim overturn rate"],
+ build:"Build the item-identity match (catalog). Customer risk from in-house data or a partner. Process controls by category matter as much as models: for example, a tamper-evident tag loop on apparel and footwear means a worn-and-returned item cannot pass pickup with the tag intact."},
+{id:"cod",title:"COD refusals and reseller rings",sub:"Many accounts, one device; orders refused at the door",
+ why:"COD fails about 7x as often as prepaid; caps per account are easy to get around.",
+ exp:"At Flipkart I was close to, though I did not own, a partnership with a device-intelligence provider. Its linkages surfaced linked and risky accounts for reseller abuse, and risky devices and bank accounts more widely.",
+ problem:"Fake or impulse COD orders are refused at the door and the cost lands after shipping. Resellers run many accounts on device farms to bypass per-customer caps on discounted stock.",
+ refs:["clickpost","meeshodrhp","bureau","surat","trustmesh"],
+ stages:["Account and device","Cart and checkout","Order confirmed","Dispatch","Delivery attempt","Learn"],
+ today:["Caps per account are easily bypassed","COD offered to everyone","No confirmation for risky orders","Shipped regardless","Refusal found after the trip","Thresholds tuned by hand"],
+ lanes:{
+  actor:["Buyer or reseller creates accounts","Places orders, picks COD","—","—","Refuses, or receives in bulk at a shared address","—"],
+  sees:["—","COD offered, or a prepaid nudge, by risk","Confirmation call or OTP for risky orders","—","—","—"],
+  system:["Device and account linkage (partner signal)","Quantity across linked accounts vs caps; address clusters; pincode RTO history","Score → allow, prepaid only, confirm, or cancel","—","Refusal reason captured; delivery-agent checks","Block lists and thresholds tuned"],
+  people:["—","—","Confirmation team for the middle band","—","—","Risk analyst reviews clusters"],
+  log:["Linkage stored","Decision logged","Confirmation outcome","—","Refusal evidence","Cluster report"]},
+ signals:["Several accounts on one device","Many orders to one address or consolidation point","Quantities across linked accounts above the cap","Pincode or customer with high RTO history"],
+ actions:[["Allow","COD available"],["Friction","Prepaid nudge or confirmation"],["Hold","Order held until confirmed"],["Block","Linked accounts blocked from the deal"]],
+ metrics:["RTO rate for COD orders","Cost per RTO","COD still available to good customers","Linked-account orders caught"],
+ build:"Partner for device intelligence. Own the decision engine and thresholds."},
+{id:"reviews",title:"Fake reviews and seller sabotage",sub:"Reviews that lie, and complaints used as weapons",
+ why:"Reviews drive purchase decisions; false complaints remove honest sellers.",
+ problem:"Paid or incentivised reviews, bursts of one-star reviews from linked accounts, negative reviews held back, and false IP complaints filed to take down a rival's listing.",
+ refs:["lcrev","amazonccu"],
+ stages:["Review submitted","Check","Publish","Complaint or takedown","Appeal","Transparency"],
+ today:["Few checks at submission","Sampled moderation","Negative reviews disappear","Takedowns accepted on thin evidence","Slow appeals","No published figures"],
+ lanes:{
+  actor:["Customer or paid reviewer writes","—","Review shown","Rival files a complaint","Seller appeals","—"],
+  sees:["Review form","—","Published review with verified-purchase label","Complainant asked for evidence","Clear appeal path","Removal and appeal figures published"],
+  system:["Verified purchase check","Does the review describe this product (text and image vs catalog); burst detection across linked accounts; incentive language; profanity in Indian languages","Ranking discounts suspect reviews","Complainant's history scored; evidence required","Decision reversed if evidence fails","Monthly figures compiled"],
+  people:["—","Moderators take the middle band","—","IP team reviews evidence","Appeals owner","—"],
+  log:["—","Reason logged","—","Evidence stored","Outcome logged","Transparency report"]},
+ signals:["Review text or photo not about this product","Burst of one-star reviews from linked accounts","Incentive language","Complainant with a pattern of failed takedowns"],
+ actions:[["Allow","Publish"],["Friction","Publish with lower weight"],["Hold","Moderator review"],["Block","Remove; restrict reviewer or complainant"]],
+ metrics:["Share of negative reviews published","Removal and appeal figures","False takedown rate"],
+ build:"Build (review-to-product match uses the catalog). Language moderation can be partnered."},
+{id:"insider",title:"Insider and hub fraud",sub:"Items marked lost, swapped or diverted in the chain",
+ why:"Losses hide inside \"lost in transit\" and \"not received\" claims.",
+ problem:"Hub, warehouse or delivery staff mark items lost or damaged, swap high-value goods for cheaper ones, or divert them. It is usually found through customer complaints.",
+ refs:["kerala","noida","acfe"],
+ stages:["Inbound at hub","Sort and hold","Out for delivery","Delivered or marked lost","Return into hub","Audit"],
+ today:["Scan only","Little visibility","—","\"Lost\" accepted","No item match","Found through complaints"],
+ lanes:{
+  actor:["Item arrives","Staff sort and hold","Agent takes the parcel","Agent delivers or marks lost","Return comes back","—"],
+  sees:["—","—","—","Customer gets photo proof of delivery","—","—"],
+  system:["Scan plus image at each handover","High-value items routed to a controlled lane","—","Lost or damaged rate by staff and hub vs norm; not-received claims by agent","Item identity matched to the catalog","Hub risk ranking"],
+  people:["—","—","—","Loss-prevention team reviews outliers","QC on mismatches","Audits by risk"],
+  log:["Handover images","—","—","Evidence per claim","Match result","Audit trail"]},
+ signals:["Lost or damaged rate above peers for a staff member or hub","Not-received claims clustered by agent","High-value categories over-represented in losses","Returned item does not match the catalog"],
+ actions:[["Allow","Normal flow"],["Friction","Photo proof required"],["Hold","Controlled lane for high-value items"],["Block","Access removed; case opened"]],
+ metrics:["Loss per 1,000 shipments by hub","Not-received claims by agent","Time to detect"],
+ build:"Build (item identity at handover uses catalog images)."},
+{id:"social",title:"Social media escalations",sub:"Complaints that reach the brand in public first",
+ why:"Public, fast-moving and reputational; the value is fixing root causes.",
+ problem:"Complaints arrive on social channels, support tickets and listening tools with no shared record, so they are handled one by one and the same causes repeat.",
+ refs:[],
+ stages:["Ingest","Normalise","Match","Classify","Prioritise and route","Fix the cause"],
+ today:["Teams watch feeds by hand","Duplicates across channels","No link to the order","Ad hoc labels","Slow route to the owner","Replies get faster, causes stay"],
+ lanes:{
+  actor:["Customer posts or raises a ticket","—","—","—","Customer gets a reply from the right owner","—"],
+  sees:["—","—","—","—","Owner and expected time","—"],
+  system:["Official APIs for own channels; listening vendor for public mentions; tickets","One case record; duplicates removed; personal data masked","Matched to order or seller","Tree: Product, Delivery, Seller, Service, Trust and Safety → root cause","Severity and reach → owner and service time","Weekly top root causes"],
+  people:["—","—","—","—","Owner team","Weekly root-cause review"],
+  log:["—","Case record","—","Label history","Resolution","Fix tracked"]},
+ signals:["Reach and severity of the post","Repeat complaints on the same seller or product","Trust and Safety keywords (fake, fraud, unsafe)"],
+ actions:[["Allow","Standard queue"],["Friction","Priority queue"],["Hold","Escalate to the owner"],["Block","Listing or seller paused pending check"]],
+ metrics:["Time to owner","Repeat complaints by root cause","Escalations per 1,000 orders"],
+ build:"Partner for listening; build the case record and classification. No quantified source used here; this is a design."}
+];
+
+const LAYERS=["Who","What","When","Decide","Act","Learn"];
+const MATRIX={listing:[1,2,1,2,2,2],bustout:[2,1,2,2,2,2],claims:[1,2,1,2,2,2],returns:[1,2,2,2,2,2],cod:[2,0,2,2,2,1],reviews:[2,2,1,2,2,1],insider:[1,2,2,2,1,1],social:[0,1,1,2,2,2]};
+
+</script>
+<script>
+(function(){
+const $=s=>document.querySelector(s), el=(t,c,txt)=>{const e=document.createElement(t);if(c)e.className=c;if(txt!=null)e.textContent=txt;return e;};
+const SHORT={"aspa": "ASPA–CRISIL 2025", "lcrev": "LocalCircles 2024", "lcwrong": "LocalCircles 2025", "power": "PowerReviews", "salsify": "Salsify 2026", "ccpa": "CCPA order, Jan 2026", "snapdeal": "CCPA on Snapdeal, Feb 2026", "rules": "E-com Rules 2026", "clickpost": "ClickPost", "meeshodrhp": "Meesho prospectus", "appriss": "Appriss 2026", "lexis": "LexisNexis 2023", "bureau": "Bureau 2026 study", "acfe": "ACFE 2024", "surat": "Surat police case", "meeshoring": "Bengaluru seller ring", "myntra": "Myntra refund scam", "kerala": "Kerala hub case", "noida": "Noida parcel swap", "meeshowrong": "Meesho returns blog", "trustmesh": "Meesho TrustMesh", "riskified": "Riskified", "pymnts": "PYMNTS / Forter", "zefr": "Zefr", "euipo": "EUIPO", "amazonccu": "Amazon CCU 2023", "amazondd7": "Amazon DD+7"};const refBtn=id=>{const s=SRC[id];const b=el('button','ref',SHORT[id]+' · '+s.k);b.dataset.ref=id;b.type='button';return b;};
+// sheet
+document.addEventListener('click',e=>{const b=e.target.closest('.ref');if(!b)return;const s=SRC[b.dataset.ref];if(!s)return;
+ $('#sh-k').textContent=s.k;$('#sh-t').textContent=s.t;$('#sh-c').textContent=s.c;const u=$('#sh-u');u.replaceChildren();
+ if(s.u){const a=el('a',null,'Open source ↗');a.href=s.u;a.target='_blank';a.rel='noopener';u.append(a);}else u.append(el('span','note','No public link; reported in secondary sources.'));
+ $('#sheet').hidden=false;});
+$('#sh-x').addEventListener('click',()=>{$('#sheet').hidden=true;});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#sheet').hidden=true;});
+// routing
+const TABS=['overview','problem','capability','deep-dives','metrics','value','sources'];
+let cur=UC[0].id;
+function route(){let h=(location.hash||'#overview').slice(1);let tab=h;
+ if(h.startsWith('dd-')){const id=h.slice(3);if(UC.find(u=>u.id===id)){cur=id;tab='deep-dives';}}
+ if(!TABS.includes(tab))tab='overview';
+ TABS.forEach(t=>{document.getElementById(t).hidden=(t!==tab);});
+ document.querySelectorAll('nav.tabs a').forEach(a=>a.setAttribute('aria-current',a.getAttribute('href')==='#'+tab?'page':'false'));
+ if(tab==='deep-dives')renderDD();}
+window.addEventListener('hashchange',()=>{route();window.scrollTo(0,0);});
+// matrix
+(function(){const t=$('#mx');const hr=el('tr');hr.append(el('th',null,'Use case (priority)'));LAYERS.forEach(l=>hr.append(el('th',null,l)));const th=el('thead');th.append(hr);t.append(th);
+ const tb=el('tbody');UC.forEach((u,i)=>{const tr=el('tr','rowlink');tr.tabIndex=0;const td=el('td');td.append(el('b',null,(i+1)+'. '+u.title));tr.append(td);
+  MATRIX[u.id].forEach((v,j)=>{const c=el('td');const d=el('i','dot d'+v);c.append(d);c.setAttribute('aria-label',LAYERS[j]+': '+['not used','supporting','primary'][v]);tr.append(c);});
+  const go=()=>{location.hash='dd-'+u.id;};tr.addEventListener('click',go);tr.addEventListener('keydown',e=>{if(e.key==='Enter')go();});tb.append(tr);});t.append(tb);})();
+// problem table
+(function(){const P=[
+ ["Catalog compliance, counterfeit, not as described","Wrong claims, missing mandatory declarations, fake or look-alike goods, mismatched images",["aspa","lcwrong","power","ccpa","snapdeal"],"listing"],
+ ["User content","Fake reviews, hidden negative reviews, rival-seller sabotage through false complaints, profanity in Indian languages",["lcrev","amazonccu"],"reviews"],
+ ["Seller fraud","Fake sellers, banned sellers re-registering, collusion rings, payout bust-outs, false protection-fund claims",["surat","meeshoring"],"bustout"],
+ ["Reseller abuse","Bulk buying of discounted items through many accounts and devices",["bureau"],"cod"],
+ ["Customer abuse","Returns and refund abuse, false missing-item claims, COD refusal, edited claim photos",["clickpost","meeshodrhp","myntra","appriss"],"returns"],
+ ["Insider fraud","Delivery, hub and warehouse staff marking items lost or swapping them",["kerala","noida","acfe"],"insider"]];
+ const tb=$('#ptab tbody');P.forEach(p=>{const tr=el('tr');const a=el('td');a.append(el('b',null,p[0]));tr.append(a,el('td',null,p[1]));const e=el('td');p[2].forEach(r=>{const s=SRC[r];const d=el('div');d.style.marginBottom='6px';d.append(el('span',null,s.c+' '),refBtn(r));e.append(d);});tr.append(e);
+ const l=el('td');const a2=el('a',null,'Open →');a2.href='#dd-'+p[3];l.append(a2);tr.append(l);tb.append(tr);});})();
+// architecture
+(function(){const T=[
+ ["Inputs",[["Catalog and listings","Titles, images, attributes, regulated fields, price","build"],["Orders, payouts, returns","Event streams with timestamps","build"],["Reviews, complaints, social","Text, images, tickets, mentions","build"],["Device, KYC, payments","From partners: device links, identity checks, payment risk","partner"]]],
+ ["Three questions",[["Who","Is this seller, buyer or agent who they say, and linked to anyone bad? Device, address and bank links; banned-account history. Partner first.","partner"],["What","Does this listing, claim, returned item or review match the product and the rules? Image and logo matching, AI checks of image vs title vs claims, regulated-field checks, price anomalies. Almost no vendor owns this for Indian rules.","build"],["When (phase 2)","Is the timing of orders, payouts, returns and claims normal? Velocity, payout vs account age, return and cancellation patterns, COD risk.","build"]]],
+ ["Decide",[["Risk score","All signals combine into one score per seller, buyer, listing or claim, with confidence.","build"],["Policy rules","Written, versioned policy maps score to action, so a rule change is tracked and explainable.","build"]]],
+ ["Act",[["Action ladder","Allow → friction → hold → review → block, in proportion to risk.","build"],["Human review queue","People decide the middle band, with quality sampling and appeals.","build"]]],
+ ["Learn",[["Evidence log","Every decision stores its reason and rule version: ready for appeal, audit or a regulator.","build"],["Feedback and metrics","Outcomes and appeals retrain the score; harm, accuracy, cost of mistakes, speed, efficiency.","build"]]]];
+ const s=$('#stack');T.forEach((t,i)=>{const row=el('div','tier');row.append(el('div','lbl',t[0]));const bx=el('div','boxes');
+  t[1].forEach(b=>{const x=el('button','box '+b[2]);x.type='button';x.append(el('b',null,b[0]));x.append(el('small',null,b[2]==='build'?'Build':'Partner first'));
+   x.addEventListener('click',()=>{document.querySelectorAll('.box').forEach(o=>o.classList.remove('on'));x.classList.add('on');const ex=$('#explain');ex.replaceChildren(el('b',null,b[0]+': '),document.createTextNode(b[1]));});bx.append(x);});
+  row.append(bx);s.append(row);if(i<T.length-1)s.append(el('div','arrow','↓'));});const w=[...document.querySelectorAll('.box')].find(x=>x.textContent.startsWith('What'));if(w)w.click();})();
+// deep dives
+let showToday=true;
+function renderDD(){const r=$('#rail');r.replaceChildren();UC.forEach((u,i)=>{const b=el('button','ucb');b.type='button';b.setAttribute('aria-pressed',u.id===cur);
+  b.append(el('span','r',String(i+1)));const d=el('span');d.append(el('b',null,u.title),el('small',null,u.sub));b.append(d);
+  b.addEventListener('click',()=>{location.hash='dd-'+u.id;});r.append(b);});
+ const u=UC.find(x=>x.id===cur),i=UC.indexOf(u),v=$('#ddview');v.replaceChildren();
+ const head=el('div','card');head.append(el('div','eyebrow','Priority '+(i+1)+' of '+UC.length));
+ head.append(el('h2',null,u.title));head.append(el('p','why',u.sub));head.append(el('p',null,u.problem));head.append(el('p','why','Why this rank: '+u.why));
+ const rr=el('div');u.refs.forEach(x=>rr.append(refBtn(x)));if(!u.refs.length)rr.append(el('span','note',u.noref||'No quantified source used; this use case is a design.'));head.append(rr);v.append(head);
+ if(u.exp){const x=el('div','card exp');x.append(el('div','eyebrow','From my Flipkart work'));x.append(el('p',null,u.exp));v.append(x);}
+ const bpc=el('div','card');const top=el('div');top.style.cssText='display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px';
+ top.append(el('h3',null,'Service blueprint'));const tg=el('div','toggle');[['Problem and solve',true],['Solve only',false]].forEach(([l,val])=>{const b=el('button',null,l);b.type='button';b.setAttribute('aria-pressed',showToday===val);b.addEventListener('click',()=>{showToday=val;renderDD();});tg.append(b);});top.append(tg);bpc.append(top);
+ const sc=el('div','scroll');const g=el('div','bp');g.style.gridTemplateColumns='130px repeat('+u.stages.length+',minmax(130px,1fr))';
+ g.append(el('div','c h','Stage'));u.stages.forEach(s=>g.append(el('div','c h',s)));
+ const L=[];if(showToday)L.push(['Breaks today','today',u.today]);
+ L.push(['Seller or customer','',u.lanes.actor],['What they see','',u.lanes.sees],['System: signals, score, rule','sys',u.lanes.system],['People','',u.lanes.people],['Evidence and learning','',u.lanes.log]);
+ L.forEach(([n,c,a])=>{g.append(el('div','c lane '+c,n));a.forEach(x=>g.append(el('div','c '+c,x)));});
+ sc.append(g);bpc.append(sc);bpc.append(el('p','note','Scroll sideways on a phone. Red row: where the process breaks today. Green row: what the capability adds.'));v.append(bpc);
+ const c3=el('div','cols3');
+ const a=el('div','card');a.append(el('h3',null,'Early signals'));const ul=el('ul');u.signals.forEach(s=>ul.append(el('li',null,s)));a.append(ul);
+ const b=el('div','card');b.append(el('h3',null,'Actions, in proportion'));const ld=el('div','ladder');u.actions.forEach((x,k)=>{const d=el('div');d.append(el('b','l'+k,x[0]),el('span',null,x[1]));ld.append(d);});b.append(ld);
+ const m=el('div','card');m.append(el('h3',null,'Metrics that prove it'));const ul2=el('ul');u.metrics.forEach(s=>ul2.append(el('li',null,s)));m.append(ul2);
+ c3.append(a,b,m);v.append(c3);
+ const bp=el('div','card');bp.append(el('h3',null,'Build or partner'));bp.append(el('p',null,u.build));v.append(bp);}
+// value
+const A=[["gmv","GMV","₹ cr",10000,10000,2000,30000,500],["aov","Average order value","₹",1200,1200,500,3000,100],["fraud","Direct fraud loss","% of GMV",0.3,0.2,0.1,1.5,0.05],["mult","Cost multiplier on fraud","×",3.07,3.07,1,5,0.01],["fraudred","Fraud reduction","%",25,15,5,60,1],["ret","Return rate","% of orders",30,30,10,50,1],["addr","Returns caused by listings or abuse","% of returns",20,15,5,40,1],["prev","Of those, prevented","%",20,10,5,50,1],["cost","Cost per return or RTO","₹",350,285,200,600,5],["cod","COD share of orders","%",40,40,10,70,1],["rto","COD RTO rate","%",25,21,10,45,1],["rtored","RTO reduction","%",10,5,5,30,1],["uplift","Conversion uplift","% of GMV",0.5,0.25,0.1,3,0.05],["take","Take rate","%",20,20,5,30,1],["dec","Decisions a year","crore",5,5,1,15,0.5],["auto","Automated share","%",70,50,30,95,5],["human","Human cost per decision","₹",10,3,1,40,1],["ai","Automated cost per decision","₹",0.2,0.5,0.05,1,0.05]];
+const V={};A.forEach(a=>V[a[0]]=a[3]);
+const sl=$('#sliders');A.forEach(a=>{const d=el('div','sl');const row=el('div','row');const lb=el('label',null,a[1]+' ('+a[2]+')');lb.htmlFor='s-'+a[0];const o=el('output');o.id='o-'+a[0];row.append(lb,o);
+ const i=el('input');i.type='range';i.id='s-'+a[0];i.min=a[5];i.max=a[6];i.step=a[7];i.value=a[3];i.addEventListener('input',()=>{V[a[0]]=+i.value;setPreset(null);calc();});d.append(row,i);sl.append(d);});
+const f1=n=>n.toLocaleString('en-IN',{maximumFractionDigits:1,minimumFractionDigits:0});
+function setPreset(p){$('#pre-low').setAttribute('aria-pressed',p==='low');$('#pre-base').setAttribute('aria-pressed',p==='base');}
+function apply(k){A.forEach(a=>{V[a[0]]=k==='low'?a[4]:a[3];$('#s-'+a[0]).value=V[a[0]];});setPreset(k);calc();}
+$('#pre-low').addEventListener('click',()=>apply('low'));$('#pre-base').addEventListener('click',()=>apply('base'));
+function calc(){A.forEach(a=>{$('#o-'+a[0]).textContent=V[a[0]].toLocaleString('en-IN',{maximumFractionDigits:a[7]<0.1?2:1});});
+ const orders=V.gmv/V.aov,returns=orders*V.ret/100;
+ const R=[["Fraud loss avoided",V.gmv*V.fraud/100*V.mult*V.fraudred/100],["Returns avoided",returns*V.addr/100*V.prev/100*V.cost],["RTO avoided",orders*V.cod/100*V.rto/100*V.rtored/100*V.cost],["Conversion uplift",V.gmv*V.uplift/100*V.take/100],["Reviewer cost saved",V.dec*V.auto/100*Math.max(0,V.human-V.ai)]];
+ const t=R.reduce((s,r)=>s+r[1],0),mx=Math.max(...R.map(r=>r[1]),1);
+ $('#vtotal').textContent='₹'+Math.round(t).toLocaleString('en-IN');$('#vpct').textContent=(t/V.gmv*100).toFixed(1)+'%';
+ const b=$('#vbars');b.replaceChildren();R.forEach(r=>{const row=el('div','bar');row.append(el('span',null,r[0]));const tr=el('div','t');const fi=el('i');fi.style.width=(r[1]/mx*100)+'%';tr.append(fi);row.append(tr,el('span','v','₹'+f1(Math.round(r[1]*10)/10)+' cr'));b.append(row);});}
+calc();
+// sources
+(function(){const l=$('#srcl');Object.entries(SRC).forEach(([id,s])=>{const d=el('div','src');d.id='src-'+id;const t=el('div');if(s.u){const a=el('a',null,s.t);a.href=s.u;a.target='_blank';a.rel='noopener';t.append(a);}else t.append(el('b',null,s.t));d.append(t,el('span','tag',s.k),el('p',null,s.c));l.append(d);});})();
+route();
+})();
+</script>
+</body></html>

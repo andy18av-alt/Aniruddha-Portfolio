@@ -24,6 +24,11 @@ const nextConfig = {
     maxInactiveAge: 10000,
     pagesBufferLength: 2,
   },
+  async rewrites() {
+    return [
+      { source: "/trust-and-safety", destination: "/trust-and-safety/index.html" },
+    ];
+  },
   async headers() {
     return [
       {
